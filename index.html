@@ -754,7 +754,6 @@
       small: { label: 'Мелочь', cls: 'tag-normal', weight: 1 }
     };
 
-    // Транслитерация и нормализация имени комнаты (поддерживает кириллицу и пробелы)
     function slugifyRoom(raw) {
       if (!raw) return 'osnovnaya';
       const map = {
@@ -802,7 +801,6 @@
     let selectedAccentColor = ACCENT_COLORS[0];
     let syncInterval = null;
 
-    // Надёжное хэширование, работающее и на HTTP, и на HTTPS
     async function hashPassword(password) {
       const cleanPass = String(password);
       try {
@@ -813,7 +811,6 @@
           return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
       } catch (e) {}
-      // Фолбэк (детерминированный хэш)
       let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
       for (let i = 0; i < cleanPass.length; i++) {
         const ch = cleanPass.charCodeAt(i);
@@ -855,7 +852,6 @@
       applyTheme(state.theme === 'dark' ? 'light' : 'dark');
     }
 
-    // Изолированный путь в единой базе данных для конкретной комнаты
     function getRoomBaseUrl() {
       return `${FIREBASE_DB_URL.replace(/\/$/, '')}/rooms/${currentRoom}`;
     }
@@ -866,7 +862,6 @@
       return Object.values(obj).filter(Boolean);
     }
 
-    // Скачивание данных конкретной комнаты из облака
     async function pullFromCloud() {
       if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) {
         setSyncStatus('Укажите URL Firebase в коде!', 'error');
@@ -881,7 +876,6 @@
           state.accounts = objectToArray(data.accounts);
           state.wishes = objectToArray(data.wishes);
         } else {
-          // Комната в облаке новая и пустая
           state.accounts = [];
           state.wishes = [];
         }
@@ -902,7 +896,6 @@
       }
     }
 
-    // Точечное сохранение аккаунта в комнату (не затирает аккаунт партнёра)
     async function saveAccountToCloud(accountObj) {
       if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
       setSyncStatus('Сохранение...', 'online');
@@ -914,7 +907,6 @@
       setSyncStatus(`Комната: ${currentRoom}`, 'online');
     }
 
-    // Точечное сохранение/обновление желания в комнате (не затирает желания партнёра)
     async function saveWishToCloud(wishObj) {
       if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
       setSyncStatus('Сохранение...', 'online');
@@ -959,7 +951,6 @@
     async function init() {
       applyTheme(state.theme);
 
-      // Если в URL не было ?room=..., подставляем текущую комнату в адресную строку
       const url = new URL(window.location.href);
       if (url.searchParams.get('room') !== currentRoom) {
         url.searchParams.set('room', currentRoom);
@@ -973,20 +964,17 @@
       renderTabs();
       renderColumns();
 
-      // Сначала ждём загрузку данных комнаты из базы!
       await pullFromCloud();
 
       if (syncInterval) clearInterval(syncInterval);
       syncInterval = setInterval(pullFromCloud, 5000);
 
-      // Открываем окно входа/регистрации только ПОСЛЕ проверки базы
       if (!getCurrentUser()) {
         switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
         openModal('authModal');
       }
     }
 
-    // Room Management
     function buildRoomUrl(slug) {
       const url = new URL(window.location.href);
       url.search = '';
@@ -1032,7 +1020,6 @@
       window.location.href = buildRoomUrl(newRoom);
     }
 
-    // Auth & Accounts
     function showAuthError(msg) {
       const box = document.getElementById('authErrorBox');
       box.textContent = msg;
@@ -1125,7 +1112,6 @@
       submitBtn.textContent = 'Проверка...';
 
       try {
-        // Обязательно подтягиваем актуальную базу комнаты перед проверкой логина/регистрации
         await pullFromCloud();
         const passHash = await hashPassword(password);
 
@@ -1195,7 +1181,6 @@
       closeModal('profileSettingsModal');
     }
 
-    // Profile Settings
     function openProfileSettings() {
       const user = getCurrentUser();
       if (!user) return;
@@ -1300,7 +1285,6 @@
       reader.readAsDataURL(file);
     }
 
-    // Search, Filter, Sort
     function handleSearchInput() {
       const val = document.getElementById('searchInput').value;
       state.search = val.trim().toLowerCase();
@@ -1486,7 +1470,6 @@
       }).join('');
     }
 
-    // Add / Edit Wish
     function openAddWishModal() {
       const user = getCurrentUser();
       if (!user) {
