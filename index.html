@@ -107,10 +107,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .header-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-    }
+    .header-inner { max-width: 1120px; margin: 0 auto; }
 
     .header-top {
       display: flex;
@@ -120,14 +117,10 @@
       gap: 10px;
     }
 
-    .brand-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
+    .brand-wrap { display: flex; flex-direction: column; gap: 3px; }
 
     .app-title {
-      font-size: 25px;
+      font-size: 23px;
       font-weight: 800;
       letter-spacing: -0.6px;
       display: flex;
@@ -154,13 +147,10 @@
     }
 
     .sync-badge.online { color: var(--green); }
+    .sync-badge.error { color: #FF3B30; }
     .sync-indicator { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
 
     .icon-btn {
       width: 38px;
@@ -174,17 +164,10 @@
       justify-content: center;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.15s ease;
     }
-
     .icon-btn:active { transform: scale(0.92); }
-    .icon-btn.cloud-active {
-      color: var(--green);
-      border-color: rgba(40, 205, 65, 0.3);
-      background: var(--green-soft);
-    }
 
-    /* User Account Pill */
     .account-pill {
       height: 38px;
       padding: 0 12px 0 6px;
@@ -199,10 +182,8 @@
       font-weight: 700;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: transform 0.15s ease;
       max-width: 165px;
     }
-    .account-pill:active { transform: scale(0.95); }
 
     .account-pill-avatar {
       width: 26px;
@@ -221,7 +202,6 @@
     .account-pill-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .account-pill-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Segmented Control */
     .segmented {
       display: flex;
       background: var(--seg-bg);
@@ -248,7 +228,6 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s ease;
     }
     .seg-btn.active {
       background: var(--seg-active);
@@ -258,11 +237,7 @@
     .seg-count { font-size: 11px; font-weight: 700; opacity: 0.65; }
 
     /* Room Bar */
-    .room-bar {
-      max-width: 1120px;
-      margin: 12px auto 0;
-      padding: 0 16px;
-    }
+    .room-bar { max-width: 1120px; margin: 12px auto 0; padding: 0 16px; }
 
     .room-bar-inner {
       background: var(--card);
@@ -277,18 +252,10 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .room-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-    }
+    .room-info { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); }
+    .room-info strong { color: var(--text); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
-    .room-info strong {
-      color: var(--text);
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 13px;
-    }
+    .room-actions { display: flex; gap: 6px; }
 
     .room-btn {
       border: none;
@@ -302,7 +269,12 @@
       white-space: nowrap;
     }
 
-    /* Search & Filter Bar */
+    .room-btn.secondary {
+      background: var(--card-subtle);
+      color: var(--text);
+    }
+
+    /* Controls */
     .controls-section {
       max-width: 1120px;
       margin: 14px auto 0;
@@ -312,15 +284,10 @@
       gap: 10px;
     }
 
-    .search-sort-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
+    .search-sort-row { display: flex; gap: 8px; align-items: center; }
 
     .search-box {
       flex: 1;
-      position: relative;
       display: flex;
       align-items: center;
       background: var(--card);
@@ -332,24 +299,8 @@
     }
 
     .search-box svg { color: var(--text-tertiary); margin-right: 8px; }
-    .search-input {
-      width: 100%;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-    }
-    .search-input::placeholder { color: var(--text-tertiary); }
-
-    .clear-search {
-      border: none;
-      background: none;
-      color: var(--text-tertiary);
-      cursor: pointer;
-      padding: 4px;
-      display: none;
-    }
+    .search-input { width: 100%; border: none; background: transparent; color: var(--text); font-size: 14px; outline: none; }
+    .clear-search { border: none; background: none; color: var(--text-tertiary); cursor: pointer; padding: 4px; display: none; }
 
     .sort-select {
       height: 40px;
@@ -362,16 +313,9 @@
       font-weight: 600;
       outline: none;
       box-shadow: var(--shadow-sm);
-      cursor: pointer;
     }
 
-    .filter-pills {
-      display: flex;
-      gap: 7px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-      scrollbar-width: none;
-    }
+    .filter-pills { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
     .filter-pills::-webkit-scrollbar { display: none; }
 
     .pill {
@@ -384,18 +328,10 @@
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.18s ease;
     }
-    .pill.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
+    .pill.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-    /* Columns Layout */
+    /* Columns */
     .columns-container {
       max-width: 1120px;
       margin: 0 auto;
@@ -406,16 +342,10 @@
     }
 
     @media (min-width: 768px) {
-      .columns-container.two-cols {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .columns-container.two-cols { grid-template-columns: repeat(2, 1fr); }
     }
 
-    .profile-column {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .profile-column { display: flex; flex-direction: column; gap: 14px; }
 
     .profile-banner-card {
       background: var(--card);
@@ -430,454 +360,102 @@
       overflow: hidden;
     }
 
-    .profile-banner-accent {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: var(--accent);
-    }
-
-    .profile-banner-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .profile-identity {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
+    .profile-banner-accent { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
+    .profile-banner-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .profile-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
     .avatar-large {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      overflow: hidden;
-      flex-shrink: 0;
+      width: 52px; height: 52px; border-radius: 16px;
+      background: var(--card-subtle); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; overflow: hidden; flex-shrink: 0;
     }
-
     .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
 
-    .profile-name-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .column-title {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .owner-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
-
-    .readonly-badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 6px;
-      background: var(--seg-bg);
-      color: var(--text-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
+    .profile-name-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .column-title { font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 7px; }
+    .owner-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+    .readonly-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--seg-bg); color: var(--text-secondary); }
     .profile-username { font-size: 12px; color: var(--text-tertiary); font-weight: 600; }
     .profile-bio { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
-
-    .profile-sizes-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .size-chip {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
-      padding: 4px 9px;
-      border-radius: 8px;
-    }
+    .profile-sizes-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .size-chip { font-size: 11px; font-weight: 600; color: var(--text-secondary); background: var(--card-subtle); border: 1px solid var(--border); padding: 4px 9px; border-radius: 8px; }
 
     /* Wish Cards */
-    .wish-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .wish-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.18s ease, opacity 0.2s ease;
-    }
-
+    .wish-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .wish-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; }
     .wish-card.fulfilled { opacity: 0.62; }
-    .wish-card.fulfilled .wish-title {
-      text-decoration: line-through;
-      color: var(--text-secondary);
-    }
+    .wish-card.fulfilled .wish-title { text-decoration: line-through; color: var(--text-secondary); }
 
-    .wish-img-wrap {
-      width: 100%;
-      aspect-ratio: 16 / 11;
-      background: var(--card-subtle);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
+    .wish-img-wrap { width: 100%; aspect-ratio: 16 / 11; background: var(--card-subtle); position: relative; overflow: hidden; cursor: pointer; }
     .wish-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .wish-priority-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-
-    .wish-img-wrap .wish-priority-tag {
-      position: absolute;
-      top: 12px; left: 12px;
-      background: rgba(18, 18, 20, 0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: #FFFFFF;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-    }
-
+    .wish-priority-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+    .wish-img-wrap .wish-priority-tag { position: absolute; top: 12px; left: 12px; background: rgba(18, 18, 20, 0.72); backdrop-filter: blur(10px); color: #FFFFFF; }
     .tag-high { background: var(--accent-soft); color: var(--accent); }
     .tag-dream { background: var(--amber-soft); color: var(--amber); }
     .tag-normal { background: var(--seg-bg); color: var(--text-secondary); }
 
-    .wish-body {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .wish-top-row {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .wish-title { font-size: 17px; font-weight: 700; line-height: 1.32; letter-spacing: -0.2px; }
-    .wish-price {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      background: var(--card-subtle);
-      padding: 4px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
-      border: 1px solid var(--border);
-    }
-
+    .wish-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .wish-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .wish-title { font-size: 17px; font-weight: 700; line-height: 1.32; }
+    .wish-price { font-size: 14px; font-weight: 700; background: var(--card-subtle); padding: 4px 10px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--border); }
     .wish-caption { font-size: 14px; color: var(--text-secondary); line-height: 1.45; white-space: pre-line; }
 
-    .wish-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 6px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      gap: 8px;
-    }
-
-    .wish-link {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--blue);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 10px;
-      border-radius: 8px;
-      background: rgba(0, 122, 255, 0.08);
-    }
-
+    .wish-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--border); gap: 8px; }
+    .wish-link { font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 8px; background: rgba(0, 122, 255, 0.08); }
     .wish-controls { display: flex; align-items: center; gap: 6px; margin-left: auto; }
 
-    .action-pill {
-      border: 1px solid var(--border);
-      background: var(--card-subtle);
-      color: var(--text);
-      height: 32px;
-      padding: 0 11px;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: transform 0.15s ease;
-    }
-    .action-pill:active { transform: scale(0.94); }
-    .action-pill.done {
-      background: var(--green-soft);
-      color: var(--green);
-      border-color: rgba(40, 205, 65, 0.25);
-    }
-
+    .action-pill { border: 1px solid var(--border); background: var(--card-subtle); color: var(--text); height: 32px; padding: 0 11px; border-radius: 9px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+    .action-pill.done { background: var(--green-soft); color: var(--green); border-color: rgba(40, 205, 65, 0.25); }
     .action-icon { width: 32px; height: 32px; padding: 0; justify-content: center; }
     .action-icon.del { color: #FF3B30; }
 
-    /* Empty State */
-    .empty-box {
-      background: var(--card);
-      border: 1px dashed var(--border-strong);
-      border-radius: 20px;
-      padding: 32px 20px;
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
+    .empty-box { background: var(--card); border: 1px dashed var(--border-strong); border-radius: 20px; padding: 32px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 
-    /* Floating Add Button */
     .fab {
-      position: fixed;
-      bottom: calc(var(--safe-bottom) + 18px);
-      right: 20px;
-      z-index: 60;
-      background: var(--accent);
-      color: #FFFFFF;
-      border: none;
-      border-radius: 16px;
-      padding: 14px 20px;
-      font-size: 15px;
-      font-weight: 700;
+      position: fixed; bottom: calc(var(--safe-bottom) + 18px); right: 20px; z-index: 60;
+      background: var(--accent); color: #FFFFFF; border: none; border-radius: 16px;
+      padding: 14px 20px; font-size: 15px; font-weight: 700;
       box-shadow: 0 10px 28px rgba(255, 45, 85, 0.38);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: transform 0.15s ease;
+      display: flex; align-items: center; gap: 8px; cursor: pointer;
     }
-    .fab:active { transform: scale(0.95); }
 
     /* Modals */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: rgba(0, 0, 0, 0.56);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
-    }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.56); backdrop-filter: blur(6px); display: none; align-items: flex-end; justify-content: center; }
     .modal-backdrop.open { display: flex; }
+    .modal-sheet { background: var(--bg); border-top: 1px solid var(--border); width: 100%; max-width: 500px; max-height: 92vh; border-radius: 24px 24px 0 0; padding: 20px 16px calc(var(--safe-bottom) + 20px); overflow-y: auto; }
+    @media (min-width: 600px) { .modal-backdrop { align-items: center; } .modal-sheet { border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); } }
 
-    .modal-sheet {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      width: 100%;
-      max-width: 500px;
-      max-height: 92vh;
-      border-radius: 24px 24px 0 0;
-      padding: 20px 16px calc(var(--safe-bottom) + 20px);
-      overflow-y: auto;
-      animation: slideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .modal-title { font-size: 18px; font-weight: 800; }
+    .close-btn { border: 1px solid var(--border); background: var(--card); width: 32px; height: 32px; border-radius: 10px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-    @media (min-width: 600px) {
-      .modal-backdrop { align-items: center; }
-      .modal-sheet {
-        border-radius: 24px;
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow-lg);
-      }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(36px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .modal-title { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
-
-    .close-btn {
-      border: 1px solid var(--border);
-      background: var(--card);
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .form-group {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-    }
-
+    .form-group { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .form-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-tertiary);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      border: none;
-      background: transparent;
-      font-size: 15px;
-      color: var(--text);
-      font-family: inherit;
-      outline: none;
-    }
-
+    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-tertiary); margin-bottom: 6px; text-transform: uppercase; }
+    .form-input, .form-select, .form-textarea { width: 100%; border: none; background: transparent; font-size: 15px; color: var(--text); font-family: inherit; outline: none; }
     .form-textarea { min-height: 64px; resize: vertical; }
 
-    .primary-btn {
-      width: 100%;
-      border: none;
-      background: var(--accent);
-      color: #FFFFFF;
-      font-size: 15px;
-      font-weight: 700;
-      padding: 14px;
-      border-radius: 14px;
-      cursor: pointer;
-      margin-top: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+    .primary-btn { width: 100%; border: none; background: var(--accent); color: #FFFFFF; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 14px; cursor: pointer; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .secondary-btn { width: 100%; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 14px; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-    .secondary-btn {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 600;
-      padding: 13px;
-      border-radius: 14px;
-      cursor: pointer;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+    .info-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px; }
+    .error-banner { background: rgba(255, 59, 48, 0.12); color: #FF3B30; padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 12px; display: none; }
 
-    .info-text {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    .photo-upload-box {
-      border: 1.5px dashed var(--border-strong);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      cursor: pointer;
-      color: var(--text-secondary);
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .photo-upload-box { border: 1.5px dashed var(--border-strong); border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .photo-preview { max-width: 100%; max-height: 200px; border-radius: 10px; display: none; margin: 0 auto; }
-
     .avatar-settings-box { display: flex; align-items: center; gap: 14px; }
-    .avatar-preview-circle {
-      width: 68px; height: 68px; border-radius: 20px;
-      background: var(--card-subtle); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 30px; overflow: hidden; flex-shrink: 0;
-    }
+    .avatar-preview-circle { width: 68px; height: 68px; border-radius: 20px; background: var(--card-subtle); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 30px; overflow: hidden; flex-shrink: 0; }
     .avatar-preview-circle img { width: 100%; height: 100%; object-fit: cover; }
 
     .color-swatches { display: flex; gap: 10px; flex-wrap: wrap; }
-    .swatch {
-      width: 30px; height: 30px; border-radius: 50%;
-      border: 2px solid transparent; cursor: pointer; transition: transform 0.15s ease;
-    }
+    .swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
     .swatch.selected { transform: scale(1.15); border-color: var(--text); }
 
-    .account-list-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 14px; background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; margin-bottom: 8px;
-    }
+    .account-list-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px; }
 
-    .lightbox {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(0, 0, 0, 0.92); display: none;
-      align-items: center; justify-content: center; padding: 20px;
-    }
+    .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(0, 0, 0, 0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 14px; }
   </style>
@@ -894,7 +472,7 @@
           </div>
           <div id="syncBadge" class="sync-badge">
             <span class="sync-indicator"></span>
-            <span id="syncText">Подключение...</span>
+            <span id="syncText">Синхронизация...</span>
           </div>
         </div>
 
@@ -905,8 +483,7 @@
             </div>
             <span class="account-pill-name" id="headerAccountName">Войти</span>
           </button>
-
-          <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Сменить тему" aria-label="Тема"></button>
+          <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Сменить тему"></button>
         </div>
       </div>
 
@@ -916,11 +493,14 @@
 
   <div class="room-bar" id="roomBar">
     <div class="room-bar-inner">
-      <div class="room-info" id="roomStatusText">
+      <div class="room-info">
         <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>Комната: <strong id="currentRoomDisplay">основная</strong></span>
+        <span>Комната: <strong id="currentRoomDisplay">...</strong></span>
       </div>
-      <button class="room-btn" onclick="openModal('roomModal')">Сменить комнату / ссылку</button>
+      <div class="room-actions">
+        <button class="room-btn secondary" onclick="quickCopyCurrentRoomLink()">Ссылка</button>
+        <button class="room-btn" onclick="openModal('roomModal')">Сменить</button>
+      </div>
     </div>
   </div>
 
@@ -929,9 +509,7 @@
       <div class="search-box">
         <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" id="searchInput" class="search-input" placeholder="Поиск по желаниям..." oninput="handleSearchInput()" />
-        <button id="clearSearchBtn" class="clear-search" onclick="clearSearch()">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
+        <button id="clearSearchBtn" class="clear-search" onclick="clearSearch()">✕</button>
       </div>
 
       <select id="sortSelect" class="sort-select" onchange="handleSortChange()">
@@ -963,33 +541,31 @@
     <img id="lightboxImg" src="" alt="Фото" />
   </div>
 
-  <!-- Modal: Room Name & Auto Link generator -->
+  <!-- Modal: Room -->
   <div class="modal-backdrop" id="roomModal">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div class="modal-title">Комната пары 🏠</div>
-        <button class="close-btn" onclick="closeModal('roomModal')">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
+        <div class="modal-title">Комната пары</div>
+        <button class="close-btn" onclick="closeModal('roomModal')">✕</button>
       </div>
       <p class="info-text">
-        Просто введите название вашей комнаты (например, <strong>petr-and-maria</strong> или <strong>наша-пара</strong>). Ссылка сгенерируется автоматически, и вы сможете отправить её второй половинке!
+        Введите название комнаты (на русском или английском). Отправьте сгенерированную ссылку партнёру — он автоматически попадёт в эту же изолированную комнату.
       </p>
 
       <div class="form-group">
         <label class="form-label">Название комнаты</label>
-        <input type="text" class="form-input" id="roomNameInput" placeholder="Например: love-story-2026" oninput="previewGeneratedLink()" />
+        <input type="text" class="form-input" id="roomNameInput" placeholder="Например: наша-пара или alex-kate" oninput="previewGeneratedLink()" />
       </div>
 
       <div class="form-group" style="background:var(--card-subtle);">
-        <label class="form-label">Готовая ссылка для партнера</label>
+        <label class="form-label">Ссылка-приглашение для партнёра</label>
         <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-          <input type="text" class="form-input" id="generatedLinkPreview" readonly style="font-size:13px; color:var(--text-secondary); user-select:all;" />
+          <input type="text" class="form-input" id="generatedLinkPreview" readonly style="font-size:13px; color:var(--text-secondary);" />
           <button type="button" class="action-pill" onclick="copyRoomLink()">Копировать</button>
         </div>
       </div>
 
-      <button type="button" class="primary-btn" onclick="joinRoomByInput()">Войти в комнату</button>
+      <button type="button" class="primary-btn" onclick="joinRoomByInput()">Перейти в эту комнату</button>
     </div>
   </div>
 
@@ -998,15 +574,15 @@
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title" id="authModalTitle">Вход в аккаунт</div>
-        <button class="close-btn" onclick="closeModal('authModal')">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
+        <button class="close-btn" onclick="closeModal('authModal')">✕</button>
       </div>
 
       <div class="segmented" style="margin-bottom: 14px;">
         <button type="button" class="seg-btn active" id="tabLoginBtn" onclick="switchAuthMode('login')">Войти</button>
         <button type="button" class="seg-btn" id="tabRegisterBtn" onclick="switchAuthMode('register')">Создать аккаунт</button>
       </div>
+
+      <div id="authErrorBox" class="error-banner"></div>
 
       <form id="authForm" onsubmit="submitAuth(event)">
         <div id="registerFields" style="display:none;">
@@ -1022,12 +598,12 @@
 
         <div class="form-group">
           <label class="form-label">Логин *</label>
-          <input type="text" class="form-input" id="authUsername" placeholder="Ваш логин" required autocapitalize="none" />
+          <input type="text" class="form-input" id="authUsername" placeholder="Ваш логин" required autocapitalize="none" autocomplete="username" />
         </div>
 
         <div class="form-group">
           <label class="form-label">Пароль *</label>
-          <input type="password" class="form-input" id="authPassword" placeholder="Пароль" required />
+          <input type="password" class="form-input" id="authPassword" placeholder="Пароль" required autocomplete="current-password" />
         </div>
 
         <button type="submit" class="primary-btn" id="authSubmitBtn">Войти</button>
@@ -1042,9 +618,7 @@
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title">Настройки профиля</div>
-        <button class="close-btn" onclick="closeModal('profileSettingsModal')">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
+        <button class="close-btn" onclick="closeModal('profileSettingsModal')">✕</button>
       </div>
 
       <form onsubmit="saveProfileSettings(event)">
@@ -1053,10 +627,7 @@
           <div class="avatar-settings-box">
             <div class="avatar-preview-circle" id="settingsAvatarPreview">✨</div>
             <div style="display:flex; flex-direction:column; gap:6px; flex:1;">
-              <button type="button" class="action-pill" style="justify-content:center;" onclick="document.getElementById('avatarPhotoInput').click()">
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                <span>Загрузить фото</span>
-              </button>
+              <button type="button" class="action-pill" style="justify-content:center;" onclick="document.getElementById('avatarPhotoInput').click()">Загрузить фото</button>
               <button type="button" class="action-pill del" id="removeAvatarBtn" style="justify-content:center; display:none;" onclick="clearAvatarPhoto()">Убрать фото</button>
               <input type="file" id="avatarPhotoInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)" />
             </div>
@@ -1108,21 +679,16 @@
         <button type="submit" class="primary-btn">Сохранить</button>
       </form>
 
-      <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="logoutAccount()">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-        <span>Выйти из аккаунта</span>
-      </button>
+      <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="logoutAccount()">Выйти из аккаунта</button>
     </div>
   </div>
 
-  <!-- Modal: Add / Edit Wish -->
+  <!-- Modal: Wish -->
   <div class="modal-backdrop" id="wishModal">
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title" id="wishModalTitle">Новое желание</div>
-        <button class="close-btn" onclick="closeModal('wishModal')">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
+        <button class="close-btn" onclick="closeModal('wishModal')">✕</button>
       </div>
 
       <form id="wishForm" onsubmit="saveWish(event)">
@@ -1132,7 +698,6 @@
           <label class="form-label">Фотография подарка</label>
           <div class="photo-upload-box" onclick="document.getElementById('wishPhotoInput').click()">
             <div id="photoPlaceholder" style="display:flex; flex-direction:column; align-items:center; gap:6px;">
-              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
               <span>Выбрать фото из галереи</span>
             </div>
             <img id="photoPreview" class="photo-preview" alt="Предпросмотр" />
@@ -1172,17 +737,16 @@
           <input type="url" class="form-input" id="wishLink" placeholder="https://..." />
         </div>
 
-        <button type="submit" class="primary-btn">Сохранить в мой список</button>
+        <button type="submit" class="primary-btn" id="saveWishBtn">Сохранить в мой список</button>
       </form>
     </div>
   </div>
 
   <script>
-    // Embedded Shared Public Firebase DB for zero-setup demo & automatic rooms!
-    const DEFAULT_FIREBASE_URL = "https://wishlist-shared-default-rtdb.firebaseio.com";
+    // ВСТАВЬТЕ СЮДА URL ВАШЕЙ БАЗЫ FIREBASE REALTIME DATABASE (без слэша в конце)
+    const FIREBASE_DB_URL = "https://ВАШ-ПРОЕКТ-default-rtdb.firebaseio.com";
 
     const ACCENT_COLORS = ['#FF2D55', '#007AFF', '#34C759', '#AF52DE', '#FF9500', '#5856D6', '#00C7BE'];
-
     const PRIORITY_LABELS = {
       high: { label: 'Очень хочу', cls: 'tag-high', weight: 4 },
       dream: { label: 'Мечта', cls: 'tag-dream', weight: 3 },
@@ -1190,24 +754,33 @@
       small: { label: 'Мелочь', cls: 'tag-normal', weight: 1 }
     };
 
-    function normalizePriority(p) {
-      if (!p) return 'idea';
-      if (PRIORITY_LABELS[p]) return p;
-      if (p.includes('Очень')) return 'high';
-      if (p.includes('Мечта')) return 'dream';
-      if (p.includes('Мелочь')) return 'small';
-      return 'idea';
+    // Транслитерация и нормализация имени комнаты (поддерживает кириллицу и пробелы)
+    function slugifyRoom(raw) {
+      if (!raw) return 'osnovnaya';
+      const map = {
+        'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'y',
+        'к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f',
+        'х':'kh','ц':'ts','ч':'ch','ш':'sh','щ':'shch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'
+      };
+      const transliterated = String(raw).trim().toLowerCase().split('').map(ch => map[ch] !== undefined ? map[ch] : ch).join('');
+      const slug = transliterated.replace(/\s+/g, '-').replace(/[^a-z0-9_-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      return slug || 'osnovnaya';
     }
 
-    // Get Room from URL hash or query param (?room=name or #name)
     function getRoomFromURL() {
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('room')) {
-        return urlParams.get('room').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+      if (urlParams.has('room') && urlParams.get('room').trim()) {
+        const roomFromParam = slugifyRoom(urlParams.get('room'));
+        localStorage.setItem('wl_room', roomFromParam);
+        return roomFromParam;
       }
-      const hash = window.location.hash.replace('#', '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
-      if (hash) return hash;
-      return localStorage.getItem('wl_room') || 'osnovnaya';
+      const hash = window.location.hash.replace('#', '').trim();
+      if (hash) {
+        const roomFromHash = slugifyRoom(hash);
+        localStorage.setItem('wl_room', roomFromHash);
+        return roomFromHash;
+      }
+      return slugifyRoom(localStorage.getItem('wl_room') || 'osnovnaya');
     }
 
     let currentRoom = getRoomFromURL();
@@ -1229,14 +802,36 @@
     let selectedAccentColor = ACCENT_COLORS[0];
     let syncInterval = null;
 
+    // Надёжное хэширование, работающее и на HTTP, и на HTTPS
     async function hashPassword(password) {
-      if (window.crypto && window.crypto.subtle) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(password);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      const cleanPass = String(password);
+      try {
+        if (window.crypto && window.crypto.subtle) {
+          const encoder = new TextEncoder();
+          const data = encoder.encode(cleanPass);
+          const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+          return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+      } catch (e) {}
+      // Фолбэк (детерминированный хэш)
+      let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+      for (let i = 0; i < cleanPass.length; i++) {
+        const ch = cleanPass.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
       }
-      return btoa(unescape(encodeURIComponent(password)));
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+    }
+
+    function normalizePriority(p) {
+      if (!p) return 'idea';
+      if (PRIORITY_LABELS[p]) return p;
+      if (p.includes('Очень')) return 'high';
+      if (p.includes('Мечта')) return 'dream';
+      if (p.includes('Мелочь')) return 'small';
+      return 'idea';
     }
 
     function getCurrentUser() {
@@ -1244,16 +839,10 @@
       return state.accounts.find(a => a.id === state.currentUserId) || null;
     }
 
-    // Theme
     function applyTheme(theme) {
       state.theme = theme;
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('wl_theme', theme);
-      const metaTheme = document.getElementById('themeColorMeta');
-      const metaStatus = document.getElementById('statusBarMeta');
-      if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#000000' : '#F5F5F7');
-      if (metaStatus) metaStatus.setAttribute('content', theme === 'dark' ? 'black-translucent' : 'default');
-
       const btn = document.getElementById('themeToggleBtn');
       if (btn) {
         btn.innerHTML = theme === 'dark'
@@ -1266,24 +855,91 @@
       applyTheme(state.theme === 'dark' ? 'light' : 'dark');
     }
 
-    function init() {
-      applyTheme(state.theme);
-      document.getElementById('currentRoomDisplay').textContent = currentRoom;
-      document.getElementById('brandRoomNameTitle').textContent = `Wishlist (${currentRoom})`;
+    // Изолированный путь в единой базе данных для конкретной комнаты
+    function getRoomBaseUrl() {
+      return `${FIREBASE_DB_URL.replace(/\/$/, '')}/rooms/${currentRoom}`;
+    }
 
-      updateHeaderAccountUI();
-      renderTabs();
-      renderColumns();
-      updateSyncUI();
+    function objectToArray(obj) {
+      if (!obj) return [];
+      if (Array.isArray(obj)) return obj.filter(Boolean);
+      return Object.values(obj).filter(Boolean);
+    }
 
-      pullFromCloud();
-      if (syncInterval) clearInterval(syncInterval);
-      syncInterval = setInterval(pullFromCloud, 7000);
-
-      if (state.accounts.length === 0) {
-        switchAuthMode('register');
-        openModal('authModal');
+    // Скачивание данных конкретной комнаты из облака
+    async function pullFromCloud() {
+      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) {
+        setSyncStatus('Укажите URL Firebase в коде!', 'error');
+        return false;
       }
+      try {
+        const res = await fetch(`${getRoomBaseUrl()}.json?t=${Date.now()}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        if (data && typeof data === 'object') {
+          state.accounts = objectToArray(data.accounts);
+          state.wishes = objectToArray(data.wishes);
+        } else {
+          // Комната в облаке новая и пустая
+          state.accounts = [];
+          state.wishes = [];
+        }
+
+        saveLocal();
+        updateHeaderAccountUI();
+        renderTabs();
+        renderColumns();
+        if (document.getElementById('authModal').classList.contains('open')) {
+          renderExistingAccountsHint();
+        }
+        setSyncStatus(`Комната: ${currentRoom}`, 'online');
+        return true;
+      } catch (err) {
+        console.error('Ошибка синхронизации:', err);
+        setSyncStatus('Нет связи с базой', 'error');
+        return false;
+      }
+    }
+
+    // Точечное сохранение аккаунта в комнату (не затирает аккаунт партнёра)
+    async function saveAccountToCloud(accountObj) {
+      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
+      setSyncStatus('Сохранение...', 'online');
+      await fetch(`${getRoomBaseUrl()}/accounts/${accountObj.id}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(accountObj)
+      });
+      setSyncStatus(`Комната: ${currentRoom}`, 'online');
+    }
+
+    // Точечное сохранение/обновление желания в комнате (не затирает желания партнёра)
+    async function saveWishToCloud(wishObj) {
+      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
+      setSyncStatus('Сохранение...', 'online');
+      await fetch(`${getRoomBaseUrl()}/wishes/${wishObj.id}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(wishObj)
+      });
+      setSyncStatus(`Комната: ${currentRoom}`, 'online');
+    }
+
+    async function deleteWishFromCloud(wishId) {
+      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
+      setSyncStatus('Удаление...', 'online');
+      await fetch(`${getRoomBaseUrl()}/wishes/${wishId}.json`, {
+        method: 'DELETE'
+      });
+      setSyncStatus(`Комната: ${currentRoom}`, 'online');
+    }
+
+    function setSyncStatus(text, statusType) {
+      const badge = document.getElementById('syncBadge');
+      const syncText = document.getElementById('syncText');
+      syncText.textContent = text;
+      badge.className = `sync-badge ${statusType || ''}`;
     }
 
     function saveLocal() {
@@ -1296,87 +952,61 @@
           localStorage.removeItem(`wl_current_user_id_${currentRoom}`);
         }
       } catch (e) {
-        alert('Память заполнена.');
+        console.warn('LocalStorage переполнен');
       }
     }
 
-    // Auto-Endpoint based on Room Name in Shared Firebase DB!
-    function getEndpoint() {
-      const cleanRoom = currentRoom.trim().replace(/[^a-z0-9_-]/g, '');
-      return `${DEFAULT_FIREBASE_URL}/rooms/${cleanRoom}.json`;
-    }
+    async function init() {
+      applyTheme(state.theme);
 
-    async function pushToCloud() {
-      const endpoint = getEndpoint();
-      if (!endpoint) return;
-      try {
-        setSyncStatus('Сохранение...', true);
-        await fetch(endpoint, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            accounts: state.accounts,
-            wishes: state.wishes,
-            updatedAt: Date.now()
-          })
-        });
-        setSyncStatus(`Комната: ${currentRoom}`, true);
-      } catch (err) {
-        setSyncStatus('Ошибка сети', false);
+      // Если в URL не было ?room=..., подставляем текущую комнату в адресную строку
+      const url = new URL(window.location.href);
+      if (url.searchParams.get('room') !== currentRoom) {
+        url.searchParams.set('room', currentRoom);
+        window.history.replaceState({}, '', url.toString());
+      }
+
+      document.getElementById('currentRoomDisplay').textContent = currentRoom;
+      document.getElementById('brandRoomNameTitle').textContent = `Wishlist · ${currentRoom}`;
+
+      updateHeaderAccountUI();
+      renderTabs();
+      renderColumns();
+
+      // Сначала ждём загрузку данных комнаты из базы!
+      await pullFromCloud();
+
+      if (syncInterval) clearInterval(syncInterval);
+      syncInterval = setInterval(pullFromCloud, 5000);
+
+      // Открываем окно входа/регистрации только ПОСЛЕ проверки базы
+      if (!getCurrentUser()) {
+        switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
+        openModal('authModal');
       }
     }
 
-    async function pullFromCloud() {
-      const endpoint = getEndpoint();
-      if (!endpoint) return;
-      try {
-        const res = await fetch(endpoint);
-        if (!res.ok) throw new Error('Network error');
-        const data = await res.json();
-        if (data && typeof data === 'object') {
-          if (Array.isArray(data.accounts)) {
-            state.accounts = data.accounts;
-          }
-          if (Array.isArray(data.wishes)) {
-            state.wishes = data.wishes;
-          }
-          saveLocal();
-          updateHeaderAccountUI();
-          renderTabs();
-          renderColumns();
-        } else if (data === null && (state.accounts.length > 0 || state.wishes.length > 0)) {
-          await pushToCloud();
-        }
-        setSyncStatus(`Комната: ${currentRoom}`, true);
-      } catch (err) {
-        setSyncStatus('Локальный режим', false);
-      }
+    // Room Management
+    function buildRoomUrl(slug) {
+      const url = new URL(window.location.href);
+      url.search = '';
+      url.hash = '';
+      url.searchParams.set('room', slug);
+      return url.toString();
     }
 
-    function setSyncStatus(text, isOnline) {
-      const badge = document.getElementById('syncBadge');
-      const syncText = document.getElementById('syncText');
-      syncText.textContent = text;
-      badge.className = isOnline ? 'sync-badge online' : 'sync-badge';
-    }
-
-    function updateSyncUI() {
-      setSyncStatus(`Комната: ${currentRoom}`, true);
-    }
-
-    // Room Management & Auto Link Generation
     function previewGeneratedLink() {
-      const nameVal = document.getElementById('roomNameInput').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
-      const roomSlug = nameVal || 'osnovnaya';
-      const baseLink = window.location.origin + window.location.pathname;
-      const fullLink = `${baseLink}?room=${roomSlug}`;
-      document.getElementById('generatedLinkPreview').value = fullLink;
+      const slug = slugifyRoom(document.getElementById('roomNameInput').value);
+      document.getElementById('generatedLinkPreview').value = buildRoomUrl(slug);
     }
 
     function openModal(id) {
       if (id === 'roomModal') {
         document.getElementById('roomNameInput').value = currentRoom;
         previewGeneratedLink();
+      }
+      if (id === 'authModal') {
+        hideAuthError();
       }
       document.getElementById(id).classList.add('open');
     }
@@ -1387,22 +1017,33 @@
 
     function copyRoomLink() {
       const input = document.getElementById('generatedLinkPreview');
-      input.select();
       navigator.clipboard.writeText(input.value);
-      alert('Ссылка скопирована! Отправьте её второй половинке.');
+      alert('Ссылка скопирована! Отправьте её партнёру — он сразу попадёт в эту комнату.');
+    }
+
+    function quickCopyCurrentRoomLink() {
+      navigator.clipboard.writeText(buildRoomUrl(currentRoom));
+      alert(`Ссылка на комнату «${currentRoom}» скопирована!`);
     }
 
     function joinRoomByInput() {
-      const nameVal = document.getElementById('roomNameInput').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
-      const newRoom = nameVal || 'osnovnaya';
+      const newRoom = slugifyRoom(document.getElementById('roomNameInput').value);
       localStorage.setItem('wl_room', newRoom);
-      
-      // Update URL without full reload if possible, or reload with new room query
-      const newUrl = `${window.location.origin}${window.location.pathname}?room=${newRoom}`;
-      window.location.href = newUrl;
+      window.location.href = buildRoomUrl(newRoom);
     }
 
     // Auth & Accounts
+    function showAuthError(msg) {
+      const box = document.getElementById('authErrorBox');
+      box.textContent = msg;
+      box.style.display = 'block';
+    }
+
+    function hideAuthError() {
+      const box = document.getElementById('authErrorBox');
+      box.style.display = 'none';
+    }
+
     function updateHeaderAccountUI() {
       const user = getCurrentUser();
       const nameEl = document.getElementById('headerAccountName');
@@ -1420,7 +1061,7 @@
         avatarEl.style.background = 'var(--seg-bg)';
         avatarEl.style.color = 'var(--text-secondary)';
         avatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-        fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg><span>Войти в аккаунт</span>`;
+        fabBtn.innerHTML = `<span>Войти в аккаунт</span>`;
       }
     }
 
@@ -1436,6 +1077,7 @@
 
     function switchAuthMode(mode) {
       authMode = mode;
+      hideAuthError();
       document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
       document.getElementById('tabRegisterBtn').classList.toggle('active', mode === 'register');
       document.getElementById('registerFields').style.display = mode === 'register' ? 'block' : 'none';
@@ -1448,7 +1090,7 @@
       const box = document.getElementById('existingAccountsHint');
       if (state.accounts.length === 0) { box.innerHTML = ''; return; }
       box.innerHTML = `
-        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px;">Профили в этой комнате</div>
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px;">Аккаунты в комнате «${escapeHtml(currentRoom)}»</div>
         ${state.accounts.map(acc => `
           <div class="account-list-item" onclick="prefillLogin('${escapeHtml(acc.username)}')" style="cursor:pointer;">
             <div style="display:flex; align-items:center; gap:10px;">
@@ -1458,7 +1100,7 @@
                 <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(acc.username)}</div>
               </div>
             </div>
-            <span style="font-size:12px; font-weight:600; color:var(--blue);">Выбрать</span>
+            <span style="font-size:12px; font-weight:600; color:var(--blue);">Войти</span>
           </div>
         `).join('')}
       `;
@@ -1472,55 +1114,76 @@
 
     async function submitAuth(event) {
       event.preventDefault();
+      hideAuthError();
+
+      const submitBtn = document.getElementById('authSubmitBtn');
       const username = document.getElementById('authUsername').value.trim().toLowerCase();
       const password = document.getElementById('authPassword').value;
       if (!username || !password) return;
 
-      const passHash = await hashPassword(password);
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Проверка...';
 
-      if (authMode === 'register') {
-        const displayName = document.getElementById('authDisplayName').value.trim() || username;
-        const emoji = document.getElementById('authEmoji').value.trim() || '✨';
+      try {
+        // Обязательно подтягиваем актуальную базу комнаты перед проверкой логина/регистрации
+        await pullFromCloud();
+        const passHash = await hashPassword(password);
 
-        if (state.accounts.some(a => a.username === username)) {
-          alert('Аккаунт с таким логином уже есть в этой комнате.');
-          return;
+        if (authMode === 'register') {
+          const displayName = document.getElementById('authDisplayName').value.trim() || username;
+          const emoji = document.getElementById('authEmoji').value.trim() || '✨';
+
+          if (state.accounts.some(a => a.username.toLowerCase() === username)) {
+            showAuthError('Аккаунт с таким логином уже существует в этой комнате. Переключитесь на вкладку «Войти».');
+            return;
+          }
+
+          const newAcc = {
+            id: 'acc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+            username,
+            passwordHash: passHash,
+            displayName,
+            emoji,
+            avatar: '',
+            bio: '',
+            clothesSize: '',
+            shoeSize: '',
+            ringSize: '',
+            accentColor: state.accounts.length === 0 ? '#FF2D55' : '#007AFF'
+          };
+
+          await saveAccountToCloud(newAcc);
+          state.accounts.push(newAcc);
+          state.currentUserId = newAcc.id;
+          saveLocal();
+          updateHeaderAccountUI();
+          renderTabs();
+          renderColumns();
+          closeModal('authModal');
+          document.getElementById('authForm').reset();
+        } else {
+          const found = state.accounts.find(a => a.username.toLowerCase() === username);
+          if (!found) {
+            showAuthError(`Аккаунт «${username}» не найден в комнате «${currentRoom}». Проверьте логин или создайте аккаунт.`);
+            return;
+          }
+          if (found.passwordHash !== passHash) {
+            showAuthError('Неверный пароль! Попробуйте ещё раз.');
+            return;
+          }
+          state.currentUserId = found.id;
+          saveLocal();
+          updateHeaderAccountUI();
+          renderTabs();
+          renderColumns();
+          closeModal('authModal');
+          document.getElementById('authForm').reset();
         }
-
-        const newAcc = {
-          id: 'acc_' + Date.now(),
-          username,
-          passwordHash: passHash,
-          displayName,
-          emoji,
-          avatar: '',
-          bio: '',
-          clothesSize: '',
-          shoeSize: '',
-          ringSize: '',
-          accentColor: state.accounts.length === 0 ? '#FF2D55' : '#007AFF'
-        };
-
-        state.accounts.push(newAcc);
-        state.currentUserId = newAcc.id;
-        saveLocal();
-        updateHeaderAccountUI();
-        renderTabs();
-        renderColumns();
-        closeModal('authModal');
-        document.getElementById('authForm').reset();
-        await pushToCloud();
-      } else {
-        const found = state.accounts.find(a => a.username === username);
-        if (!found) { alert('Аккаунт не найден.'); return; }
-        if (found.passwordHash !== passHash) { alert('Неверный пароль!'); return; }
-        state.currentUserId = found.id;
-        saveLocal();
-        updateHeaderAccountUI();
-        renderTabs();
-        renderColumns();
-        closeModal('authModal');
-        document.getElementById('authForm').reset();
+      } catch (e) {
+        showAuthError('Ошибка соединения с базой данных. Проверьте интернет или настройки Firebase.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = authMode === 'register' ? 'Создать аккаунт' : 'Войти';
       }
     }
 
@@ -1613,7 +1276,7 @@
       renderTabs();
       renderColumns();
       closeModal('profileSettingsModal');
-      await pushToCloud();
+      await saveAccountToCloud(user);
     }
 
     function compressImage(file, maxWidth, quality, callback) {
@@ -1735,7 +1398,7 @@
         container.innerHTML = `
           <div class="empty-box">
             <div style="font-size:16px; font-weight:700; color:var(--text);">Комната «${escapeHtml(currentRoom)}» пуста</div>
-            <div>Создайте аккаунт для себя и своей половинки в этой комнате</div>
+            <div>Создайте аккаунт для себя, а партнёр создаст свой по ссылке этой комнаты</div>
             <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('register'); openModal('authModal');">Создать аккаунт</button>
           </div>
         `;
@@ -1782,24 +1445,14 @@
                 </div>
                 ${w.caption ? `<p class="wish-caption">${escapeHtml(w.caption)}</p>` : ''}
                 <div class="wish-footer">
-                  ${w.link ? `
-                    <a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link">
-                      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                      <span>Ссылка</span>
-                    </a>
-                  ` : ''}
+                  ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link">Ссылка</a>` : ''}
                   <div class="wish-controls">
                     <button class="action-pill done" onclick="toggleFulfilled('${w.id}')">
-                      <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span>${w.fulfilled ? 'Подарено' : 'Подарить'}</span>
+                      <span>${w.fulfilled ? '✓ Подарено' : 'Подарить'}</span>
                     </button>
                     ${isOwner ? `
-                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="Изменить">
-                        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-                      </button>
-                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="Удалить">
-                        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                      </button>
+                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="Изменить">✎</button>
+                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="Удалить">🗑</button>
                     ` : ''}
                   </div>
                 </div>
@@ -1817,16 +1470,12 @@
                   <div class="profile-name-block">
                     <h2 class="column-title">
                       ${escapeHtml(acc.displayName)}
-                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">Вы</span>` : `<span class="readonly-badge">Просмотр</span>`}
+                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">Вы</span>` : `<span class="readonly-badge">Партнёр</span>`}
                     </h2>
                     <div class="profile-username">@${escapeHtml(acc.username)} • Желаний: ${rawWishes.length}</div>
                   </div>
                 </div>
-                ${isOwner ? `
-                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки">
-                    <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                  </button>
-                ` : ''}
+                ${isOwner ? `<button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки">⚙</button>` : ''}
               </div>
               ${acc.bio ? `<p class="profile-bio">${escapeHtml(acc.bio)}</p>` : ''}
               ${sizesHtml ? `<div class="profile-sizes-row">${sizesHtml}</div>` : ''}
@@ -1854,8 +1503,7 @@
 
     function editWish(id) {
       const wish = state.wishes.find(w => w.id === id);
-      if (!wish) return;
-      if (wish.ownerId !== state.currentUserId) { alert('Чужие желания нельзя редактировать.'); return; }
+      if (!wish || wish.ownerId !== state.currentUserId) return;
 
       document.getElementById('wishModalTitle').textContent = 'Редактировать желание';
       document.getElementById('wishId').value = wish.id;
@@ -1906,7 +1554,7 @@
       const existing = id ? state.wishes.find(w => w.id === id) : null;
 
       const wishData = {
-        id: id || 'w_' + Date.now(),
+        id: id || 'w_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
         ownerId: user.id,
         title: document.getElementById('wishTitle').value.trim(),
         caption: document.getElementById('wishCaption').value.trim(),
@@ -1929,7 +1577,7 @@
       renderTabs();
       renderColumns();
       closeModal('wishModal');
-      await pushToCloud();
+      await saveWishToCloud(wishData);
     }
 
     async function toggleFulfilled(id) {
@@ -1938,7 +1586,7 @@
       wish.fulfilled = !wish.fulfilled;
       saveLocal();
       renderColumns();
-      await pushToCloud();
+      await saveWishToCloud(wish);
     }
 
     async function deleteWish(id) {
@@ -1949,7 +1597,7 @@
       saveLocal();
       renderTabs();
       renderColumns();
-      await pushToCloud();
+      await deleteWishFromCloud(id);
     }
 
     function escapeHtml(str) {
