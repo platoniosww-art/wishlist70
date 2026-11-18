@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" id="statusBarMeta" />
+  <meta name="apple-mobile-web-app-title" content="Wishlist" />
+  <meta name="theme-color" content="#F5F5F7" id="themeColorMeta" />
+  <title>Wishlist — Общий список желаний</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <style>
+    :root, [data-theme="light"] {
+      --bg: #F5F5F7;
+      --bg-elevated: rgba(255, 255, 255, 0.84);
+      --card: #FFFFFF;
+      --card-subtle: #F2F2F7;
+      --text: #111113;
+      --text-secondary: #6E6E73;
+      --text-tertiary: #8E8E93;
+      --accent: #FF2D55;
+      --accent-soft: rgba(255, 45, 85, 0.10);
+      --blue: #007AFF;
+      --green: #28CD41;
+      --green-soft: rgba(40, 205, 65, 0.14);
+      --amber: #FF9500;
+      --amber-soft: rgba(255, 149, 0, 0.14);
+      --border: rgba(0, 0, 0, 0.07);
+      --border-strong: rgba(0, 0, 0, 0.13);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+      --seg-bg: rgba(118, 118, 128, 0.11);
+      --seg-active: #FFFFFF;
+      --safe-top: env(safe-area-inset-top, 20px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    [data-theme="dark"] {
+      --bg: #000000;
+      --bg-elevated: rgba(24, 24, 26, 0.84);
+      --card: #161618;
+      --card-subtle: #222225;
+      --text: #F5F5F7;
+      --text-secondary: #98989D;
+      --text-tertiary: #636366;
+      --accent: #FF375F;
+      --accent-soft: rgba(255, 55, 95, 0.16);
+      --blue: #0A84FF;
+      --green: #32D74B;
+      --green-soft: rgba(50, 215, 75, 0.16);
+      --amber: #FF9F0A;
+      --amber-soft: rgba(255, 159, 10, 0.16);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.65);
+      --seg-bg: rgba(118, 118, 128, 0.22);
+      --seg-active: #2C2C2E;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding-top: var(--safe-top);
+      padding-bottom: calc(var(--safe-bottom) + 96px);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    svg.icon {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    svg.icon-sm { width: 15px; height: 15px; }
+    svg.icon-lg { width: 22px; height: 22px; }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-elevated);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .app-title {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .sync-badge.online { color: var(--green); }
+    .sync-indicator { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .icon-btn:active { transform: scale(0.92); }
+    .icon-btn.cloud-active {
+      color: var(--green);
+      border-color: rgba(40, 205, 65, 0.3);
+      background: var(--green-soft);
+    }
+
+    /* User Account Pill */
+    .account-pill {
+      height: 38px;
+      padding: 0 12px 0 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      max-width: 165px;
+    }
+    .account-pill:active { transform: scale(0.95); }
+
+    .account-pill-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .account-pill-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .account-pill-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Segmented Control */
+    .segmented {
+      display: flex;
+      background: var(--seg-bg);
+      padding: 3px;
+      border-radius: 12px;
+      gap: 3px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .segmented::-webkit-scrollbar { display: none; }
+
+    .seg-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .seg-btn.active {
+      background: var(--seg-active);
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .seg-count { font-size: 11px; font-weight: 700; opacity: 0.65; }
+
+    /* Room Bar */
+    .room-bar {
+      max-width: 1120px;
+      margin: 12px auto 0;
+      padding: 0 16px;
+    }
+
+    .room-bar-inner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .room-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+    }
+
+    .room-info strong {
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+    }
+
+    .room-btn {
+      border: none;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Search & Filter Bar */
+    .controls-section {
+      max-width: 1120px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-sort-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0 12px;
+      height: 40px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box svg { color: var(--text-tertiary); margin-right: 8px; }
+    .search-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input::placeholder { color: var(--text-tertiary); }
+
+    .clear-search {
+      border: none;
+      background: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      padding: 4px;
+      display: none;
+    }
+
+    .sort-select {
+      height: 40px;
+      padding: 0 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .filter-pills::-webkit-scrollbar { display: none; }
+
+    .pill {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.18s ease;
+    }
+    .pill.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    /* Columns Layout */
+    .columns-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .columns-container.two-cols {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .profile-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .profile-banner-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-banner-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .profile-banner-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .profile-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .avatar-large {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+
+    .profile-name-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .column-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .owner-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .readonly-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--seg-bg);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .profile-username { font-size: 12px; color: var(--text-tertiary); font-weight: 600; }
+    .profile-bio { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+    .profile-sizes-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .size-chip {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      padding: 4px 9px;
+      border-radius: 8px;
+    }
+
+    /* Wish Cards */
+    .wish-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .wish-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, opacity 0.2s ease;
+    }
+
+    .wish-card.fulfilled { opacity: 0.62; }
+    .wish-card.fulfilled .wish-title {
+      text-decoration: line-through;
+      color: var(--text-secondary);
+    }
+
+    .wish-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      background: var(--card-subtle);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .wish-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .wish-priority-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .wish-img-wrap .wish-priority-tag {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(18, 18, 20, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .tag-high { background: var(--accent-soft); color: var(--accent); }
+    .tag-dream { background: var(--amber-soft); color: var(--amber); }
+    .tag-normal { background: var(--seg-bg); color: var(--text-secondary); }
+
+    .wish-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .wish-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .wish-title { font-size: 17px; font-weight: 700; line-height: 1.32; letter-spacing: -0.2px; }
+    .wish-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      background: var(--card-subtle);
+      padding: 4px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+    }
+
+    .wish-caption { font-size: 14px; color: var(--text-secondary); line-height: 1.45; white-space: pre-line; }
+
+    .wish-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    .wish-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(0, 122, 255, 0.08);
+    }
+
+    .wish-controls { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+
+    .action-pill {
+      border: 1px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text);
+      height: 32px;
+      padding: 0 11px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.15s ease;
+    }
+    .action-pill:active { transform: scale(0.94); }
+    .action-pill.done {
+      background: var(--green-soft);
+      color: var(--green);
+      border-color: rgba(40, 205, 65, 0.25);
+    }
+
+    .action-icon { width: 32px; height: 32px; padding: 0; justify-content: center; }
+    .action-icon.del { color: #FF3B30; }
+
+    /* Empty State */
+    .empty-box {
+      background: var(--card);
+      border: 1px dashed var(--border-strong);
+      border-radius: 20px;
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Floating Add Button */
+    .fab {
+      position: fixed;
+      bottom: calc(var(--safe-bottom) + 18px);
+      right: 20px;
+      z-index: 60;
+      background: var(--accent);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 16px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 10px 28px rgba(255, 45, 85, 0.38);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .fab:active { transform: scale(0.95); }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.56);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-sheet {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      width: 100%;
+      max-width: 500px;
+      max-height: 92vh;
+      border-radius: 24px 24px 0 0;
+      padding: 20px 16px calc(var(--safe-bottom) + 20px);
+      overflow-y: auto;
+      animation: slideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (min-width: 600px) {
+      .modal-backdrop { align-items: center; }
+      .modal-sheet {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(36px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal-title { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+
+    .close-btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .form-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 15px;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+    }
+
+    .form-textarea { min-height: 64px; resize: vertical; }
+
+    .primary-btn {
+      width: 100%;
+      border: none;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .secondary-btn {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .info-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .photo-upload-box {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .photo-preview { max-width: 100%; max-height: 200px; border-radius: 10px; display: none; margin: 0 auto; }
+
+    .avatar-settings-box { display: flex; align-items: center; gap: 14px; }
+    .avatar-preview-circle {
+      width: 68px; height: 68px; border-radius: 20px;
+      background: var(--card-subtle); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; overflow: hidden; flex-shrink: 0;
+    }
+    .avatar-preview-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+    .color-swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+    .swatch {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 2px solid transparent; cursor: pointer; transition: transform 0.15s ease;
+    }
+    .swatch.selected { transform: scale(1.15); border-color: var(--text); }
+
+    .account-list-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; margin-bottom: 8px;
+    }
+
+    .lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0, 0, 0, 0.92); display: none;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 14px; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="brand-wrap">
+          <div class="app-title" onclick="openModal('roomModal')" title="Сменить комнату">
+            <span class="brand-dot"></span>
+            <span id="brandRoomNameTitle">Wishlist</span>
+          </div>
+          <div id="syncBadge" class="sync-badge">
+            <span class="sync-indicator"></span>
+            <span id="syncText">Подключение...</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="account-pill" onclick="handleAccountButtonClick()" id="accountHeaderBtn">
+            <div class="account-pill-avatar" id="headerAvatar">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <span class="account-pill-name" id="headerAccountName">Войти</span>
+          </button>
+
+          <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Сменить тему" aria-label="Тема"></button>
+        </div>
+      </div>
+
+      <div class="segmented" id="profileTabs"></div>
+    </div>
+  </header>
+
+  <div class="room-bar" id="roomBar">
+    <div class="room-bar-inner">
+      <div class="room-info" id="roomStatusText">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Комната: <strong id="currentRoomDisplay">основная</strong></span>
+      </div>
+      <button class="room-btn" onclick="openModal('roomModal')">Сменить комнату / ссылку</button>
+    </div>
+  </div>
+
+  <section class="controls-section">
+    <div class="search-sort-row">
+      <div class="search-box">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск по желаниям..." oninput="handleSearchInput()" />
+        <button id="clearSearchBtn" class="clear-search" onclick="clearSearch()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <select id="sortSelect" class="sort-select" onchange="handleSortChange()">
+        <option value="newest">Новые</option>
+        <option value="priority">Важные</option>
+        <option value="price_asc">Дешевле</option>
+        <option value="price_desc">Дороже</option>
+      </select>
+    </div>
+
+    <div class="filter-pills" id="filterPills">
+      <button class="pill active" data-filter="all" onclick="setFilter('all')">Все</button>
+      <button class="pill" data-filter="active" onclick="setFilter('active')">Актуальные</button>
+      <button class="pill" data-filter="fulfilled" onclick="setFilter('fulfilled')">Подаренные</button>
+      <button class="pill" data-filter="high" onclick="setFilter('high')">Очень хочу</button>
+      <button class="pill" data-filter="dream" onclick="setFilter('dream')">Мечта</button>
+      <button class="pill" data-filter="photo" onclick="setFilter('photo')">С фото</button>
+    </div>
+  </section>
+
+  <main class="columns-container" id="columnsContainer"></main>
+
+  <button class="fab" onclick="openAddWishModal()" id="fabAddBtn">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+    <span>Добавить желание</span>
+  </button>
+
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+    <img id="lightboxImg" src="" alt="Фото" />
+  </div>
+
+  <!-- Modal: Room Name & Auto Link generator -->
+  <div class="modal-backdrop" id="roomModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">Комната пары 🏠</div>
+        <button class="close-btn" onclick="closeModal('roomModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <p class="info-text">
+        Просто введите название вашей комнаты (например, <strong>petr-and-maria</strong> или <strong>наша-пара</strong>). Ссылка сгенерируется автоматически, и вы сможете отправить её второй половинке!
+      </p>
+
+      <div class="form-group">
+        <label class="form-label">Название комнаты</label>
+        <input type="text" class="form-input" id="roomNameInput" placeholder="Например: love-story-2026" oninput="previewGeneratedLink()" />
+      </div>
+
+      <div class="form-group" style="background:var(--card-subtle);">
+        <label class="form-label">Готовая ссылка для партнера</label>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+          <input type="text" class="form-input" id="generatedLinkPreview" readonly style="font-size:13px; color:var(--text-secondary); user-select:all;" />
+          <button type="button" class="action-pill" onclick="copyRoomLink()">Копировать</button>
+        </div>
+      </div>
+
+      <button type="button" class="primary-btn" onclick="joinRoomByInput()">Войти в комнату</button>
+    </div>
+  </div>
+
+  <!-- Modal: Auth -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title" id="authModalTitle">Вход в аккаунт</div>
+        <button class="close-btn" onclick="closeModal('authModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="segmented" style="margin-bottom: 14px;">
+        <button type="button" class="seg-btn active" id="tabLoginBtn" onclick="switchAuthMode('login')">Войти</button>
+        <button type="button" class="seg-btn" id="tabRegisterBtn" onclick="switchAuthMode('register')">Создать аккаунт</button>
+      </div>
+
+      <form id="authForm" onsubmit="submitAuth(event)">
+        <div id="registerFields" style="display:none;">
+          <div class="form-group">
+            <label class="form-label">Ваше имя</label>
+            <input type="text" class="form-input" id="authDisplayName" placeholder="Например: Алина или Максим" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Эмодзи-иконка</label>
+            <input type="text" class="form-input" id="authEmoji" value="✨" maxlength="4" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Логин *</label>
+          <input type="text" class="form-input" id="authUsername" placeholder="Ваш логин" required autocapitalize="none" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Пароль *</label>
+          <input type="password" class="form-input" id="authPassword" placeholder="Пароль" required />
+        </div>
+
+        <button type="submit" class="primary-btn" id="authSubmitBtn">Войти</button>
+      </form>
+
+      <div id="existingAccountsHint" style="margin-top: 16px;"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Profile Settings -->
+  <div class="modal-backdrop" id="profileSettingsModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">Настройки профиля</div>
+        <button class="close-btn" onclick="closeModal('profileSettingsModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <form onsubmit="saveProfileSettings(event)">
+        <div class="form-group">
+          <label class="form-label">Аватарка профиля</label>
+          <div class="avatar-settings-box">
+            <div class="avatar-preview-circle" id="settingsAvatarPreview">✨</div>
+            <div style="display:flex; flex-direction:column; gap:6px; flex:1;">
+              <button type="button" class="action-pill" style="justify-content:center;" onclick="document.getElementById('avatarPhotoInput').click()">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                <span>Загрузить фото</span>
+              </button>
+              <button type="button" class="action-pill del" id="removeAvatarBtn" style="justify-content:center; display:none;" onclick="clearAvatarPhoto()">Убрать фото</button>
+              <input type="file" id="avatarPhotoInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">Имя *</label>
+            <input type="text" class="form-input" id="settingsDisplayName" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Эмодзи</label>
+            <input type="text" class="form-input" id="settingsEmoji" maxlength="4" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">О себе / пожелания</label>
+          <textarea class="form-textarea" id="settingsBio" placeholder="Люблю минимализм и уют..."></textarea>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">Размер одежды</label>
+            <input type="text" class="form-input" id="settingsClothesSize" placeholder="S / M (44)" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Размер обуви</label>
+            <input type="text" class="form-input" id="settingsShoeSize" placeholder="38 / 42" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Размер кольца / украшений</label>
+          <input type="text" class="form-input" id="settingsRingSize" placeholder="Кольцо 16.5" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Цвет профиля</label>
+          <div class="color-swatches" id="colorSwatches"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Новый пароль (если хотите сменить)</label>
+          <input type="password" class="form-input" id="settingsNewPassword" placeholder="Новый пароль" />
+        </div>
+
+        <button type="submit" class="primary-btn">Сохранить</button>
+      </form>
+
+      <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="logoutAccount()">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        <span>Выйти из аккаунта</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Wish -->
+  <div class="modal-backdrop" id="wishModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title" id="wishModalTitle">Новое желание</div>
+        <button class="close-btn" onclick="closeModal('wishModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="wishForm" onsubmit="saveWish(event)">
+        <input type="hidden" id="wishId" />
+
+        <div class="form-group">
+          <label class="form-label">Фотография подарка</label>
+          <div class="photo-upload-box" onclick="document.getElementById('wishPhotoInput').click()">
+            <div id="photoPlaceholder" style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              <span>Выбрать фото из галереи</span>
+            </div>
+            <img id="photoPreview" class="photo-preview" alt="Предпросмотр" />
+            <input type="file" id="wishPhotoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)" />
+          </div>
+          <button type="button" id="removePhotoBtn" class="action-pill del" style="display:none; margin-top:8px;" onclick="clearPhoto()">Удалить фото</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Название подарка *</label>
+          <input type="text" class="form-input" id="wishTitle" placeholder="Например: Dyson Airwrap" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Подпись и детали</label>
+          <textarea class="form-textarea" id="wishCaption" placeholder="Цвет, размер, модель..."></textarea>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">Приоритет</label>
+            <select class="form-select" id="wishPriority">
+              <option value="high">Очень хочу</option>
+              <option value="dream">Мечта</option>
+              <option value="idea">Идея</option>
+              <option value="small">Мелочь</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Цена</label>
+            <input type="text" class="form-input" id="wishPrice" placeholder="25 000 ₸" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ссылка на товар</label>
+          <input type="url" class="form-input" id="wishLink" placeholder="https://..." />
+        </div>
+
+        <button type="submit" class="primary-btn">Сохранить в мой список</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Embedded Shared Public Firebase DB for zero-setup demo & automatic rooms!
+    const DEFAULT_FIREBASE_URL = "https://wishlist-shared-default-rtdb.firebaseio.com";
+
+    const ACCENT_COLORS = ['#FF2D55', '#007AFF', '#34C759', '#AF52DE', '#FF9500', '#5856D6', '#00C7BE'];
+
+    const PRIORITY_LABELS = {
+      high: { label: 'Очень хочу', cls: 'tag-high', weight: 4 },
+      dream: { label: 'Мечта', cls: 'tag-dream', weight: 3 },
+      idea: { label: 'Идея', cls: 'tag-normal', weight: 2 },
+      small: { label: 'Мелочь', cls: 'tag-normal', weight: 1 }
+    };
+
+    function normalizePriority(p) {
+      if (!p) return 'idea';
+      if (PRIORITY_LABELS[p]) return p;
+      if (p.includes('Очень')) return 'high';
+      if (p.includes('Мечта')) return 'dream';
+      if (p.includes('Мелочь')) return 'small';
+      return 'idea';
+    }
+
+    // Get Room from URL hash or query param (?room=name or #name)
+    function getRoomFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('room')) {
+        return urlParams.get('room').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+      }
+      const hash = window.location.hash.replace('#', '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+      if (hash) return hash;
+      return localStorage.getItem('wl_room') || 'osnovnaya';
+    }
+
+    let currentRoom = getRoomFromURL();
+
+    let state = {
+      accounts: JSON.parse(localStorage.getItem(`wl_accounts_${currentRoom}`)) || [],
+      currentUserId: localStorage.getItem(`wl_current_user_id_${currentRoom}`) || null,
+      wishes: JSON.parse(localStorage.getItem(`wl_wishes_${currentRoom}`)) || [],
+      activeTab: 'all',
+      filter: 'all',
+      search: '',
+      sort: 'newest',
+      theme: localStorage.getItem('wl_theme') || 'light'
+    };
+
+    let authMode = 'login';
+    let currentWishPhoto = '';
+    let currentAvatarPhoto = '';
+    let selectedAccentColor = ACCENT_COLORS[0];
+    let syncInterval = null;
+
+    async function hashPassword(password) {
+      if (window.crypto && window.crypto.subtle) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+      return btoa(unescape(encodeURIComponent(password)));
+    }
+
+    function getCurrentUser() {
+      if (!state.currentUserId) return null;
+      return state.accounts.find(a => a.id === state.currentUserId) || null;
+    }
+
+    // Theme
+    function applyTheme(theme) {
+      state.theme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('wl_theme', theme);
+      const metaTheme = document.getElementById('themeColorMeta');
+      const metaStatus = document.getElementById('statusBarMeta');
+      if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#000000' : '#F5F5F7');
+      if (metaStatus) metaStatus.setAttribute('content', theme === 'dark' ? 'black-translucent' : 'default');
+
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        btn.innerHTML = theme === 'dark'
+          ? '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
+          : '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+      }
+    }
+
+    function toggleTheme() {
+      applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+    }
+
+    function init() {
+      applyTheme(state.theme);
+      document.getElementById('currentRoomDisplay').textContent = currentRoom;
+      document.getElementById('brandRoomNameTitle').textContent = `Wishlist (${currentRoom})`;
+
+      updateHeaderAccountUI();
+      renderTabs();
+      renderColumns();
+      updateSyncUI();
+
+      pullFromCloud();
+      if (syncInterval) clearInterval(syncInterval);
+      syncInterval = setInterval(pullFromCloud, 7000);
+
+      if (state.accounts.length === 0) {
+        switchAuthMode('register');
+        openModal('authModal');
+      }
+    }
+
+    function saveLocal() {
+      try {
+        localStorage.setItem(`wl_accounts_${currentRoom}`, JSON.stringify(state.accounts));
+        localStorage.setItem(`wl_wishes_${currentRoom}`, JSON.stringify(state.wishes));
+        if (state.currentUserId) {
+          localStorage.setItem(`wl_current_user_id_${currentRoom}`, state.currentUserId);
+        } else {
+          localStorage.removeItem(`wl_current_user_id_${currentRoom}`);
+        }
+      } catch (e) {
+        alert('Память заполнена.');
+      }
+    }
+
+    // Auto-Endpoint based on Room Name in Shared Firebase DB!
+    function getEndpoint() {
+      const cleanRoom = currentRoom.trim().replace(/[^a-z0-9_-]/g, '');
+      return `${DEFAULT_FIREBASE_URL}/rooms/${cleanRoom}.json`;
+    }
+
+    async function pushToCloud() {
+      const endpoint = getEndpoint();
+      if (!endpoint) return;
+      try {
+        setSyncStatus('Сохранение...', true);
+        await fetch(endpoint, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            accounts: state.accounts,
+            wishes: state.wishes,
+            updatedAt: Date.now()
+          })
+        });
+        setSyncStatus(`Комната: ${currentRoom}`, true);
+      } catch (err) {
+        setSyncStatus('Ошибка сети', false);
+      }
+    }
+
+    async function pullFromCloud() {
+      const endpoint = getEndpoint();
+      if (!endpoint) return;
+      try {
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+        if (data && typeof data === 'object') {
+          if (Array.isArray(data.accounts)) {
+            state.accounts = data.accounts;
+          }
+          if (Array.isArray(data.wishes)) {
+            state.wishes = data.wishes;
+          }
+          saveLocal();
+          updateHeaderAccountUI();
+          renderTabs();
+          renderColumns();
+        } else if (data === null && (state.accounts.length > 0 || state.wishes.length > 0)) {
+          await pushToCloud();
+        }
+        setSyncStatus(`Комната: ${currentRoom}`, true);
+      } catch (err) {
+        setSyncStatus('Локальный режим', false);
+      }
+    }
+
+    function setSyncStatus(text, isOnline) {
+      const badge = document.getElementById('syncBadge');
+      const syncText = document.getElementById('syncText');
+      syncText.textContent = text;
+      badge.className = isOnline ? 'sync-badge online' : 'sync-badge';
+    }
+
+    function updateSyncUI() {
+      setSyncStatus(`Комната: ${currentRoom}`, true);
+    }
+
+    // Room Management & Auto Link Generation
+    function previewGeneratedLink() {
+      const nameVal = document.getElementById('roomNameInput').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+      const roomSlug = nameVal || 'osnovnaya';
+      const baseLink = window.location.origin + window.location.pathname;
+      const fullLink = `${baseLink}?room=${roomSlug}`;
+      document.getElementById('generatedLinkPreview').value = fullLink;
+    }
+
+    function openModal(id) {
+      if (id === 'roomModal') {
+        document.getElementById('roomNameInput').value = currentRoom;
+        previewGeneratedLink();
+      }
+      document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function copyRoomLink() {
+      const input = document.getElementById('generatedLinkPreview');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Ссылка скопирована! Отправьте её второй половинке.');
+    }
+
+    function joinRoomByInput() {
+      const nameVal = document.getElementById('roomNameInput').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+      const newRoom = nameVal || 'osnovnaya';
+      localStorage.setItem('wl_room', newRoom);
+      
+      // Update URL without full reload if possible, or reload with new room query
+      const newUrl = `${window.location.origin}${window.location.pathname}?room=${newRoom}`;
+      window.location.href = newUrl;
+    }
+
+    // Auth & Accounts
+    function updateHeaderAccountUI() {
+      const user = getCurrentUser();
+      const nameEl = document.getElementById('headerAccountName');
+      const avatarEl = document.getElementById('headerAvatar');
+      const fabBtn = document.getElementById('fabAddBtn');
+
+      if (user) {
+        nameEl.textContent = user.displayName;
+        avatarEl.style.background = user.accentColor ? `${user.accentColor}22` : 'var(--accent-soft)';
+        avatarEl.style.color = user.accentColor || 'var(--accent)';
+        avatarEl.innerHTML = user.avatar ? `<img src="${user.avatar}" />` : escapeHtml(user.emoji || '✨');
+        fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Добавить желание</span>`;
+      } else {
+        nameEl.textContent = 'Войти';
+        avatarEl.style.background = 'var(--seg-bg)';
+        avatarEl.style.color = 'var(--text-secondary)';
+        avatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+        fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg><span>Войти в аккаунт</span>`;
+      }
+    }
+
+    function handleAccountButtonClick() {
+      const user = getCurrentUser();
+      if (user) {
+        openProfileSettings();
+      } else {
+        switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
+        openModal('authModal');
+      }
+    }
+
+    function switchAuthMode(mode) {
+      authMode = mode;
+      document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
+      document.getElementById('tabRegisterBtn').classList.toggle('active', mode === 'register');
+      document.getElementById('registerFields').style.display = mode === 'register' ? 'block' : 'none';
+      document.getElementById('authModalTitle').textContent = mode === 'register' ? 'Создание аккаунта' : 'Вход в аккаунт';
+      document.getElementById('authSubmitBtn').textContent = mode === 'register' ? 'Создать аккаунт' : 'Войти';
+      renderExistingAccountsHint();
+    }
+
+    function renderExistingAccountsHint() {
+      const box = document.getElementById('existingAccountsHint');
+      if (state.accounts.length === 0) { box.innerHTML = ''; return; }
+      box.innerHTML = `
+        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px;">Профили в этой комнате</div>
+        ${state.accounts.map(acc => `
+          <div class="account-list-item" onclick="prefillLogin('${escapeHtml(acc.username)}')" style="cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="account-pill-avatar">${acc.avatar ? `<img src="${acc.avatar}" />` : escapeHtml(acc.emoji || '✨')}</div>
+              <div>
+                <div style="font-size:14px; font-weight:700;">${escapeHtml(acc.displayName)}</div>
+                <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(acc.username)}</div>
+              </div>
+            </div>
+            <span style="font-size:12px; font-weight:600; color:var(--blue);">Выбрать</span>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    function prefillLogin(username) {
+      switchAuthMode('login');
+      document.getElementById('authUsername').value = username;
+      document.getElementById('authPassword').focus();
+    }
+
+    async function submitAuth(event) {
+      event.preventDefault();
+      const username = document.getElementById('authUsername').value.trim().toLowerCase();
+      const password = document.getElementById('authPassword').value;
+      if (!username || !password) return;
+
+      const passHash = await hashPassword(password);
+
+      if (authMode === 'register') {
+        const displayName = document.getElementById('authDisplayName').value.trim() || username;
+        const emoji = document.getElementById('authEmoji').value.trim() || '✨';
+
+        if (state.accounts.some(a => a.username === username)) {
+          alert('Аккаунт с таким логином уже есть в этой комнате.');
+          return;
+        }
+
+        const newAcc = {
+          id: 'acc_' + Date.now(),
+          username,
+          passwordHash: passHash,
+          displayName,
+          emoji,
+          avatar: '',
+          bio: '',
+          clothesSize: '',
+          shoeSize: '',
+          ringSize: '',
+          accentColor: state.accounts.length === 0 ? '#FF2D55' : '#007AFF'
+        };
+
+        state.accounts.push(newAcc);
+        state.currentUserId = newAcc.id;
+        saveLocal();
+        updateHeaderAccountUI();
+        renderTabs();
+        renderColumns();
+        closeModal('authModal');
+        document.getElementById('authForm').reset();
+        await pushToCloud();
+      } else {
+        const found = state.accounts.find(a => a.username === username);
+        if (!found) { alert('Аккаунт не найден.'); return; }
+        if (found.passwordHash !== passHash) { alert('Неверный пароль!'); return; }
+        state.currentUserId = found.id;
+        saveLocal();
+        updateHeaderAccountUI();
+        renderTabs();
+        renderColumns();
+        closeModal('authModal');
+        document.getElementById('authForm').reset();
+      }
+    }
+
+    function logoutAccount() {
+      state.currentUserId = null;
+      saveLocal();
+      updateHeaderAccountUI();
+      renderColumns();
+      closeModal('profileSettingsModal');
+    }
+
+    // Profile Settings
+    function openProfileSettings() {
+      const user = getCurrentUser();
+      if (!user) return;
+      document.getElementById('settingsDisplayName').value = user.displayName || '';
+      document.getElementById('settingsEmoji').value = user.emoji || '✨';
+      document.getElementById('settingsBio').value = user.bio || '';
+      document.getElementById('settingsClothesSize').value = user.clothesSize || '';
+      document.getElementById('settingsShoeSize').value = user.shoeSize || '';
+      document.getElementById('settingsRingSize').value = user.ringSize || '';
+      document.getElementById('settingsNewPassword').value = '';
+
+      currentAvatarPhoto = user.avatar || '';
+      updateAvatarSettingsPreview();
+      selectedAccentColor = user.accentColor || ACCENT_COLORS[0];
+      renderColorSwatches();
+      openModal('profileSettingsModal');
+    }
+
+    function renderColorSwatches() {
+      const container = document.getElementById('colorSwatches');
+      container.innerHTML = ACCENT_COLORS.map(c => `
+        <button type="button" class="swatch ${c === selectedAccentColor ? 'selected' : ''}" style="background:${c};" onclick="selectAccentColor('${c}')"></button>
+      `).join('');
+    }
+
+    function selectAccentColor(color) {
+      selectedAccentColor = color;
+      renderColorSwatches();
+    }
+
+    function updateAvatarSettingsPreview() {
+      const preview = document.getElementById('settingsAvatarPreview');
+      const removeBtn = document.getElementById('removeAvatarBtn');
+      const emoji = document.getElementById('settingsEmoji').value.trim() || '✨';
+      if (currentAvatarPhoto) {
+        preview.innerHTML = `<img src="${currentAvatarPhoto}" />`;
+        removeBtn.style.display = 'inline-flex';
+      } else {
+        preview.textContent = emoji;
+        removeBtn.style.display = 'none';
+      }
+    }
+
+    function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressImage(file, 260, 0.8, (dataUrl) => {
+        currentAvatarPhoto = dataUrl;
+        updateAvatarSettingsPreview();
+      });
+    }
+
+    function clearAvatarPhoto() {
+      currentAvatarPhoto = '';
+      document.getElementById('avatarPhotoInput').value = '';
+      updateAvatarSettingsPreview();
+    }
+
+    async function saveProfileSettings(event) {
+      event.preventDefault();
+      const user = getCurrentUser();
+      if (!user) return;
+
+      user.displayName = document.getElementById('settingsDisplayName').value.trim() || user.username;
+      user.emoji = document.getElementById('settingsEmoji').value.trim() || '✨';
+      user.bio = document.getElementById('settingsBio').value.trim();
+      user.clothesSize = document.getElementById('settingsClothesSize').value.trim();
+      user.shoeSize = document.getElementById('settingsShoeSize').value.trim();
+      user.ringSize = document.getElementById('settingsRingSize').value.trim();
+      user.avatar = currentAvatarPhoto;
+      user.accentColor = selectedAccentColor;
+
+      const newPass = document.getElementById('settingsNewPassword').value;
+      if (newPass) user.passwordHash = await hashPassword(newPass);
+
+      saveLocal();
+      updateHeaderAccountUI();
+      renderTabs();
+      renderColumns();
+      closeModal('profileSettingsModal');
+      await pushToCloud();
+    }
+
+    function compressImage(file, maxWidth, quality, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let width = img.width; let height = img.height;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          canvas.width = width; canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          callback(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Search, Filter, Sort
+    function handleSearchInput() {
+      const val = document.getElementById('searchInput').value;
+      state.search = val.trim().toLowerCase();
+      document.getElementById('clearSearchBtn').style.display = val ? 'flex' : 'none';
+      renderColumns();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      state.search = '';
+      document.getElementById('clearSearchBtn').style.display = 'none';
+      renderColumns();
+    }
+
+    function setFilter(filterKey) {
+      state.filter = filterKey;
+      document.querySelectorAll('#filterPills .pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filterKey);
+      });
+      renderColumns();
+    }
+
+    function handleSortChange() {
+      state.sort = document.getElementById('sortSelect').value;
+      renderColumns();
+    }
+
+    function parsePriceNumber(priceStr) {
+      if (!priceStr) return Infinity;
+      const digits = String(priceStr).replace(/[^\d]/g, '');
+      return digits ? Number(digits) : Infinity;
+    }
+
+    function filterAndSortWishes(list) {
+      let filtered = list.filter(w => {
+        const prio = normalizePriority(w.priority);
+        if (state.filter === 'active' && w.fulfilled) return false;
+        if (state.filter === 'fulfilled' && !w.fulfilled) return false;
+        if (state.filter === 'high' && prio !== 'high') return false;
+        if (state.filter === 'dream' && prio !== 'dream') return false;
+        if (state.filter === 'photo' && !w.photo) return false;
+
+        if (state.search) {
+          const hay = `${w.title || ''} ${w.caption || ''} ${w.price || ''}`.toLowerCase();
+          if (!hay.includes(state.search)) return false;
+        }
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        if (state.sort === 'priority') {
+          const wa = PRIORITY_LABELS[normalizePriority(a.priority)]?.weight || 0;
+          const wb = PRIORITY_LABELS[normalizePriority(b.priority)]?.weight || 0;
+          return wb - wa || (b.createdAt || 0) - (a.createdAt || 0);
+        }
+        if (state.sort === 'price_asc') return parsePriceNumber(a.price) - parsePriceNumber(b.price);
+        if (state.sort === 'price_desc') {
+          const pa = parsePriceNumber(a.price); const pb = parsePriceNumber(b.price);
+          if (pa === Infinity && pb === Infinity) return 0;
+          if (pa === Infinity) return 1; if (pb === Infinity) return -1;
+          return pb - pa;
+        }
+        return (b.createdAt || 0) - (a.createdAt || 0);
+      });
+
+      return filtered;
+    }
+
+    function renderTabs() {
+      const tabsEl = document.getElementById('profileTabs');
+      let html = `<button class="seg-btn ${state.activeTab === 'all' ? 'active' : ''}" onclick="setTab('all')">Все списки <span class="seg-count">${state.wishes.length}</span></button>`;
+      state.accounts.forEach(acc => {
+        const count = state.wishes.filter(w => w.ownerId === acc.id).length;
+        html += `<button class="seg-btn ${state.activeTab === acc.id ? 'active' : ''}" onclick="setTab('${acc.id}')">${escapeHtml(acc.emoji || '✨')} ${escapeHtml(acc.displayName)} <span class="seg-count">${count}</span></button>`;
+      });
+      tabsEl.innerHTML = html;
+    }
+
+    function setTab(tabId) {
+      state.activeTab = tabId;
+      renderTabs();
+      renderColumns();
+    }
+
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function renderColumns() {
+      const container = document.getElementById('columnsContainer');
+
+      if (state.accounts.length === 0) {
+        container.className = 'columns-container';
+        container.innerHTML = `
+          <div class="empty-box">
+            <div style="font-size:16px; font-weight:700; color:var(--text);">Комната «${escapeHtml(currentRoom)}» пуста</div>
+            <div>Создайте аккаунт для себя и своей половинки в этой комнате</div>
+            <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('register'); openModal('authModal');">Создать аккаунт</button>
+          </div>
+        `;
+        return;
+      }
+
+      const visibleAccounts = state.activeTab === 'all'
+        ? state.accounts
+        : state.accounts.filter(a => a.id === state.activeTab);
+
+      container.className = visibleAccounts.length > 1 ? 'columns-container two-cols' : 'columns-container';
+
+      container.innerHTML = visibleAccounts.map(acc => {
+        const isOwner = state.currentUserId === acc.id;
+        const rawWishes = state.wishes.filter(w => w.ownerId === acc.id);
+        const profileWishes = filterAndSortWishes(rawWishes);
+        const accent = acc.accentColor || '#FF2D55';
+
+        const sizesHtml = [
+          acc.clothesSize ? `Одежда: ${escapeHtml(acc.clothesSize)}` : '',
+          acc.shoeSize ? `Обувь: ${escapeHtml(acc.shoeSize)}` : '',
+          acc.ringSize ? `${escapeHtml(acc.ringSize)}` : ''
+        ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
+
+        const cardsHtml = profileWishes.length === 0
+          ? `<div class="empty-box"><div>${rawWishes.length === 0 ? `У ${escapeHtml(acc.displayName)} пока нет желаний` : 'Ничего не найдено'}</div></div>`
+          : profileWishes.map(w => {
+            const pKey = normalizePriority(w.priority);
+            const pMeta = PRIORITY_LABELS[pKey] || PRIORITY_LABELS.idea;
+
+            return `
+            <article class="wish-card ${w.fulfilled ? 'fulfilled' : ''}">
+              ${w.photo ? `
+                <div class="wish-img-wrap" onclick="openLightbox('${w.photo}')">
+                  <img src="${w.photo}" class="wish-img" alt="${escapeHtml(w.title)}" loading="lazy" />
+                  <span class="wish-priority-tag">${pMeta.label}</span>
+                </div>
+              ` : ''}
+              <div class="wish-body">
+                ${!w.photo ? `<div><span class="wish-priority-tag ${pMeta.cls}">${pMeta.label}</span></div>` : ''}
+                <div class="wish-top-row">
+                  <h3 class="wish-title">${escapeHtml(w.title)}</h3>
+                  ${w.price ? `<span class="wish-price">${escapeHtml(w.price)}</span>` : ''}
+                </div>
+                ${w.caption ? `<p class="wish-caption">${escapeHtml(w.caption)}</p>` : ''}
+                <div class="wish-footer">
+                  ${w.link ? `
+                    <a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link">
+                      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                      <span>Ссылка</span>
+                    </a>
+                  ` : ''}
+                  <div class="wish-controls">
+                    <button class="action-pill done" onclick="toggleFulfilled('${w.id}')">
+                      <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>${w.fulfilled ? 'Подарено' : 'Подарить'}</span>
+                    </button>
+                    ${isOwner ? `
+                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="Изменить">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                      </button>
+                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="Удалить">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                      </button>
+                    ` : ''}
+                  </div>
+                </div>
+              </div>
+            </article>
+          `}).join('');
+
+        return `
+          <section class="profile-column">
+            <div class="profile-banner-card">
+              <div class="profile-banner-accent" style="background:${accent};"></div>
+              <div class="profile-banner-top">
+                <div class="profile-identity">
+                  <div class="avatar-large">${acc.avatar ? `<img src="${acc.avatar}" />` : escapeHtml(acc.emoji || '✨')}</div>
+                  <div class="profile-name-block">
+                    <h2 class="column-title">
+                      ${escapeHtml(acc.displayName)}
+                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">Вы</span>` : `<span class="readonly-badge">Просмотр</span>`}
+                    </h2>
+                    <div class="profile-username">@${escapeHtml(acc.username)} • Желаний: ${rawWishes.length}</div>
+                  </div>
+                </div>
+                ${isOwner ? `
+                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </button>
+                ` : ''}
+              </div>
+              ${acc.bio ? `<p class="profile-bio">${escapeHtml(acc.bio)}</p>` : ''}
+              ${sizesHtml ? `<div class="profile-sizes-row">${sizesHtml}</div>` : ''}
+            </div>
+            <div class="wish-grid">${cardsHtml}</div>
+          </section>
+        `;
+      }).join('');
+    }
+
+    // Add / Edit Wish
+    function openAddWishModal() {
+      const user = getCurrentUser();
+      if (!user) {
+        switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
+        openModal('authModal');
+        return;
+      }
+      document.getElementById('wishModalTitle').textContent = `Новое желание (${user.displayName})`;
+      document.getElementById('wishId').value = '';
+      document.getElementById('wishForm').reset();
+      clearPhoto();
+      openModal('wishModal');
+    }
+
+    function editWish(id) {
+      const wish = state.wishes.find(w => w.id === id);
+      if (!wish) return;
+      if (wish.ownerId !== state.currentUserId) { alert('Чужие желания нельзя редактировать.'); return; }
+
+      document.getElementById('wishModalTitle').textContent = 'Редактировать желание';
+      document.getElementById('wishId').value = wish.id;
+      document.getElementById('wishTitle').value = wish.title || '';
+      document.getElementById('wishCaption').value = wish.caption || '';
+      document.getElementById('wishPriority').value = normalizePriority(wish.priority);
+      document.getElementById('wishPrice').value = wish.price || '';
+      document.getElementById('wishLink').value = wish.link || '';
+
+      if (wish.photo) {
+        currentWishPhoto = wish.photo;
+        const preview = document.getElementById('photoPreview');
+        preview.src = wish.photo; preview.style.display = 'block';
+        document.getElementById('photoPlaceholder').style.display = 'none';
+        document.getElementById('removePhotoBtn').style.display = 'inline-flex';
+      } else {
+        clearPhoto();
+      }
+      openModal('wishModal');
+    }
+
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressImage(file, 720, 0.72, (dataUrl) => {
+        currentWishPhoto = dataUrl;
+        const preview = document.getElementById('photoPreview');
+        preview.src = dataUrl; preview.style.display = 'block';
+        document.getElementById('photoPlaceholder').style.display = 'none';
+        document.getElementById('removePhotoBtn').style.display = 'inline-flex';
+      });
+    }
+
+    function clearPhoto() {
+      currentWishPhoto = '';
+      document.getElementById('wishPhotoInput').value = '';
+      document.getElementById('photoPreview').style.display = 'none';
+      document.getElementById('photoPlaceholder').style.display = 'flex';
+      document.getElementById('removePhotoBtn').style.display = 'none';
+    }
+
+    async function saveWish(event) {
+      event.preventDefault();
+      const user = getCurrentUser();
+      if (!user) return;
+
+      const id = document.getElementById('wishId').value;
+      const existing = id ? state.wishes.find(w => w.id === id) : null;
+
+      const wishData = {
+        id: id || 'w_' + Date.now(),
+        ownerId: user.id,
+        title: document.getElementById('wishTitle').value.trim(),
+        caption: document.getElementById('wishCaption').value.trim(),
+        priority: document.getElementById('wishPriority').value,
+        price: document.getElementById('wishPrice').value.trim(),
+        link: document.getElementById('wishLink').value.trim(),
+        photo: currentWishPhoto,
+        fulfilled: existing ? existing.fulfilled : false,
+        createdAt: existing ? existing.createdAt : Date.now()
+      };
+
+      if (id) {
+        const idx = state.wishes.findIndex(w => w.id === id);
+        if (idx !== -1) state.wishes[idx] = wishData;
+      } else {
+        state.wishes.unshift(wishData);
+      }
+
+      saveLocal();
+      renderTabs();
+      renderColumns();
+      closeModal('wishModal');
+      await pushToCloud();
+    }
+
+    async function toggleFulfilled(id) {
+      const wish = state.wishes.find(w => w.id === id);
+      if (!wish) return;
+      wish.fulfilled = !wish.fulfilled;
+      saveLocal();
+      renderColumns();
+      await pushToCloud();
+    }
+
+    async function deleteWish(id) {
+      const wish = state.wishes.find(w => w.id === id);
+      if (!wish || wish.ownerId !== state.currentUserId) return;
+      if (!confirm('Удалить желание?')) return;
+      state.wishes = state.wishes.filter(w => w.id !== id);
+      saveLocal();
+      renderTabs();
+      renderColumns();
+      await pushToCloud();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    init();
+  </script>
+</body>
+</html>
