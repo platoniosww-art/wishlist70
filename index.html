@@ -743,33 +743,75 @@
       border-top: 1px solid var(--border);
     }
 
-    /* Wish Cards */
-    .wish-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    .wish-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; }
+    /* Wish Cards — compact 2-per-row grid */
+    .wish-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 350px) {
+      .wish-grid { grid-template-columns: 1fr; }
+    }
+    .wish-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, opacity 0.2s ease;
+    }
+    .wish-card.planned {
+      border-color: rgba(255, 149, 0, 0.45);
+    }
     .wish-card.fulfilled { opacity: 0.62; }
     .wish-card.fulfilled .wish-title { text-decoration: line-through; color: var(--text-secondary); }
 
-    .wish-img-wrap { width: 100%; aspect-ratio: 16 / 11; background: var(--card-subtle); position: relative; overflow: hidden; cursor: pointer; }
+    .wish-img-wrap { width: 100%; aspect-ratio: 4 / 3; background: var(--card-subtle); position: relative; overflow: hidden; cursor: pointer; }
     .wish-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .wish-priority-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
-    .wish-img-wrap .wish-priority-tag { position: absolute; top: 12px; left: 12px; background: rgba(18, 18, 20, 0.72); backdrop-filter: blur(10px); color: #FFFFFF; }
+    .wish-priority-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+    .wish-img-wrap .wish-priority-tag { position: absolute; top: 8px; left: 8px; background: rgba(18, 18, 20, 0.72); backdrop-filter: blur(10px); color: #FFFFFF; }
+    .wish-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+    .wish-img-wrap .wish-status-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(255, 149, 0, 0.92);
+      color: #FFFFFF;
+      backdrop-filter: blur(8px);
+    }
+    .tag-essential { background: rgba(255, 59, 48, 0.14); color: #FF3B30; }
     .tag-high { background: var(--accent-soft); color: var(--accent); }
     .tag-dream { background: var(--amber-soft); color: var(--amber); }
     .tag-normal { background: var(--seg-bg); color: var(--text-secondary); }
 
-    .wish-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-    .wish-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .wish-title { font-size: 17px; font-weight: 700; line-height: 1.32; }
-    .wish-price { font-size: 14px; font-weight: 700; background: var(--card-subtle); padding: 4px 10px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--border); }
-    .wish-caption { font-size: 14px; color: var(--text-secondary); line-height: 1.45; white-space: pre-line; }
+    .wish-body { padding: 11px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .wish-top-row { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .wish-title { font-size: 14px; font-weight: 700; line-height: 1.28; word-break: break-word; }
+    .wish-price { font-size: 12px; font-weight: 700; background: var(--card-subtle); padding: 2px 8px; border-radius: 7px; white-space: nowrap; border: 1px solid var(--border); }
+    .wish-caption { font-size: 12px; color: var(--text-secondary); line-height: 1.38; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-    .wish-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--border); gap: 8px; }
-    .wish-link { font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 8px; background: rgba(0, 122, 255, 0.08); }
-    .wish-controls { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+    .wish-footer { display: flex; flex-direction: column; align-items: stretch; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); gap: 6px; }
+    .wish-link { font-size: 11px; font-weight: 600; color: var(--blue); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 5px 8px; border-radius: 8px; background: rgba(0, 122, 255, 0.08); }
+    .wish-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; width: 100%; }
 
-    .action-pill { border: 1px solid var(--border); background: var(--card-subtle); color: var(--text); height: 32px; padding: 0 11px; border-radius: 9px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
-    .action-pill.done { background: var(--green-soft); color: var(--green); border-color: rgba(40, 205, 65, 0.25); }
-    .action-icon { width: 32px; height: 32px; padding: 0; justify-content: center; }
+    .action-pill { border: 1px solid var(--border); background: var(--card-subtle); color: var(--text); height: 29px; padding: 0 8px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
+    .action-pill.plan { background: var(--card-subtle); color: var(--text-secondary); flex: 1; min-width: 0; }
+    .action-pill.plan.active { background: var(--amber-soft); color: var(--amber); border-color: rgba(255, 149, 0, 0.35); }
+    .action-pill.done { background: var(--green-soft); color: var(--green); border-color: rgba(40, 205, 65, 0.25); flex: 1; min-width: 0; }
+    .action-pill.done.active { background: var(--green); color: #FFFFFF; border-color: var(--green); }
+    .action-icon { width: 29px; height: 29px; padding: 0; justify-content: center; flex-shrink: 0; }
     .action-icon.del { color: #FF3B30; }
 
     .empty-box { background: var(--card); border: 1px dashed var(--border-strong); border-radius: 20px; padding: 36px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -1474,7 +1516,9 @@
     <div class="filter-pills" id="filterPills">
       <button class="pill active" data-filter="all" onclick="setFilter('all')">Все</button>
       <button class="pill" data-filter="active" onclick="setFilter('active')">Актуальные</button>
+      <button class="pill" data-filter="planned" onclick="setFilter('planned')">Запланированные</button>
       <button class="pill" data-filter="fulfilled" onclick="setFilter('fulfilled')">Подаренные</button>
+      <button class="pill" data-filter="essential" onclick="setFilter('essential')">Необходимо</button>
       <button class="pill" data-filter="high" onclick="setFilter('high')">Очень хочу</button>
       <button class="pill" data-filter="dream" onclick="setFilter('dream')">Мечта</button>
       <button class="pill" data-filter="photo" onclick="setFilter('photo')">С фото</button>
@@ -1766,9 +1810,10 @@
           <div class="form-group">
             <label class="form-label">Приоритет</label>
             <select class="form-select" id="wishPriority">
+              <option value="essential">Необходимо</option>
               <option value="high">Очень хочу</option>
               <option value="dream">Мечта</option>
-              <option value="idea">Идея</option>
+              <option value="idea">Буду рад</option>
               <option value="small">Мелочь</option>
             </select>
           </div>
@@ -2052,6 +2097,7 @@
     }
 
     const PRIORITY_WEIGHTS = {
+      essential: { cls: 'tag-essential', weight: 5, key: 'prio_essential' },
       high: { cls: 'tag-high', weight: 4, key: 'prio_high' },
       dream: { cls: 'tag-dream', weight: 3, key: 'prio_dream' },
       idea: { cls: 'tag-normal', weight: 2, key: 'prio_idea' },
@@ -2163,6 +2209,7 @@
       if (!p) return 'idea';
       const s = String(p);
       if (PRIORITY_WEIGHTS[s]) return s;
+      if (s.includes('Необходимо') || s.includes('Essential') || s.includes('Қажет')) return 'essential';
       if (s.includes('Очень') || s.includes('Want a lot') || s.includes('Қатты')) return 'high';
       if (s.includes('Мечта') || s.includes('Dream') || s.includes('Арман')) return 'dream';
       if (s.includes('Мелочь') || s.includes('Small') || s.includes('Ұсақ')) return 'small';
@@ -2634,7 +2681,9 @@
         sort_price_desc: 'Дороже',
         filter_all: 'Все',
         filter_active: 'Актуальные',
+        filter_planned: 'Запланированные',
         filter_fulfilled: 'Подаренные',
+        filter_essential: 'Необходимо',
         filter_high: 'Очень хочу',
         filter_dream: 'Мечта',
         filter_photo: 'С фото',
@@ -2710,7 +2759,8 @@
         wish_priority_label: 'Приоритет',
         prio_high: 'Очень хочу',
         prio_dream: 'Мечта',
-        prio_idea: 'Идея',
+        prio_essential: 'Необходимо',
+        prio_idea: 'Буду рад',
         prio_small: 'Мелочь',
         wish_price_label: 'Цена',
         wish_link_label: 'Ссылка на товар',
@@ -2834,6 +2884,9 @@
         no_wishes_yet: 'У {name} пока нет желаний',
         nothing_found: 'Ничего не найдено',
         fulfilled_btn: 'Подарено',
+        plan_btn: 'Запланировать',
+        planned_btn: 'Запланировано',
+        planned_by: 'Запланировал: {name}',
         gift_btn: 'Подарить',
         edit_btn_title: 'Изменить',
         delete_btn_title: 'Удалить',
@@ -2894,7 +2947,9 @@
         sort_price_desc: 'Price: High to Low',
         filter_all: 'All',
         filter_active: 'Active',
+        filter_planned: 'Planned',
         filter_fulfilled: 'Gifted',
+        filter_essential: 'Essential',
         filter_high: 'Want a lot',
         filter_dream: 'Dream',
         filter_photo: 'With photo',
@@ -2970,7 +3025,8 @@
         wish_priority_label: 'Priority',
         prio_high: 'Want a lot',
         prio_dream: 'Dream',
-        prio_idea: 'Idea',
+        prio_essential: 'Essential',
+        prio_idea: 'Would love',
         prio_small: 'Small thing',
         wish_price_label: 'Price',
         wish_link_label: 'Product link',
@@ -3094,6 +3150,9 @@
         no_wishes_yet: '{name} has no wishes yet',
         nothing_found: 'Nothing found',
         fulfilled_btn: 'Gifted',
+        plan_btn: 'Plan',
+        planned_btn: 'Planned',
+        planned_by: 'Planned by {name}',
         gift_btn: 'Gift',
         edit_btn_title: 'Edit',
         delete_btn_title: 'Delete',
@@ -3154,7 +3213,9 @@
         sort_price_desc: 'Қымбатырақ',
         filter_all: 'Барлығы',
         filter_active: 'Өзекті',
+        filter_planned: 'Жоспарланған',
         filter_fulfilled: 'Сыйланған',
+        filter_essential: 'Қажет',
         filter_high: 'Қатты қалаймын',
         filter_dream: 'Арман',
         filter_photo: 'Фотомен',
@@ -3230,7 +3291,8 @@
         wish_priority_label: 'Маңыздылығы',
         prio_high: 'Қатты қалаймын',
         prio_dream: 'Арман',
-        prio_idea: 'Идея',
+        prio_essential: 'Қажет',
+        prio_idea: 'Қуанамын',
         prio_small: 'Ұсақ-түйек',
         wish_price_label: 'Бағасы',
         wish_link_label: 'Тауар сілтемесі',
@@ -3354,6 +3416,9 @@
         no_wishes_yet: '{name} қолданушысында әлі тілектер жоқ',
         nothing_found: 'Ештеңе табылмады',
         fulfilled_btn: 'Сыйланды',
+        plan_btn: 'Жоспарлау',
+        planned_btn: 'Жоспарланған',
+        planned_by: 'Жоспарлаған: {name}',
         gift_btn: 'Сыйлау',
         edit_btn_title: 'Өңдеу',
         delete_btn_title: 'Өшіру',
@@ -3532,7 +3597,9 @@
       const pillMap = {
         all: t('filter_all'),
         active: t('filter_active'),
+        planned: t('filter_planned'),
         fulfilled: t('filter_fulfilled'),
+        essential: t('filter_essential'),
         high: t('filter_high'),
         dream: t('filter_dream'),
         photo: t('filter_photo')
@@ -3545,6 +3612,7 @@
       const prioSelect = document.getElementById('wishPriority');
       if (prioSelect) {
         const pOpts = {
+          essential: t('prio_essential'),
           high: t('prio_high'),
           dream: t('prio_dream'),
           idea: t('prio_idea'),
@@ -5223,7 +5291,9 @@
       let filtered = list.filter(w => {
         const prio = normalizePriority(w.priority);
         if (state.filter === 'active' && w.fulfilled) return false;
+        if (state.filter === 'planned' && (!w.planned || w.fulfilled)) return false;
         if (state.filter === 'fulfilled' && !w.fulfilled) return false;
+        if (state.filter === 'essential' && prio !== 'essential') return false;
         if (state.filter === 'high' && prio !== 'high') return false;
         if (state.filter === 'dream' && prio !== 'dream') return false;
         if (state.filter === 'photo' && !w.photo) return false;
@@ -5367,17 +5437,25 @@
           : profileWishes.map(w => {
             const pKey = normalizePriority(w.priority);
             const pMeta = getPriorityMeta(pKey);
+            const isPlanned = Boolean(w.planned && !w.fulfilled);
+            const plannedBadgeText = w.plannedByName ? t('planned_by', { name: escapeHtml(w.plannedByName) }) : t('planned_btn');
 
             return `
-            <article class="wish-card ${w.fulfilled ? 'fulfilled' : ''}">
+            <article class="wish-card ${w.fulfilled ? 'fulfilled' : (isPlanned ? 'planned' : '')}">
               ${w.photo ? `
                 <div class="wish-img-wrap" onclick="openLightbox('${w.photo}')">
                   <img src="${w.photo}" class="wish-img" alt="${escapeHtml(w.title)}" loading="lazy" />
                   <span class="wish-priority-tag">${pMeta.label}</span>
+                  ${isPlanned ? `<span class="wish-status-badge">${plannedBadgeText}</span>` : ''}
                 </div>
               ` : ''}
               <div class="wish-body">
-                ${!w.photo ? `<div><span class="wish-priority-tag ${pMeta.cls}">${pMeta.label}</span></div>` : ''}
+                ${!w.photo ? `
+                  <div style="display:flex; flex-wrap:wrap; gap:4px; align-items:center;">
+                    <span class="wish-priority-tag ${pMeta.cls}">${pMeta.label}</span>
+                    ${isPlanned ? `<span class="wish-status-badge">${plannedBadgeText}</span>` : ''}
+                  </div>
+                ` : ''}
                 <div class="wish-top-row">
                   <h3 class="wish-title">${escapeHtml(w.title)}</h3>
                   ${w.price ? `<span class="wish-price">${escapeHtml(w.price)}</span>` : ''}
@@ -5391,7 +5469,11 @@
                     </a>
                   ` : ''}
                   <div class="wish-controls">
-                    <button class="action-pill done" onclick="toggleFulfilled('${w.id}')">
+                    <button class="action-pill plan ${isPlanned ? 'active' : ''}" onclick="togglePlanned('${w.id}')" title="${isPlanned ? plannedBadgeText : t('plan_btn')}">
+                      <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+                      <span>${isPlanned ? t('planned_btn') : t('plan_btn')}</span>
+                    </button>
+                    <button class="action-pill done ${w.fulfilled ? 'active' : ''}" onclick="toggleFulfilled('${w.id}')">
                       <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                       <span>${w.fulfilled ? t('fulfilled_btn') : t('gift_btn')}</span>
                     </button>
@@ -5521,6 +5603,9 @@
         price: document.getElementById('wishPrice').value.trim(),
         link: document.getElementById('wishLink').value.trim(),
         photo: currentWishPhoto,
+        planned: existing ? Boolean(existing.planned) : false,
+        plannedById: existing ? (existing.plannedById || '') : '',
+        plannedByName: existing ? (existing.plannedByName || '') : '',
         fulfilled: existing ? existing.fulfilled : false,
         createdAt: existing ? existing.createdAt : Date.now()
       };
@@ -5539,10 +5624,31 @@
       await saveWishToCloud(wishData);
     }
 
+    async function togglePlanned(id) {
+      const wish = state.wishes.find(w => w.id === id);
+      if (!wish) return;
+      if (wish.planned) {
+        wish.planned = false;
+        wish.plannedById = '';
+        wish.plannedByName = '';
+      } else {
+        wish.planned = true;
+        wish.fulfilled = false;
+        wish.plannedById = state.currentUser ? state.currentUser.id : '';
+        wish.plannedByName = state.currentUser ? state.currentUser.displayName : '';
+      }
+      saveLocal();
+      renderColumns();
+      await saveWishToCloud(wish);
+    }
+
     async function toggleFulfilled(id) {
       const wish = state.wishes.find(w => w.id === id);
       if (!wish) return;
       wish.fulfilled = !wish.fulfilled;
+      if (wish.fulfilled) {
+        wish.planned = false;
+      }
       saveLocal();
       renderColumns();
       await saveWishToCloud(wish);
