@@ -469,8 +469,6 @@
     /* Room Bar */
     .room-bar { max-width: 1120px; margin: 12px auto 0; padding: 0 16px; }
 
-
-    /* Room Cover Avatar & Description Banner */
     .room-bar-inner {
       background: var(--card);
       border: 1px solid var(--border);
@@ -598,7 +596,6 @@
       height: 100%;
       object-fit: cover;
     }
-
 
     .room-info { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); min-width: 0; flex: 1; }
     .room-title-stack { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
@@ -838,7 +835,71 @@
 
     .form-group { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-tertiary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+    @media (max-width: 480px) { .form-row-2 { grid-template-columns: 1fr; } }
+    .form-label-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; }
+    .form-label-row .form-label { margin-bottom: 0; }
+    .currency-tag-btn {
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.12s ease, background-color 0.15s ease;
+    }
+    .currency-tag-btn:active { transform: scale(0.94); }
+
+    /* Export picker list */
+    .export-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .export-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 44vh;
+      overflow-y: auto;
+      margin-bottom: 12px;
+    }
+    .export-item-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .export-item-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .export-checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .export-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--card-subtle);
+      flex-shrink: 0;
+    }
     .form-input, .form-select, .form-textarea { width: 100%; border: none; background: transparent; font-size: 15px; color: var(--text); font-family: inherit; outline: none; }
     .form-textarea { min-height: 64px; resize: vertical; }
 
@@ -964,7 +1025,6 @@
       opacity: 1;
     }
 
-    /* День влюблённых (14 февраля) — бордовый */
     body[data-occasion="valentine"] .ambient-bg-layer {
       background-color: rgba(128, 0, 32, 0.045);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23800020' stroke-opacity='0.17' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
@@ -976,7 +1036,6 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23C92A4A' stroke-opacity='0.22' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* Новый год — зелёный */
     body[data-occasion="newyear"] .ambient-bg-layer {
       background-color: rgba(27, 138, 61, 0.045);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%231B8A3D' stroke-opacity='0.17' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
@@ -988,7 +1047,6 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%232ECC71' stroke-opacity='0.19' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* 8 Марта — нежно-розовый */
     body[data-occasion="march8"] .ambient-bg-layer {
       background-color: rgba(244, 143, 177, 0.07);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23F06292' stroke-opacity='0.19' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2366BB6A' stroke-opacity='0.15' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23F48FB1' stroke-opacity='0.22' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
@@ -1000,7 +1058,6 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23F48FB1' stroke-opacity='0.21' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2381C784' stroke-opacity='0.16' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23F8BBD0' stroke-opacity='0.22' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* Keep main UI above ambient background */
     .header, .room-bar, .controls-section, .columns-container, .fab {
       position: relative;
       z-index: 1;
@@ -1029,7 +1086,6 @@
       background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
     }
 
-    /* Occasion & Color accent overrides */
     body[data-occasion="valentine"] {
       --accent: #800020;
       --accent-soft: rgba(128, 0, 32, 0.12);
@@ -1117,7 +1173,6 @@
       color: var(--text-secondary);
     }
 
-  
     /* Admin Panel & Archive Styles */
     .admin-drawer-card {
       background: var(--card);
@@ -1267,7 +1322,6 @@
       box-shadow: var(--shadow-md);
     }
 
-
     /* Language Switcher */
     .lang-switcher {
       display: inline-flex;
@@ -1334,7 +1388,6 @@
         font-size: 11px;
       }
     }
-
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -1415,7 +1468,7 @@
           </button>
         </div>
 
-                <!-- Admin Panel Card in Drawer (visible ONLY to room creator) -->
+        <!-- Admin Panel Card in Drawer (visible ONLY to room creator) -->
         <div id="adminDrawerSection" style="display:none;">
           <div class="drawer-section-label">Управление комнатой</div>
           <div class="admin-drawer-card" onclick="closeRoomsDrawer(); openAdminModal();">
@@ -1538,6 +1591,30 @@
     <img id="lightboxImg" src="" alt="Photo" data-i18n-alt="photo_alt" />
   </div>
 
+  <!-- Modal: Selective Export Wishes -->
+  <div class="modal-backdrop" id="exportSelectModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title" id="exportModalTitle">Выбор желаний для выгрузки</div>
+        <button class="close-btn" onclick="closeModal('exportSelectModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <p class="info-text" id="exportModalDesc">
+        Отметьте желания, которые хотите сохранить в файл для переноса в другую комнату.
+      </p>
+      <div class="export-toolbar">
+        <button type="button" class="action-pill" id="exportSelectAllBtn" onclick="setExportSelectionMode('all')">Выбрать все</button>
+        <button type="button" class="action-pill" id="exportSelectActiveBtn" onclick="setExportSelectionMode('active')">Только актуальные</button>
+        <button type="button" class="action-pill" id="exportSelectNoneBtn" onclick="setExportSelectionMode('none')">Снять выбор</button>
+      </div>
+      <div class="export-list" id="exportWishesList"></div>
+      <button type="button" class="primary-btn" id="confirmExportBtn" onclick="confirmSelectedExport()">
+        Скачать выбранные (0)
+      </button>
+    </div>
+  </div>
+
   <!-- Modal: Tutorial / Guide -->
   <div class="modal-backdrop" id="tutorialModal">
     <div class="modal-sheet">
@@ -1578,7 +1655,7 @@
           </div>
           <div class="tutorial-step-content">
             <h4>3. Перенос вишлиста между комнатами</h4>
-            <p>В карточке вашего профиля есть кнопки <strong>«Скачать»</strong> и <strong>«Загрузить»</strong>. Скачайте файл со своими желаниями в одной комнате и загрузите его в другой — все фото, цены, ссылки и размеры перенесутся автоматически.</p>
+            <p>В карточке вашего профиля есть кнопки <strong>«Скачать»</strong> и <strong>«Загрузить»</strong>. Выберите нужные желания и сохраните файл в одной комнате, а затем загрузите его в другой — все фото, цены, ссылки и размеры перенесутся автоматически.</p>
           </div>
         </div>
 
@@ -1820,8 +1897,13 @@
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Цена</label>
-            <input type="text" class="form-input" id="wishPrice" placeholder="25 000 ₸" />
+            <div class="form-label-row">
+              <label class="form-label" for="wishPrice">Цена</label>
+              <button type="button" class="currency-tag-btn" id="tengeTagBtn" onclick="applyTengeTagToPrice()" title="Добавить ₸">
+                <span>+ ₸</span>
+              </button>
+            </div>
+            <input type="text" class="form-input" id="wishPrice" placeholder="25 000 ₸" oninput="handlePriceLiveInput()" onblur="autoAppendTengeIfNeeded()" />
           </div>
         </div>
 
@@ -1835,7 +1917,7 @@
     </div>
   </div>
 
-      <!-- Modal: Room Settings (Cover Photo, Title, Description - Creator Only) -->
+  <!-- Modal: Room Settings (Cover Photo, Title, Description - Creator Only) -->
   <div class="modal-backdrop" id="roomSettingsModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -1885,7 +1967,7 @@
     </div>
   </div>
 
-    <!-- Modal: Theme & Occasion Picker -->
+  <!-- Modal: Theme & Occasion Picker -->
   <div class="modal-backdrop" id="themePickerModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -2010,7 +2092,6 @@
         </div>
       </div>
 
-
       <div class="drawer-section-label" style="margin-top:14px;" data-i18n="lang_section_label">Язык сервиса / Language / Тіл</div>
       <div id="languageOptions">
         <div class="theme-option-card" id="optLangEn" onclick="setServiceLanguage('en')">
@@ -2083,7 +2164,7 @@
       user: '<svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
       heart: '<svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
       star: '<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-      sparkles: '<svg class="icon" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
+      sparkles: '<svg class="icon" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275 1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
       gift: '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>',
       moon: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>',
       sun: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>',
@@ -2167,6 +2248,7 @@
     };
 
     let currentAdminTab = 'members';
+    let selectedExportIds = new Set();
 
     function isRoomAdmin() {
       if (!state.currentUser || !state.roomMeta) return false;
@@ -2185,6 +2267,66 @@
     let currentAvatarPhoto = '';
     let selectedAccentColor = ACCENT_COLORS[0];
     let syncInterval = null;
+
+    // ==========================================
+    // TENGE (₸) AUTO-TAG & FORMATTING HELPERS
+    // ==========================================
+    function hasCurrencySymbol(str) {
+      return /[₸₽$€£¥]|тенге|тг|kzt|rub|usd|eur/i.test(String(str || ''));
+    }
+
+    function formatPriceWithTenge(rawVal) {
+      const trimmed = String(rawVal || '').trim();
+      if (!trimmed) return '';
+      if (hasCurrencySymbol(trimmed)) return trimmed;
+      const cleaned = trimmed.replace(/\s+/g, ' ');
+      if (/^[\d\s.,]+$/.test(cleaned)) {
+        return `${cleaned} ₸`;
+      }
+      return `${cleaned} ₸`;
+    }
+
+    function handlePriceLiveInput() {
+      const input = document.getElementById('wishPrice');
+      if (!input) return;
+      const val = input.value;
+      const trimmed = val.trim();
+      if (!trimmed || hasCurrencySymbol(trimmed)) return;
+      if (/^[\d\s.,]+$/.test(trimmed) && !/\s$/.test(val)) {
+        const cursorPos = input.selectionStart;
+        input.value = `${trimmed} ₸`;
+        const safePos = Math.min(cursorPos ?? input.value.length - 2, input.value.length - 2);
+        input.setSelectionRange(safePos, safePos);
+      }
+    }
+
+    function applyTengeTagToPrice() {
+      const input = document.getElementById('wishPrice');
+      if (!input) return;
+      const current = input.value.trim();
+      if (!current) {
+        input.value = ' ₸';
+        input.focus();
+        input.setSelectionRange(0, 0);
+        return;
+      }
+      if (hasCurrencySymbol(current)) return;
+      input.value = `${current} ₸`;
+      input.focus();
+    }
+
+    function autoAppendTengeIfNeeded() {
+      const input = document.getElementById('wishPrice');
+      if (!input) return;
+      const current = input.value.trim();
+      if (!current || current === '₸') {
+        input.value = '';
+        return;
+      }
+      if (!hasCurrencySymbol(current) && /^[\d\s.,]+$/.test(current)) {
+        input.value = `${current} ₸`;
+      }
+    }
 
     async function hashPassword(password) {
       const cleanPass = String(password);
@@ -2295,7 +2437,6 @@
     async function joinCurrentRoomAsUser(user, customTitle) {
       if (!user || !currentRoom) return;
 
-      // Проверяем свежие метаданные и бан-лист комнаты перед входом
       let latestMeta = state.roomMeta || {};
       let latestBans = state.bannedUsers || {};
       let latestMembers = {};
@@ -2311,14 +2452,12 @@
         }
       } catch (e) {}
 
-      // Если пользователь заблокирован в этой комнате — не добавляем его в участники
       if (latestBans[user.id] || latestBans[user.username]) {
         state.bannedUsers = latestBans;
         saveLocal();
         return;
       }
 
-      // Назначаем создателя комнаты, если у комнаты ещё нет владельца (и либо комната пустая, либо этот пользователь самый первый участник)
       const memberList = objectToArray(latestMembers);
       let metaPatch = {};
       let needsMetaPatch = false;
@@ -2399,7 +2538,6 @@
               const freshUser = await userRes.json();
               if (freshUser) {
                 state.currentUser = freshUser;
-                // Если у пользователя уже есть комнаты в аккаунте, автоматически открываем первую из них
                 const userRooms = freshUser.rooms ? Object.values(freshUser.rooms).filter(r => r && r.slug && r.slug !== 'osnovnaya') : [];
                 if (userRooms.length > 0) {
                   currentRoom = userRooms[0].slug;
@@ -2526,7 +2664,6 @@
         countSub.textContent = t('members_count', { count: state.roomMembers.length });
       }
 
-      // Обложка комнаты в room-bar
       const barAvatarEl = document.getElementById('roomBarCoverAvatar');
       if (barAvatarEl) {
         if (coverAvatar) {
@@ -2536,7 +2673,6 @@
         }
       }
 
-      // Мини-аватарка комнаты в шапке
       const headerDot = document.getElementById('headerBrandDot');
       const headerRoomAv = document.getElementById('headerRoomAvatar');
       const headerRoomAvImg = document.getElementById('headerRoomAvatarImg');
@@ -2551,7 +2687,6 @@
         }
       }
 
-      // Описание комнаты на главном экране для всех участников
       const descBox = document.getElementById('roomDescriptionBanner');
       if (descBox) {
         if (description) {
@@ -2627,7 +2762,6 @@
       }
     }
 
-
     // ==========================================
     // MULTI-LANGUAGE SUPPORT (EN / RU / KK)
     // ==========================================
@@ -2698,7 +2832,7 @@
         tut_2_title: '2. Комнаты для разных кругов',
         tut_2_desc: 'Нажмите на меню <strong>три полоски</strong> слева сверху, чтобы переключаться между комнатами (например: «Пара», «Семья», «Друзья»). Нажмите «Пригласить», чтобы отправить ссылку друзьям.',
         tut_3_title: '3. Перенос вишлиста между комнатами',
-        tut_3_desc: 'В карточке вашего профиля есть кнопки <strong>«Скачать»</strong> и <strong>«Загрузить»</strong>. Скачайте файл со своими желаниями в одной комнате и загрузите его в другой — все фото, цены, ссылки и размеры перенесутся автоматически.',
+        tut_3_desc: 'В карточке вашего профиля есть кнопки <strong>«Скачать»</strong> и <strong>«Загрузить»</strong>. Выберите нужные желания и сохраните файл в одной комнате, а затем загрузите его в другой — все фото, цены, ссылки и размеры перенесутся автоматически.',
         tut_4_title: '4. Тайный Санта',
         tut_4_desc: 'Откройте боковое меню слева сверху и нажмите на блок <strong>«Тайный Санта»</strong> внизу. Система случайно выберет вам получателя из участников текущей комнаты и сразу покажет его вишлист.',
         got_it_btn: 'Всё понятно',
@@ -2765,6 +2899,7 @@
         prio_idea: 'Буду рад',
         prio_small: 'Мелочь',
         wish_price_label: 'Цена',
+        tenge_tag_title: 'Добавить символ тенге (₸)',
         wish_link_label: 'Ссылка на товар',
         save_wish_btn: 'Сохранить в мой список',
         confirm_delete_wish: 'Удалить желание?',
@@ -2835,6 +2970,15 @@
         confirm_kick_member: 'Исключить пользователя {name} (@{username}) из комнаты? Его вишлист не удалится, а улетит в архив.',
         confirm_delete_archive: 'Окончательно удалить этот архивный вишлист?',
         export_empty_alert: 'В вашем вишлисте в этой комнате пока нет желаний для скачивания.',
+        export_modal_title: 'Выбор желаний для выгрузки',
+        export_modal_desc: 'Отметьте желания, которые хотите сохранить в файл для переноса в другую комнату.',
+        export_select_all: 'Выбрать все',
+        export_select_active: 'Только актуальные',
+        export_select_none: 'Снять выбор',
+        export_download_count: 'Скачать выбранные ({count})',
+        export_pick_at_least_one: 'Выберите хотя бы одно желание для выгрузки.',
+        export_status_fulfilled: 'Подарено',
+        export_status_active: 'Актуально',
         import_bad_format: 'Неверный формат файла. Выберите файл вишлиста (.json), скачанный из этого сервиса.',
         import_empty_file: 'В выбранном файле нет желаний.',
         import_success_alert: 'Успешно загружено желаний: {count}!',
@@ -2880,10 +3024,10 @@
         room_empty_desc: 'Войдите в аккаунт, чтобы присоединиться к комнате и добавлять желания',
         login_or_register_btn: 'Войти или создать аккаунт',
         download_wishlist_btn: 'Скачать вишлист',
-        download_wishlist_title: 'Скачать вишлист файлом для переноса в другую комнату',
+        download_wishlist_title: 'Выбрать желания и скачать файл для переноса в другую комнату',
         upload_wishlist_btn: 'Загрузить',
         upload_wishlist_title: 'Загрузить вишлист из файла',
-        no_wishes_yet: 'У {name} пока нет желаний',
+        no_wishes_yet: '{name} пока нет желаний',
         nothing_found: 'Ничего не найдено',
         fulfilled_btn: 'Подарено',
         plan_btn: 'Запланировать',
@@ -2964,7 +3108,7 @@
         tut_2_title: '2. Rooms for different circles',
         tut_2_desc: 'Tap the <strong>three-line menu</strong> in the top left to switch between rooms (e.g., “Couple”, “Family”, “Friends”). Tap “Invite” to share a link.',
         tut_3_title: '3. Moving a wishlist between rooms',
-        tut_3_desc: 'Your profile card has <strong>“Download”</strong> and <strong>“Upload”</strong> buttons. Export your wishes in one room and import them in another — photos, prices, links, and sizes transfer automatically.',
+        tut_3_desc: 'Your profile card has <strong>“Download”</strong> and <strong>“Upload”</strong> buttons. Pick the wishes you want and save a file in one room, then import it in another — photos, prices, links, and sizes transfer automatically.',
         tut_4_title: '4. Secret Santa',
         tut_4_desc: 'Open the side menu in the top left and tap <strong>“Secret Santa”</strong> at the bottom. The system randomly picks a recipient from the room and shows their wishlist right away.',
         got_it_btn: 'Got it',
@@ -3031,6 +3175,7 @@
         prio_idea: 'Would love',
         prio_small: 'Small thing',
         wish_price_label: 'Price',
+        tenge_tag_title: 'Add tenge symbol (₸)',
         wish_link_label: 'Product link',
         save_wish_btn: 'Save to my list',
         confirm_delete_wish: 'Delete this wish?',
@@ -3101,6 +3246,15 @@
         confirm_kick_member: 'Remove {name} (@{username}) from the room? Their wishlist will be saved in archive.',
         confirm_delete_archive: 'Permanently delete this archived wishlist?',
         export_empty_alert: 'You have no wishes in this room to export yet.',
+        export_modal_title: 'Select wishes to export',
+        export_modal_desc: 'Check the wishes you want to save into a file for another room.',
+        export_select_all: 'Select all',
+        export_select_active: 'Active only',
+        export_select_none: 'Clear selection',
+        export_download_count: 'Download selected ({count})',
+        export_pick_at_least_one: 'Select at least one wish to export.',
+        export_status_fulfilled: 'Gifted',
+        export_status_active: 'Active',
         import_bad_format: 'Invalid file format. Choose a wishlist (.json) file exported from this service.',
         import_empty_file: 'The selected file contains no wishes.',
         import_success_alert: 'Successfully imported wishes: {count}!',
@@ -3146,7 +3300,7 @@
         room_empty_desc: 'Sign in to join the room and add wishes',
         login_or_register_btn: 'Sign in or create account',
         download_wishlist_btn: 'Download wishlist',
-        download_wishlist_title: 'Download wishlist file to transfer to another room',
+        download_wishlist_title: 'Pick wishes and download a file to transfer to another room',
         upload_wishlist_btn: 'Upload',
         upload_wishlist_title: 'Upload wishlist from file',
         no_wishes_yet: '{name} has no wishes yet',
@@ -3230,7 +3384,7 @@
         tut_2_title: '2. Әртүрлі ортаға арналған бөлмелер',
         tut_2_desc: 'Жоғарғы сол жақтағы <strong>үш сызық</strong> мәзірін басып, бөлмелер арасында ауысыңыз (мысалы: «Жұп», «Отбасы», «Достар»). Сілтеме жіберу үшін «Шақыру» түймесін басыңыз.',
         tut_3_title: '3. Тілектер тізімін бөлмелер арасында көшіру',
-        tut_3_desc: 'Профиль карточкасында <strong>«Жүктеп алу»</strong> және <strong>«Жүктеу»</strong> түймелері бар. Бір бөлмеде тілектер файлын сақтап, екінші бөлмеге жүктеңіз — фотолар, бағалар, сілтемелер мен өлшемдер бірге көшеді.',
+        tut_3_desc: 'Профиль карточкасында <strong>«Жүктеп алу»</strong> және <strong>«Жүктеу»</strong> түймелері бар. Керекті тілектерді таңдап, бір бөлмеде файлға сақтап, екінші бөлмеге жүктеңіз — фотолар, бағалар, сілтемелер мен өлшемдер бірге көшеді.',
         tut_4_title: '4. Құпия Санта',
         tut_4_desc: 'Жоғарғы сол жақтағы бүйірлік мәзірді ашып, төмендегі <strong>«Құпия Санта»</strong> бөлімін басыңыз. Жүйе бөлме қатысушылары арасынан сыйлық алушыны кездейсоқ таңдап, оның тізімін көрсетеді.',
         got_it_btn: 'Бәрі түсінікті',
@@ -3297,6 +3451,7 @@
         prio_idea: 'Қуанамын',
         prio_small: 'Ұсақ-түйек',
         wish_price_label: 'Бағасы',
+        tenge_tag_title: 'Теңге белгісін қосу (₸)',
         wish_link_label: 'Тауар сілтемесі',
         save_wish_btn: 'Тізіміме сақтау',
         confirm_delete_wish: 'Тілекті өшіру керек пе?',
@@ -3367,6 +3522,15 @@
         confirm_kick_member: '{name} (@{username}) қолданушысын бөлмеден шығару керек пе? Оның тілектер тізімі мұрағатта сақталады.',
         confirm_delete_archive: 'Бұл мұрағатталған тізімді біржола өшіру керек пе?',
         export_empty_alert: 'Бұл бөлмеде жүктеп алуға болатын тілектеріңіз әлі жоқ.',
+        export_modal_title: 'Жүктеп алуға тілектерді таңдау',
+        export_modal_desc: 'Басқа бөлмеге көшіру үшін файлға сақтағыңыз келетін тілектерді белгілеңіз.',
+        export_select_all: 'Бәрін таңдау',
+        export_select_active: 'Тек өзектілері',
+        export_select_none: 'Таңдауды алу',
+        export_download_count: 'Таңдалғандарын жүктеу ({count})',
+        export_pick_at_least_one: 'Жүктеп алу үшін кемінде бір тілекті таңдаңыз.',
+        export_status_fulfilled: 'Сыйланды',
+        export_status_active: 'Өзекті',
         import_bad_format: 'Файл пішімі дұрыс емес. Осы сервистен жүктелген (.json) тілектер файлын таңдаңыз.',
         import_empty_file: 'Таңдалған файлда тілектер жоқ.',
         import_success_alert: 'Тілектер сәтті жүктелді: {count}!',
@@ -3412,7 +3576,7 @@
         room_empty_desc: 'Бөлмеге қосылу және тілектер қосу үшін аккаунтқа кіріңіз',
         login_or_register_btn: 'Кіру немесе аккаунт құру',
         download_wishlist_btn: 'Тізімді жүктеп алу',
-        download_wishlist_title: 'Басқа бөлмеге көшіру үшін тілектерді файлмен жүктеп алу',
+        download_wishlist_title: 'Басқа бөлмеге көшіру үшін тілектерді таңдап, файлмен жүктеп алу',
         upload_wishlist_btn: 'Жүктеу',
         upload_wishlist_title: 'Файлдан тілектерді жүктеу',
         no_wishes_yet: '{name} қолданушысында әлі тілектер жоқ',
@@ -3459,7 +3623,7 @@
         ? dict[key]
         : (Object.prototype.hasOwnProperty.call(fallback, key) ? fallback[key] : key);
       Object.entries(params).forEach(([k, v]) => {
-        str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
+        str = str.replace(new RegExp(`\{${k}\}`, 'g'), String(v));
       });
       return str;
     }
@@ -3625,7 +3789,18 @@
         });
       }
 
-      // Tutorial modal
+      const expTitle = document.getElementById('exportModalTitle');
+      if (expTitle) expTitle.textContent = t('export_modal_title');
+      const expDesc = document.getElementById('exportModalDesc');
+      if (expDesc) expDesc.textContent = t('export_modal_desc');
+      const expAllBtn = document.getElementById('exportSelectAllBtn');
+      if (expAllBtn) expAllBtn.textContent = t('export_select_all');
+      const expActBtn = document.getElementById('exportSelectActiveBtn');
+      if (expActBtn) expActBtn.textContent = t('export_select_active');
+      const expNoneBtn = document.getElementById('exportSelectNoneBtn');
+      if (expNoneBtn) expNoneBtn.textContent = t('export_select_none');
+      updateExportSubmitCount();
+
       const tutModalTitle = document.querySelector('#tutorialModal .modal-title span');
       if (tutModalTitle) tutModalTitle.textContent = t('tutorial_modal_title');
       const tutCards = document.querySelectorAll('#tutorialModal .tutorial-card');
@@ -3648,11 +3823,9 @@
       const tutGotItBtn = document.querySelector('#tutorialModal .primary-btn');
       if (tutGotItBtn) tutGotItBtn.textContent = t('got_it_btn');
 
-      // Santa modal title
       const santaModalTitle = document.querySelector('#secretSantaModal .modal-title span');
       if (santaModalTitle) santaModalTitle.textContent = t('santa_title');
 
-      // Room modal
       const roomModalTitle = document.querySelector('#roomModal .modal-title');
       if (roomModalTitle) roomModalTitle.textContent = t('room_modal_title');
       const roomModalDesc = document.querySelector('#roomModal .info-text');
@@ -3667,7 +3840,6 @@
       const openRoomBtn = document.querySelector('#roomModal .primary-btn');
       if (openRoomBtn) openRoomBtn.textContent = t('open_room_btn');
 
-      // Auth modal
       const authDesc = document.querySelector('#authModal .info-text');
       if (authDesc) authDesc.textContent = t('auth_modal_desc');
       const tabLoginBtn = document.getElementById('tabLoginBtn');
@@ -3695,7 +3867,6 @@
         authSubmitBtn.textContent = authMode === 'register' ? t('register_btn') : t('login_btn');
       }
 
-      // Profile settings modal
       const profTitle = document.querySelector('#profileSettingsModal .modal-title');
       if (profTitle) profTitle.textContent = t('profile_settings_title');
       const profGroups = document.querySelectorAll('#profileSettingsModal form .form-group');
@@ -3733,7 +3904,6 @@
         logoutBtn.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg><span>${t('logout_btn')}</span>`;
       }
 
-      // Wish modal
       const wishGroups = document.querySelectorAll('#wishForm .form-group');
       if (wishGroups[0]) {
         wishGroups[0].querySelector('.form-label').textContent = t('wish_photo_label');
@@ -3755,11 +3925,12 @@
         if (pLabels[0]) pLabels[0].textContent = t('wish_priority_label');
         if (pLabels[1]) pLabels[1].textContent = t('wish_price_label');
       }
+      const tengeBtn = document.getElementById('tengeTagBtn');
+      if (tengeBtn) tengeBtn.title = t('tenge_tag_title');
       if (wishGroups[4]) wishGroups[4].querySelector('.form-label').textContent = t('wish_link_label');
       const saveWishBtn = document.getElementById('saveWishBtn');
       if (saveWishBtn) saveWishBtn.textContent = t('save_wish_btn');
 
-      // Room settings modal
       const rsTitle = document.querySelector('#roomSettingsModal .modal-title span');
       if (rsTitle) rsTitle.textContent = t('room_settings_modal_title');
       const rsDesc = document.querySelector('#roomSettingsModal .info-text');
@@ -3783,7 +3954,6 @@
       const saveAppBtn = document.getElementById('saveRoomSettingsBtn');
       if (saveAppBtn && !saveAppBtn.disabled) saveAppBtn.textContent = t('save_appearance_btn');
 
-      // Theme modal
       const thTitle = document.querySelector('#themePickerModal .modal-title span');
       if (thTitle) thTitle.textContent = t('theme_modal_title');
       const thSecLabels = document.querySelectorAll('#themePickerModal .drawer-section-label');
@@ -3809,7 +3979,6 @@
       setCardTexts('optOccasionNeonpurple', 'neon_purple_title', 'neon_purple_sub');
       setCardTexts('optOccasionFuturisticblue', 'futuristic_blue_title', 'futuristic_blue_sub');
 
-      // Admin modal
       const admTitle = document.querySelector('#adminModal .modal-title span');
       if (admTitle) admTitle.textContent = t('admin_modal_title');
       const admTabM = document.getElementById('adminTabMembers');
@@ -3839,6 +4008,9 @@
       }
       if (document.getElementById('adminModal') && document.getElementById('adminModal').classList.contains('open')) {
         renderAdminModal();
+      }
+      if (document.getElementById('exportSelectModal') && document.getElementById('exportSelectModal').classList.contains('open')) {
+        renderExportWishesList();
       }
       if (document.getElementById('roomModal') && document.getElementById('roomModal').classList.contains('open')) {
         previewGeneratedLink();
@@ -3890,7 +4062,6 @@
         openModal('authModal');
       }
 
-      // Автопоказ туториала при первом входе
       if (!localStorage.getItem('wl_tutorial_seen')) {
         localStorage.setItem('wl_tutorial_seen', '1');
         if (state.currentUser) {
@@ -3902,8 +4073,6 @@
       syncInterval = setInterval(pullFromCloud, 5000);
     }
 
-    
-    
     // ==========================================
     // ROOM COVER & DESCRIPTION SETTINGS (Creator Only)
     // ==========================================
@@ -4082,31 +4251,29 @@
                       <div style="font-size:14px; font-weight:700; display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
                         <span>${escapeHtml(m.displayName)}</span>
                         ${isCreator ? `<span class="admin-badge">${t('admin_badge_creator')}</span>` : ''}
+                        ${m.id === state.currentUser.id ? `<span class="owner-badge">${t('you_label')}</span>` : ''}
                       </div>
                       <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(m.username)} · ${t('wishes_count_short', { count: wishCount })}</div>
                     </div>
                   </div>
-                  <div class="admin-member-actions">
-                    ${isCreator ? `<span style="font-size:12px; color:var(--text-tertiary); font-weight:600;">${t('you_label')}</span>` : `
-                      <button type="button" class="btn-kick" onclick="adminRemoveMember('${m.id}', false)" title="${t('kick_title')}">
-                        ${t('kick_btn')}
+                  ${isCreator ? '' : `
+                    <div class="admin-member-actions">
+                      <button type="button" class="btn-kick" onclick="moderateMember('${m.id}', 'kick')" title="${t('kick_title')}">
+                        <span>${t('kick_btn')}</span>
                       </button>
-                      <button type="button" class="btn-ban" onclick="adminRemoveMember('${m.id}', true)" title="${t('ban_title')}">
-                        ${t('ban_btn')}
+                      <button type="button" class="btn-ban" onclick="moderateMember('${m.id}', 'ban')" title="${t('ban_title')}">
+                        <span>${t('ban_btn')}</span>
                       </button>
-                    `}
-                  </div>
+                    </div>
+                  `}
                 </div>
               `;
             }).join('')}
           </div>
         `;
-        return;
-      }
-
-      if (currentAdminTab === 'bans') {
-        const bans = Object.values(state.bannedUsers || {});
-        if (bans.length === 0) {
+      } else if (currentAdminTab === 'bans') {
+        const banEntries = Object.values(state.bannedUsers || {});
+        if (banEntries.length === 0) {
           body.innerHTML = `
             <div class="empty-box">
               <div style="font-weight:700; color:var(--text);">${t('ban_list_empty_title')}</div>
@@ -4118,28 +4285,27 @@
 
         body.innerHTML = `
           <p class="info-text">${t('ban_list_intro')}</p>
-          ${bans.map(b => `
-            <div class="admin-member-card">
-              <div class="admin-member-left">
-                <div class="admin-member-avatar" style="color:#FF3B30; background:rgba(255,59,48,0.1);">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          <div>
+            ${banEntries.map(b => `
+              <div class="admin-member-card">
+                <div class="admin-member-left">
+                  <div class="admin-member-avatar" style="color:#FF3B30;">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:14px; font-weight:700;">${escapeHtml(b.displayName || b.username)}</div>
+                    <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(b.username)} · ${b.bannedAt ? new Date(b.bannedAt).toLocaleDateString() : ''}</div>
+                  </div>
                 </div>
-                <div>
-                  <div style="font-size:14px; font-weight:700;">${escapeHtml(b.displayName || b.username)}</div>
-                  <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(b.username)}</div>
-                </div>
+                <button type="button" class="action-pill" onclick="unbanMember('${b.id}', '${escapeHtml(b.username)}')">
+                  <span>${t('unban_btn')}</span>
+                </button>
               </div>
-              <button type="button" class="action-pill" onclick="adminUnbanUser('${escapeHtml(b.id)}', '${escapeHtml(b.username)}')">
-                ${t('unban_btn')}
-              </button>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         `;
-        return;
-      }
-
-      if (currentAdminTab === 'archive') {
-        const archives = (state.archivedWishes || []).slice().sort((a, b) => (b.archivedAt || 0) - (a.archivedAt || 0));
+      } else if (currentAdminTab === 'archive') {
+        const archives = [...(state.archivedWishes || [])].sort((a, b) => (b.archivedAt || 0) - (a.archivedAt || 0));
         if (archives.length === 0) {
           body.innerHTML = `
             <div class="empty-box">
@@ -4152,55 +4318,55 @@
 
         body.innerHTML = `
           <p class="info-text">${t('archive_intro')}</p>
-          ${archives.map(arc => {
-            const wishesArr = Array.isArray(arc.wishes) ? arc.wishes : [];
-            const localeMap = { ru: 'ru-RU', en: 'en-US', kk: 'kk-KZ' };
-            const dateStr = arc.archivedAt ? new Date(arc.archivedAt).toLocaleDateString(localeMap[currentLang] || 'ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
-            const isBan = arc.reason === 'ban';
-            return `
-              <div class="archive-card">
-                <div class="archive-header">
-                  <div>
-                    <div style="font-size:15px; font-weight:800;">${escapeHtml(arc.displayName)} <span style="font-size:12px; font-weight:600; color:var(--text-tertiary);">@${escapeHtml(arc.username)}</span></div>
-                    <div style="font-size:12px; color:var(--text-secondary);">${t('archived_meta', { date: dateStr, count: wishesArr.length })}</div>
+          <div>
+            ${archives.map(item => {
+              const dateStr = item.archivedAt ? new Date(item.archivedAt).toLocaleString() : '';
+              const wishes = Array.isArray(item.wishes) ? item.wishes : [];
+              const isBan = item.reason === 'ban';
+              return `
+                <div class="archive-card" id="archiveCard_${item.id}">
+                  <div class="archive-header">
+                    <div>
+                      <div style="font-size:15px; font-weight:800;">${escapeHtml(item.displayName || item.username)} <span style="font-size:12px; font-weight:600; color:var(--text-tertiary);">@${escapeHtml(item.username)}</span></div>
+                      <div style="font-size:11px; color:var(--text-tertiary);">${t('archived_meta', { date: dateStr, count: wishes.length })}</div>
+                    </div>
+                    <span class="archive-reason-tag ${isBan ? 'archive-reason-ban' : 'archive-reason-kick'}">
+                      ${isBan ? t('status_banned') : t('status_kicked')}
+                    </span>
                   </div>
-                  <span class="archive-reason-tag ${isBan ? 'archive-reason-ban' : 'archive-reason-kick'}">
-                    ${isBan ? t('status_banned') : t('status_kicked')}
-                  </span>
-                </div>
 
-                ${wishesArr.length > 0 ? `
-                  <div style="display:flex; flex-direction:column; gap:6px;">
-                    ${wishesArr.map(w => `
-                      <div class="santa-mini-wish">
-                        ${w.photo ? `<img src="${w.photo}" alt="" />` : ''}
-                        <div style="flex:1; min-width:0;">
-                          <div style="font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(w.title)}</div>
-                          <div style="font-size:11px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : t('no_price')}${w.caption ? ' · ' + escapeHtml(w.caption) : ''}</div>
+                  ${wishes.length > 0 ? `
+                    <div style="display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto;">
+                      ${wishes.map(w => `
+                        <div class="santa-mini-wish">
+                          ${w.photo ? `<img src="${w.photo}" alt="" />` : ''}
+                          <div style="min-width:0; flex:1;">
+                            <div style="font-size:13px; font-weight:700;">${escapeHtml(w.title)}</div>
+                            <div style="font-size:11px; color:var(--text-secondary);">${escapeHtml(w.price || t('no_price'))} · ${getPriorityMeta(normalizePriority(w.priority)).label}</div>
+                            ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener" style="font-size:11px; color:var(--blue);">${t('link_btn')}</a>` : ''}
+                          </div>
                         </div>
-                        ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="action-pill" style="text-decoration:none; height:28px; font-size:11px;">${t('link_btn')}</a>` : ''}
-                      </div>
-                    `).join('')}
-                  </div>
-                ` : `<div style="font-size:12px; color:var(--text-tertiary);">${t('archive_no_wishes')}</div>`}
+                      `).join('')}
+                    </div>
+                  ` : `<div style="font-size:12px; color:var(--text-tertiary);">${t('archive_no_wishes')}</div>`}
 
-                <div style="display:flex; gap:8px; justify-content:flex-end; padding-top:6px; border-top:1px solid var(--border);">
-                  <button type="button" class="action-pill" onclick="downloadArchivedWishlist('${arc.id}')">
-                    <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    <span>${t('download_json_btn')}</span>
-                  </button>
-                  <button type="button" class="action-pill del" onclick="deleteArchivedWishlist('${arc.id}')">
-                    ${t('delete_from_archive_btn')}
-                  </button>
+                  <div style="display:flex; gap:8px; padding-top:6px; border-top:1px solid var(--border);">
+                    <button type="button" class="action-pill" onclick="downloadArchivedWishlist('${item.id}')">
+                      <span>${t('download_json_btn')}</span>
+                    </button>
+                    <button type="button" class="action-pill del" onclick="deleteArchivedItem('${item.id}')">
+                      <span>${t('delete_from_archive_btn')}</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            `;
-          }).join('')}
+              `;
+            }).join('')}
+          </div>
         `;
       }
     }
 
-    async function adminRemoveMember(memberId, shouldBan) {
+    async function moderateMember(memberId, actionType) {
       if (!isRoomAdmin()) return;
       const member = state.roomMembers.find(m => m.id === memberId);
       if (!member) return;
@@ -4209,25 +4375,25 @@
         return;
       }
 
-      const confirmText = shouldBan
+      const isBan = actionType === 'ban';
+      const confirmMsg = isBan
         ? t('confirm_ban_member', { name: member.displayName, username: member.username })
         : t('confirm_kick_member', { name: member.displayName, username: member.username });
 
-      if (!confirm(confirmText)) return;
+      if (!confirm(confirmMsg)) return;
 
       setSyncStatus(t('sync_updating_perms'), 'online');
 
-      // 1. Собираем все желания пользователя в этой комнате и отправляем в архив
       const userWishes = state.wishes.filter(w => w.ownerId === member.id);
-      const archiveId = 'arc_' + Date.now() + '_' + member.id;
-      const archiveEntry = {
+      const remainingWishes = state.wishes.filter(w => w.ownerId !== member.id);
+
+      const archiveId = 'arch_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      const archiveRecord = {
         id: archiveId,
         userId: member.id,
         username: member.username,
         displayName: member.displayName,
-        icon: member.icon || 'sparkles',
-        avatar: member.avatar || '',
-        reason: shouldBan ? 'ban' : 'kick',
+        reason: isBan ? 'ban' : 'kick',
         archivedAt: Date.now(),
         wishes: userWishes
       };
@@ -4235,23 +4401,27 @@
       await fetch(`${dbBase()}/rooms/${currentRoom}/archive/${archiveId}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(archiveEntry)
+        body: JSON.stringify(archiveRecord)
       });
 
-      // 2. Удаляем активные желания пользователя из основного списка комнаты (они уже в архиве)
-      await Promise.all(userWishes.map(w =>
-        fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${w.id}.json`, { method: 'DELETE' })
-      ));
-
-      // 3. Удаляем пользователя из участников комнаты и из его списка комнат
-      await fetch(`${dbBase()}/rooms/${currentRoom}/members/${member.id}.json`, { method: 'DELETE' });
-      if (member.username) {
-        await fetch(`${dbBase()}/users/${member.username}/rooms/${currentRoom}.json`, { method: 'DELETE' });
+      for (const w of userWishes) {
+        await fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${w.id}.json`, {
+          method: 'DELETE'
+        });
       }
 
-      // 4. Если выбрана блокировка — добавляем в чёрный список комнаты
-      if (shouldBan) {
-        const banObj = {
+      await fetch(`${dbBase()}/rooms/${currentRoom}/members/${member.id}.json`, {
+        method: 'DELETE'
+      });
+
+      if (member.username) {
+        await fetch(`${dbBase()}/users/${member.username}/rooms/${currentRoom}.json`, {
+          method: 'DELETE'
+        });
+      }
+
+      if (isBan) {
+        const banRecord = {
           id: member.id,
           username: member.username,
           displayName: member.displayName,
@@ -4260,201 +4430,290 @@
         await fetch(`${dbBase()}/rooms/${currentRoom}/bans/${member.id}.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(banObj)
+          body: JSON.stringify(banRecord)
         });
+        state.bannedUsers[member.id] = banRecord;
       }
 
+      state.roomMembers = state.roomMembers.filter(m => m.id !== member.id);
+      state.wishes = remainingWishes;
+      state.archivedWishes.push(archiveRecord);
       if (state.activeTab === member.id) {
         state.activeTab = 'all';
       }
 
-      await pullFromCloud();
+      saveLocal();
+      updateAdminUI();
+      renderTabs();
+      renderColumns();
+      renderAdminModal();
+      setSyncStatus(`${state.roomTitle}`, 'online');
     }
 
-    async function adminUnbanUser(userId, username) {
+    async function unbanMember(memberId, username) {
       if (!isRoomAdmin()) return;
-      await fetch(`${dbBase()}/rooms/${currentRoom}/bans/${userId}.json`, { method: 'DELETE' });
+      setSyncStatus(t('sync_updating_perms'), 'online');
+      await fetch(`${dbBase()}/rooms/${currentRoom}/bans/${memberId}.json`, {
+        method: 'DELETE'
+      });
       if (username) {
-        await fetch(`${dbBase()}/rooms/${currentRoom}/bans/${username}.json`, { method: 'DELETE' });
+        await fetch(`${dbBase()}/rooms/${currentRoom}/bans/${username}.json`, {
+          method: 'DELETE'
+        });
       }
-      await pullFromCloud();
+      delete state.bannedUsers[memberId];
+      if (username) delete state.bannedUsers[username];
+      saveLocal();
+      updateAdminUI();
+      renderAdminModal();
+      setSyncStatus(`${state.roomTitle}`, 'online');
     }
 
     function downloadArchivedWishlist(archiveId) {
-      const arc = state.archivedWishes.find(a => a.id === archiveId);
-      if (!arc) return;
-      const exportPayload = {
-        format: 'wishlist-backup-v1',
+      const item = (state.archivedWishes || []).find(a => a.id === archiveId);
+      if (!item) return;
+      const payload = {
+        app: 'Wishlist',
+        version: 1,
         exportedAt: new Date().toISOString(),
-        sourceRoom: state.roomTitle || currentRoom,
-        profileMeta: { displayName: arc.displayName },
-        wishes: (arc.wishes || []).map(w => ({
-          title: w.title || '',
-          caption: w.caption || '',
-          priority: normalizePriority(w.priority),
-          price: w.price || '',
-          link: w.link || '',
-          photo: w.photo || '',
-          fulfilled: Boolean(w.fulfilled)
-        }))
+        archivedUser: {
+          username: item.username,
+          displayName: item.displayName,
+          reason: item.reason,
+          archivedAt: item.archivedAt
+        },
+        wishes: item.wishes || []
       };
-      const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `archive_${arc.username || 'user'}_${currentRoom}.json`;
+      a.download = `archive-${item.username || 'user'}-${currentRoom}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
 
-    async function deleteArchivedWishlist(archiveId) {
+    async function deleteArchivedItem(archiveId) {
       if (!isRoomAdmin()) return;
       if (!confirm(t('confirm_delete_archive'))) return;
-      await fetch(`${dbBase()}/rooms/${currentRoom}/archive/${archiveId}.json`, { method: 'DELETE' });
-      await pullFromCloud();
+      await fetch(`${dbBase()}/rooms/${currentRoom}/archive/${archiveId}.json`, {
+        method: 'DELETE'
+      });
+      state.archivedWishes = (state.archivedWishes || []).filter(a => a.id !== archiveId);
+      saveLocal();
+      updateAdminUI();
+      renderAdminModal();
     }
 
     // ==========================================
-    // EXPORT & IMPORT WISHLIST (Перенос вишлиста)
+    // SELECTIVE EXPORT & IMPORT WISHLIST BETWEEN ROOMS
     // ==========================================
-    function exportMyWishlist() {
-      const user = state.currentUser;
-      if (!user) return;
+    function getMyCurrentWishes() {
+      if (!state.currentUser) return [];
+      return state.wishes.filter(w => w.ownerId === state.currentUser.id);
+    }
 
-      const myWishes = state.wishes.filter(w => w.ownerId === user.id);
+    function exportMyWishlist() {
+      if (!state.currentUser) return;
+      const myWishes = getMyCurrentWishes();
       if (myWishes.length === 0) {
         alert(t('export_empty_alert'));
         return;
       }
+      selectedExportIds = new Set(myWishes.map(w => w.id));
+      renderExportWishesList();
+      openModal('exportSelectModal');
+    }
 
-      const exportPayload = {
-        format: 'wishlist-backup-v1',
+    function setExportSelectionMode(mode) {
+      const myWishes = getMyCurrentWishes();
+      if (mode === 'all') {
+        selectedExportIds = new Set(myWishes.map(w => w.id));
+      } else if (mode === 'active') {
+        selectedExportIds = new Set(myWishes.filter(w => !w.fulfilled).map(w => w.id));
+      } else if (mode === 'none') {
+        selectedExportIds = new Set();
+      }
+      renderExportWishesList();
+    }
+
+    function toggleExportWishSelection(wishId) {
+      if (selectedExportIds.has(wishId)) {
+        selectedExportIds.delete(wishId);
+      } else {
+        selectedExportIds.add(wishId);
+      }
+      renderExportWishesList();
+    }
+
+    function updateExportSubmitCount() {
+      const btn = document.getElementById('confirmExportBtn');
+      if (btn) {
+        btn.textContent = t('export_download_count', { count: selectedExportIds.size });
+      }
+    }
+
+    function renderExportWishesList() {
+      const listEl = document.getElementById('exportWishesList');
+      if (!listEl) return;
+      const myWishes = getMyCurrentWishes();
+
+      listEl.innerHTML = myWishes.map(w => {
+        const checked = selectedExportIds.has(w.id);
+        const prio = getPriorityMeta(normalizePriority(w.priority));
+        return `
+          <div class="export-item-card ${checked ? 'selected' : ''}" onclick="toggleExportWishSelection('${w.id}')">
+            <input type="checkbox" class="export-checkbox" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleExportWishSelection('${w.id}')" />
+            ${w.photo ? `<img src="${w.photo}" class="export-thumb" alt="" />` : ''}
+            <div style="min-width:0; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(w.title)}</div>
+              <div style="font-size:11px; color:var(--text-secondary); display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
+                <span>${prio.label}</span>
+                ${w.price ? `<span>· ${escapeHtml(w.price)}</span>` : ''}
+                <span>· ${w.fulfilled ? t('export_status_fulfilled') : t('export_status_active')}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateExportSubmitCount();
+    }
+
+    function confirmSelectedExport() {
+      if (!state.currentUser) return;
+      const myWishes = getMyCurrentWishes().filter(w => selectedExportIds.has(w.id));
+      if (myWishes.length === 0) {
+        alert(t('export_pick_at_least_one'));
+        return;
+      }
+
+      const u = state.currentUser;
+      const payload = {
+        app: 'Wishlist',
+        version: 1,
         exportedAt: new Date().toISOString(),
-        sourceRoom: state.roomTitle || currentRoom,
-        profileMeta: {
-          displayName: user.displayName,
-          bio: user.bio || '',
-          clothesSize: user.clothesSize || '',
-          shoeSize: user.shoeSize || '',
-          ringSize: user.ringSize || ''
+        sourceRoom: currentRoom,
+        profile: {
+          displayName: u.displayName || '',
+          bio: u.bio || '',
+          clothesSize: u.clothesSize || '',
+          shoeSize: u.shoeSize || '',
+          ringSize: u.ringSize || '',
+          icon: u.icon || 'sparkles',
+          avatar: u.avatar || '',
+          accentColor: u.accentColor || '#FF2D55'
         },
         wishes: myWishes.map(w => ({
-          title: w.title || '',
+          title: w.title,
           caption: w.caption || '',
           priority: normalizePriority(w.priority),
           price: w.price || '',
           link: w.link || '',
           photo: w.photo || '',
-          fulfilled: Boolean(w.fulfilled)
+          fulfilled: Boolean(w.fulfilled),
+          createdAt: w.createdAt || Date.now()
         }))
       };
 
-      const jsonStr = JSON.stringify(exportPayload, null, 2);
-      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      const safeName = (user.username || 'wishlist').replace(/[^a-z0-9_-]/gi, '_');
-      const safeRoom = (currentRoom || 'room').replace(/[^a-z0-9_-]/gi, '_');
       a.href = url;
-      a.download = `wishlist_${safeName}_${safeRoom}.json`;
+      a.download = `wishlist-${u.username || 'user'}-${currentRoom}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+
+      closeModal('exportSelectModal');
     }
 
     function triggerImportWishlist() {
-      if (!state.currentUser) {
-        switchAuthMode('login');
-        openModal('authModal');
-        return;
-      }
+      if (!state.currentUser) return;
       const input = document.getElementById('importWishlistFileInput');
-      input.value = '';
-      input.click();
+      if (input) {
+        input.value = '';
+        input.click();
+      }
     }
 
-    function handleImportWishlistFile(event) {
-      const file = event.target.files[0];
+    async function handleImportWishlistFile(event) {
+      const file = event.target.files && event.target.files[0];
       if (!file || !state.currentUser) return;
 
-      const reader = new FileReader();
-      reader.onload = async function(e) {
-        try {
-          const parsed = JSON.parse(e.target.result);
-          if (!parsed || !Array.isArray(parsed.wishes)) {
-            alert(t('import_bad_format'));
-            return;
-          }
-
-          if (parsed.wishes.length === 0) {
-            alert(t('import_empty_file'));
-            return;
-          }
-
-          const user = state.currentUser;
-          let importedCount = 0;
-
-          // Если у пользователя в текущем профиле пустые размеры/био, а в файле они есть — аккуратно дополняем
-          if (parsed.profileMeta) {
-            let profileUpdated = false;
-            if (!user.bio && parsed.profileMeta.bio) { user.bio = parsed.profileMeta.bio; profileUpdated = true; }
-            if (!user.clothesSize && parsed.profileMeta.clothesSize) { user.clothesSize = parsed.profileMeta.clothesSize; profileUpdated = true; }
-            if (!user.shoeSize && parsed.profileMeta.shoeSize) { user.shoeSize = parsed.profileMeta.shoeSize; profileUpdated = true; }
-            if (!user.ringSize && parsed.profileMeta.ringSize) { user.ringSize = parsed.profileMeta.ringSize; profileUpdated = true; }
-            if (profileUpdated) {
-              await joinCurrentRoomAsUser(user);
-            }
-          }
-
-          setSyncStatus(t('sync_importing'), 'online');
-
-          const newWishesToUpload = [];
-          parsed.wishes.forEach((item, idx) => {
-            if (!item.title) return;
-            const newWish = {
-              id: 'w_' + (Date.now() + idx) + '_' + Math.random().toString(36).slice(2, 6),
-              ownerId: user.id,
-              title: String(item.title),
-              caption: item.caption ? String(item.caption) : '',
-              priority: normalizePriority(item.priority),
-              price: item.price ? String(item.price) : '',
-              link: item.link ? String(item.link) : '',
-              photo: item.photo ? String(item.photo) : '',
-              fulfilled: false,
-              createdAt: Date.now() + idx
-            };
-            state.wishes.unshift(newWish);
-            newWishesToUpload.push(newWish);
-            importedCount++;
-          });
-
-          saveLocal();
-          renderTabs();
-          renderColumns();
-
-          await Promise.all(newWishesToUpload.map(w =>
-            fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${w.id}.json`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(w)
-            })
-          ));
-
-          setSyncStatus(`${state.roomTitle}`, 'online');
-          alert(t('import_success_alert', { count: importedCount }));
-        } catch (err) {
-          console.error(err);
-          alert(t('import_read_error'));
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (!data || !Array.isArray(data.wishes)) {
+          alert(t('import_bad_format'));
+          return;
         }
-      };
-      reader.readAsText(file);
+        if (data.wishes.length === 0) {
+          alert(t('import_empty_file'));
+          return;
+        }
+
+        setSyncStatus(t('sync_importing'), 'online');
+
+        if (data.profile && typeof data.profile === 'object') {
+          const profPatch = {};
+          if (data.profile.bio && !state.currentUser.bio) profPatch.bio = data.profile.bio;
+          if (data.profile.clothesSize && !state.currentUser.clothesSize) profPatch.clothesSize = data.profile.clothesSize;
+          if (data.profile.shoeSize && !state.currentUser.shoeSize) profPatch.shoeSize = data.profile.shoeSize;
+          if (data.profile.ringSize && !state.currentUser.ringSize) profPatch.ringSize = data.profile.ringSize;
+          if (Object.keys(profPatch).length > 0) {
+            state.currentUser = { ...state.currentUser, ...profPatch };
+            await fetch(`${dbBase()}/users/${state.currentUser.username}.json`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(profPatch)
+            });
+            await fetch(`${dbBase()}/rooms/${currentRoom}/members/${state.currentUser.id}.json`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(profPatch)
+            });
+          }
+        }
+
+        let importedCount = 0;
+        for (let i = 0; i < data.wishes.length; i++) {
+          const item = data.wishes[i];
+          if (!item || !item.title) continue;
+          const newWish = {
+            id: 'wish_' + Date.now() + '_' + i + '_' + Math.random().toString(36).slice(2, 6),
+            ownerId: state.currentUser.id,
+            title: String(item.title).trim(),
+            caption: item.caption ? String(item.caption).trim() : '',
+            priority: normalizePriority(item.priority),
+            price: item.price ? String(item.price).trim() : '',
+            link: item.link ? String(item.link).trim() : '',
+            photo: item.photo ? String(item.photo) : '',
+            fulfilled: Boolean(item.fulfilled),
+            createdAt: Date.now() + i
+          };
+          state.wishes.unshift(newWish);
+          await saveWishToCloud(newWish);
+          importedCount++;
+        }
+
+        saveLocal();
+        renderTabs();
+        renderColumns();
+        setSyncStatus(`${state.roomTitle}`, 'online');
+        alert(t('import_success_alert', { count: importedCount }));
+      } catch (err) {
+        console.error('Import error:', err);
+        alert(t('import_read_error'));
+        setSyncStatus(`${state.roomTitle}`, 'online');
+      }
     }
 
     // ==========================================
-    // SECRET SANTA (Тайный Санта)
+    // SECRET SANTA (Тайный Санта внутри комнаты)
     // ==========================================
     function openSecretSantaModal() {
       renderSecretSantaModal();
@@ -4463,203 +4722,216 @@
 
     function renderSecretSantaModal() {
       const container = document.getElementById('secretSantaBody');
-      const user = state.currentUser;
+      if (!container) return;
 
+      const user = state.currentUser;
       if (!user) {
         container.innerHTML = `
           <div class="santa-hero">
-            <div style="font-weight:700; font-size:15px;">${t('santa_login_title')}</div>
-            <p class="info-text" style="margin:0;">${t('santa_login_desc')}</p>
-            <button class="primary-btn" onclick="closeModal('secretSantaModal'); openModal('authModal');">${t('login_btn')}</button>
+            <div style="font-size:16px; font-weight:800;">${t('santa_login_title')}</div>
+            <p class="info-text" style="margin-bottom:4px;">${t('santa_login_desc')}</p>
+            <button type="button" class="primary-btn" onclick="closeModal('secretSantaModal'); openAuthModal('login');">${t('login_btn')}</button>
           </div>
         `;
         return;
       }
 
-      const assignments = (state.secretSanta && state.secretSanta.assignments) ? state.secretSanta.assignments : {};
-      const myEntry = assignments[user.id];
-      const totalParticipants = Object.keys(assignments).length;
+      const assignments = (state.secretSanta && state.secretSanta.assignments) || {};
+      const myAssignment = assignments[user.id];
 
-      if (!myEntry) {
-        const otherMembers = state.roomMembers.filter(m => m.id !== user.id);
-        const canDraw = otherMembers.length >= 1;
+      if (!myAssignment) {
+        const eligibleCount = state.roomMembers.filter(m => m.id !== user.id).length;
+        const pickedCount = Object.keys(assignments).length;
 
         container.innerHTML = `
           <div class="santa-hero">
-            <div style="width:48px; height:48px; border-radius:14px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+            <div style="width:52px; height:52px; border-radius:16px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
               <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
             </div>
             <div style="font-size:17px; font-weight:800;">${t('santa_draw_title', { room: escapeHtml(state.roomTitle) })}</div>
-            <p class="info-text" style="margin:0;">
+            <p class="info-text" style="margin-bottom:2px;">
               ${t('santa_draw_desc')}
             </p>
             <div style="font-size:12px; color:var(--text-tertiary); font-weight:600;">
-              ${t('santa_stats', { members: state.roomMembers.length, picked: totalParticipants })}
+              ${t('santa_stats', { members: state.roomMembers.length, picked: pickedCount })}
             </div>
-            ${canDraw
-              ? `<button type="button" class="primary-btn" id="drawSantaBtn" onclick="drawSecretSanta()">${t('santa_draw_btn')}</button>`
-              : `<div class="error-banner" style="display:block; margin-top:6px; margin-bottom:0;">${t('santa_need_2')}</div>`
-            }
           </div>
+
+          <button type="button" class="primary-btn" id="drawSantaBtn" onclick="drawSecretSantaRecipient()" ${eligibleCount < 1 ? 'disabled' : ''}>
+            <svg class="icon" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275 1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            <span>${t('santa_draw_btn')}</span>
+          </button>
+
+          ${eligibleCount < 1 ? `<p class="info-text" style="margin-top:10px; text-align:center;">${t('santa_need_2')}</p>` : ''}
         `;
         return;
       }
 
-      // Если пользователь уже вытянул получателя
-      const targetUser = state.roomMembers.find(m => m.id === myEntry.targetId);
-      if (!targetUser) {
+      const targetMember = state.roomMembers.find(m => m.id === myAssignment.targetId);
+      if (!targetMember) {
         container.innerHTML = `
           <div class="santa-hero">
-            <div>${t('santa_target_left')}</div>
-            <button type="button" class="secondary-btn" onclick="resetSecretSanta()">${t('santa_reset_btn')}</button>
+            <div style="font-size:15px; font-weight:700;">${t('santa_target_left')}</div>
+            <button type="button" class="secondary-btn" onclick="resetSecretSantaDraw()">${t('santa_reset_btn')}</button>
           </div>
         `;
         return;
       }
 
-      const targetWishes = state.wishes.filter(w => w.ownerId === targetUser.id && !w.fulfilled);
-      const targetAccent = targetUser.accentColor || '#FF2D55';
-      const targetSizes = [
-        targetUser.clothesSize ? t('size_clothes', { val: escapeHtml(targetUser.clothesSize) }) : '',
-        targetUser.shoeSize ? t('size_shoes', { val: escapeHtml(targetUser.shoeSize) }) : '',
-        targetUser.ringSize ? `${escapeHtml(targetUser.ringSize)}` : ''
-      ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
-
-      const wishesPreviewHtml = targetWishes.length === 0
-        ? `<div style="font-size:13px; color:var(--text-secondary); text-align:center; padding:12px;">${t('santa_no_active_wishes', { name: escapeHtml(targetUser.displayName) })}</div>`
-        : targetWishes.map(w => `
-          <div class="santa-mini-wish">
-            ${w.photo ? `<img src="${w.photo}" alt="" />` : `
-              <div style="width:46px; height:46px; border-radius:8px; background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--text-tertiary); flex-shrink:0;">
-                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
-              </div>
-            `}
-            <div style="flex:1; min-width:0;">
-              <div style="font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(w.title)}</div>
-              <div style="font-size:12px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : t('price_not_set')}</div>
-            </div>
-            ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="action-pill" style="text-decoration:none;">${t('link_btn')}</a>` : ''}
-          </div>
-        `).join('');
+      const targetWishes = state.wishes.filter(w => w.ownerId === targetMember.id && !w.fulfilled);
+      const accent = targetMember.accentColor || '#FF2D55';
 
       container.innerHTML = `
         <div class="santa-target-card">
-          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--accent);">${t('santa_for_label')}</div>
           <div style="display:flex; align-items:center; gap:12px;">
-            <div class="avatar-large" style="color:${targetAccent};">${targetUser.avatar ? `<img src="${targetUser.avatar}" />` : getAvatarSvg(targetUser.icon)}</div>
+            <div class="avatar-large" style="border-color:${accent}; color:${accent};">
+              ${targetMember.avatar ? `<img src="${targetMember.avatar}" />` : getAvatarSvg(targetMember.icon)}
+            </div>
             <div>
-              <div style="font-size:19px; font-weight:800;">${escapeHtml(targetUser.displayName)}</div>
-              <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(targetUser.username)}</div>
+              <div style="font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.4px;">${t('santa_for_label')}</div>
+              <div style="font-size:19px; font-weight:800;">${escapeHtml(targetMember.displayName)}</div>
+              <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(targetMember.username)}</div>
             </div>
           </div>
-          ${targetUser.bio ? `<div style="font-size:13px; color:var(--text-secondary);">${escapeHtml(targetUser.bio)}</div>` : ''}
-          ${targetSizes ? `<div class="profile-sizes-row">${targetSizes}</div>` : ''}
+
+          ${targetMember.bio ? `<div style="font-size:13px; color:var(--text-secondary); line-height:1.4;">${escapeHtml(targetMember.bio)}</div>` : ''}
+
+          ${(targetMember.clothesSize || targetMember.shoeSize || targetMember.ringSize) ? `
+            <div class="profile-sizes-row">
+              ${targetMember.clothesSize ? `<span class="size-chip">${t('size_clothes', { val: escapeHtml(targetMember.clothesSize) })}</span>` : ''}
+              ${targetMember.shoeSize ? `<span class="size-chip">${t('size_shoes', { val: escapeHtml(targetMember.shoeSize) })}</span>` : ''}
+              ${targetMember.ringSize ? `<span class="size-chip">${escapeHtml(targetMember.ringSize)}</span>` : ''}
+            </div>
+          ` : ''}
+
+          <div style="border-top:1px solid var(--border); padding-top:10px;">
+            <div style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-bottom:8px;">
+              ${t('santa_active_wishes_count', { count: targetWishes.length })}
+            </div>
+            ${targetWishes.length > 0 ? `
+              <div style="display:flex; flex-direction:column; gap:8px; max-height:240px; overflow-y:auto;">
+                ${targetWishes.map(w => {
+                  const pMeta = getPriorityMeta(normalizePriority(w.priority));
+                  return `
+                    <div class="santa-mini-wish">
+                      ${w.photo ? `<img src="${w.photo}" alt="" onclick="openLightbox('${w.photo}')" style="cursor:pointer;" />` : ''}
+                      <div style="min-width:0; flex:1;">
+                        <div style="font-size:13px; font-weight:700;">${escapeHtml(w.title)}</div>
+                        <div style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
+                          ${w.price ? `<strong>${escapeHtml(w.price)}</strong> · ` : ''}${pMeta.label}
+                        </div>
+                        ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener" style="font-size:11px; font-weight:600; color:var(--blue); display:inline-block; margin-top:3px;">${t('link_btn')} ↗</a>` : ''}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : `
+              <div style="font-size:13px; color:var(--text-tertiary); padding:8px 0;">${t('santa_no_active_wishes', { name: escapeHtml(targetMember.displayName) })}</div>
+            `}
+          </div>
         </div>
 
-        <div style="font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text-secondary);">
-          ${t('santa_active_wishes_count', { count: targetWishes.length })}
-        </div>
-        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
-          ${wishesPreviewHtml}
-        </div>
-
-        <button type="button" class="primary-btn" onclick="openRecipientWishlistTab('${targetUser.id}')">
-          ${t('open_full_wishlist_btn')}
+        <button type="button" class="primary-btn" onclick="focusMemberWishlist('${targetMember.id}')">
+          <span>${t('open_full_wishlist_btn')}</span>
         </button>
 
-        <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="resetSecretSanta()">
-          ${t('reset_santa_room_btn')}
+        <button type="button" class="secondary-btn" onclick="resetSecretSantaDraw()">
+          <span>${t('reset_santa_room_btn')}</span>
         </button>
       `;
     }
 
-    async function drawSecretSanta() {
+    async function drawSecretSantaRecipient() {
       const user = state.currentUser;
       if (!user) return;
 
       const btn = document.getElementById('drawSantaBtn');
       if (btn) {
         btn.disabled = true;
-        btn.textContent = t('santa_shuffling');
+        btn.innerHTML = `<span>${t('santa_shuffling')}</span>`;
       }
 
       try {
-        // Сначала получаем свежие данные комнаты из Firebase, чтобы избежать дублирования получателей
-        const res = await fetch(`${dbBase()}/rooms/${currentRoom}.json?t=${Date.now()}`);
-        const data = (res.ok ? await res.json() : null) || {};
-        const members = objectToArray(data.members);
-        const existingAssignments = (data.secretSanta && data.secretSanta.assignments) ? data.secretSanta.assignments : {};
+        const res = await fetch(`${dbBase()}/rooms/${currentRoom}/secretSanta.json?t=${Date.now()}`);
+        const latestSanta = (res.ok ? await res.json() : null) || {};
+        const assignments = latestSanta.assignments || {};
 
-        if (existingAssignments[user.id]) {
-          state.secretSanta = { assignments: existingAssignments };
+        if (assignments[user.id]) {
+          state.secretSanta = latestSanta;
           saveLocal();
           updateSantaDrawerBadge();
           renderSecretSantaModal();
           return;
         }
 
-        // Собираем список уже занятых получателей
-        const takenTargetIds = new Set(Object.values(existingAssignments).map(a => a.targetId));
-
-        // Доступные кандидаты: участники комнаты, кроме самого себя и тех, кто уже выбран другими
-        let candidates = members.filter(m => m.id !== user.id && !takenTargetIds.has(m.id));
-
-        // Защита от тупиковой ситуации (например, если остался последний человек и это он сам)
+        const alreadyTargetedIds = new Set(Object.values(assignments).map(a => a.targetId));
+        let candidates = state.roomMembers.filter(m => m.id !== user.id && !alreadyTargetedIds.has(m.id));
         if (candidates.length === 0) {
-          candidates = members.filter(m => m.id !== user.id);
+          candidates = state.roomMembers.filter(m => m.id !== user.id);
         }
 
         if (candidates.length === 0) {
           alert(t('santa_not_enough'));
+          renderSecretSantaModal();
           return;
         }
 
         const chosen = candidates[Math.floor(Math.random() * candidates.length)];
-        const assignmentObj = {
+        const entry = {
           giverId: user.id,
           targetId: chosen.id,
-          assignedAt: Date.now()
+          pickedAt: Date.now()
         };
 
         await fetch(`${dbBase()}/rooms/${currentRoom}/secretSanta/assignments/${user.id}.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(assignmentObj)
+          body: JSON.stringify(entry)
         });
 
-        if (!state.secretSanta) state.secretSanta = {};
-        if (!state.secretSanta.assignments) state.secretSanta.assignments = {};
-        state.secretSanta.assignments[user.id] = assignmentObj;
+        state.secretSanta = {
+          ...latestSanta,
+          assignments: {
+            ...assignments,
+            [user.id]: entry
+          }
+        };
 
         saveLocal();
         updateSantaDrawerBadge();
         renderSecretSantaModal();
-      } catch (err) {
-        console.error(err);
+      } catch (e) {
+        console.error('Secret Santa draw error:', e);
         alert(t('santa_draw_error'));
+        renderSecretSantaModal();
       }
     }
 
-    function openRecipientWishlistTab(targetId) {
-      closeModal('secretSantaModal');
-      setTab(targetId);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    async function resetSecretSanta() {
+    async function resetSecretSantaDraw() {
       if (!confirm(t('santa_confirm_reset'))) return;
-      state.secretSanta = {};
-      saveLocal();
-      updateSantaDrawerBadge();
       await fetch(`${dbBase()}/rooms/${currentRoom}/secretSanta.json`, {
         method: 'DELETE'
       });
+      state.secretSanta = {};
+      saveLocal();
+      updateSantaDrawerBadge();
       renderSecretSantaModal();
     }
 
-    // Drawer (Боковое меню комнат)
+    function focusMemberWishlist(memberId) {
+      state.activeTab = memberId;
+      closeModal('secretSantaModal');
+      renderTabs();
+      renderColumns();
+    }
+
+    // ==========================================
+    // DRAWER & USER ROOMS SWITCHER
+    // ==========================================
     function openRoomsDrawer() {
       renderDrawerRooms();
+      updateAdminUI();
       updateSantaDrawerBadge();
       document.getElementById('roomsDrawer').classList.add('open');
     }
@@ -4668,122 +4940,172 @@
       document.getElementById('roomsDrawer').classList.remove('open');
     }
 
-    let drawerRoomOwnersCache = {};
-
-    async function renderDrawerRooms() {
-      const listEl = document.getElementById('drawerRoomsList');
-      const userRoomsObj = (state.currentUser && state.currentUser.rooms) ? state.currentUser.rooms : {};
-      const roomsArr = Object.values(userRoomsObj).filter(r => r && r.slug);
-
-      if (currentRoom && !roomsArr.some(r => r.slug === currentRoom)) {
-        roomsArr.unshift({ slug: currentRoom, title: state.roomTitle || currentRoom });
+    function getUserRoomsList() {
+      const map = new Map();
+      if (state.currentUser && state.currentUser.rooms && typeof state.currentUser.rooms === 'object') {
+        Object.values(state.currentUser.rooms).forEach(r => {
+          if (r && r.slug && r.slug !== 'osnovnaya') {
+            map.set(r.slug, { slug: r.slug, title: r.title || r.slug, avatar: r.avatar || '' });
+          }
+        });
       }
+      if (currentRoom && currentRoom !== 'osnovnaya') {
+        const prev = map.get(currentRoom);
+        map.set(currentRoom, {
+          slug: currentRoom,
+          title: state.roomTitle || (prev && prev.title) || currentRoom,
+          avatar: (state.roomMeta && state.roomMeta.avatar) || (prev && prev.avatar) || ''
+        });
+      }
+      return Array.from(map.values());
+    }
 
-      if (roomsArr.length === 0) {
-        listEl.innerHTML = `<div style="font-size:13px; color:var(--text-secondary); background:var(--card); border:1px dashed var(--border-strong); border-radius:13px; padding:14px; text-align:center;">${t('no_user_rooms_empty')}</div>`;
+    function renderDrawerRooms() {
+      const listEl = document.getElementById('drawerRoomsList');
+      if (!listEl) return;
+      const rooms = getUserRoomsList();
+
+      if (rooms.length === 0) {
+        listEl.innerHTML = `<div style="font-size:13px; color:var(--text-tertiary); padding:10px 4px;">${t('no_user_rooms_empty')}</div>`;
         return;
       }
 
-      const drawList = () => {
-        listEl.innerHTML = roomsArr.map(r => {
-          const isActive = r.slug === currentRoom;
-          const avatarSrc = isActive && state.roomMeta && state.roomMeta.avatar ? state.roomMeta.avatar : (r.avatar || '');
-          const titleToShow = isActive ? (state.roomTitle || r.title || r.slug) : (r.title || r.slug);
-          const knownOwnerId = isActive ? (state.roomMeta && state.roomMeta.ownerId) : (r.ownerId || drawerRoomOwnersCache[r.slug]);
-          const isCreatorOfThisRoom = Boolean(state.currentUser && knownOwnerId && knownOwnerId === state.currentUser.id);
-
-          return `
-            <div class="room-item ${isActive ? 'active' : ''}" onclick="switchToRoom('${escapeHtml(r.slug)}')">
-              <div class="room-item-left">
-                <div class="room-item-icon">
-                  ${avatarSrc ? `<img src="${avatarSrc}" alt="" />` : `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`}
-                </div>
-                <div class="room-item-info">
-                  <div class="room-item-name">${escapeHtml(titleToShow)}</div>
-                  <div class="room-item-slug">#${escapeHtml(r.slug)}${isCreatorOfThisRoom ? t('creator_suffix') : ''}</div>
-                </div>
+      listEl.innerHTML = rooms.map(r => {
+        const isActive = r.slug === currentRoom;
+        const isOwnerOfThisRoom = Boolean(
+          state.currentUser &&
+          ((isActive && state.roomMeta && state.roomMeta.ownerId === state.currentUser.id) ||
+           (r.ownerId && r.ownerId === state.currentUser.id))
+        );
+        const roomAvatar = (isActive && state.roomMeta && state.roomMeta.avatar) || r.avatar || '';
+        return `
+          <div class="room-item ${isActive ? 'active' : ''}" onclick="switchToRoom('${r.slug}', '${escapeHtml(r.title)}')">
+            <div class="room-item-left">
+              <div class="room-item-icon">
+                ${roomAvatar
+                  ? `<img src="${roomAvatar}" alt="" />`
+                  : `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+                }
               </div>
-              <div class="room-item-actions" onclick="event.stopPropagation()">
-                ${isActive && isCreatorOfThisRoom ? `
-                  <button class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="${t('room_settings_short_title')}">
-                    <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
-                  </button>
-                ` : ''}
-                <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="${t('copy_link_short_title')}">
-                  <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                </button>
-                ${isCreatorOfThisRoom ? `
-                  <button class="mini-icon-btn del" onclick="deleteRoomCompletely('${escapeHtml(r.slug)}', '${escapeHtml(titleToShow)}')" title="${t('delete_room_title')}">
-                    <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                  </button>
-                ` : `
-                  <button class="mini-icon-btn del" onclick="leaveRoom('${escapeHtml(r.slug)}')" title="${t('leave_room_title')}">
-                    <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                  </button>
-                `}
+              <div class="room-item-info">
+                <span class="room-item-name">${escapeHtml(r.title)}${isOwnerOfThisRoom ? `<span style="font-size:11px; color:var(--blue); font-weight:700;">${t('creator_suffix')}</span>` : ''}</span>
+                <span class="room-item-slug">#${escapeHtml(r.slug)}</span>
               </div>
             </div>
-          `;
-        }).join('');
-      };
-
-      drawList();
-
-      // Подгружаем ownerId для неактивных комнат, если он ещё не закэширован
-      let updatedCache = false;
-      await Promise.all(roomsArr.map(async r => {
-        if (r.slug === currentRoom || r.ownerId || drawerRoomOwnersCache[r.slug] !== undefined) return;
-        try {
-          const res = await fetch(`${dbBase()}/rooms/${r.slug}/meta/ownerId.json`);
-          if (res.ok) {
-            const oid = await res.json();
-            drawerRoomOwnersCache[r.slug] = oid || '';
-            updatedCache = true;
-          }
-        } catch (e) {}
-      }));
-      if (updatedCache) drawList();
+            <div class="room-item-actions" onclick="event.stopPropagation()">
+              ${isActive && isOwnerOfThisRoom ? `
+                <button type="button" class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="${t('room_settings_short_title')}">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </button>
+              ` : ''}
+              <button type="button" class="mini-icon-btn" onclick="copySpecificRoomLink('${r.slug}', '${escapeHtml(r.title)}')" title="${t('copy_link_short_title')}">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              ${isOwnerOfThisRoom ? `
+                <button type="button" class="mini-icon-btn del" onclick="deleteRoomCompletely('${r.slug}', '${escapeHtml(r.title)}')" title="${t('delete_room_title')}">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                </button>
+              ` : `
+                <button type="button" class="mini-icon-btn del" onclick="removeRoomFromMyList('${r.slug}')" title="${t('leave_room_title')}">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
-    async function deleteRoomCompletely(slug, roomTitle) {
-      if (!state.currentUser) return;
-      const confirmed = confirm(t('confirm_delete_room', { title: roomTitle, slug: slug }));
-      if (!confirmed) return;
+    async function switchToRoom(slug, title) {
+      if (!slug) return;
+      currentRoom = slug;
+      state.roomTitle = title || slug;
+      state.activeTab = 'all';
+      state.roomMeta = {};
+      state.bannedUsers = {};
+      state.archivedWishes = [];
+      state.secretSanta = {};
+      localStorage.setItem('wl_room', slug);
+      localStorage.setItem(`wl_room_title_${slug}`, state.roomTitle);
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('room', slug);
+      window.history.replaceState({}, '', url.toString());
+
+      closeRoomsDrawer();
+      updateRoomHeaderUI();
+      await pullFromCloud();
+
+      if (state.currentUser && !isCurrentUserBanned()) {
+        await joinCurrentRoomAsUser(state.currentUser, title);
+        await pullFromCloud();
+      }
+    }
+
+    function buildRoomShareUrl(slug) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('room', slug);
+      url.hash = '';
+      return url.toString();
+    }
+
+    function quickCopyCurrentRoomLink() {
+      if (!currentRoom) return;
+      const shareUrl = buildRoomShareUrl(currentRoom);
+      navigator.clipboard.writeText(shareUrl).catch(() => {});
+      alert(t('room_link_copied_alert', { room: state.roomTitle || currentRoom }));
+    }
+
+    function copySpecificRoomLink(slug, title) {
+      const shareUrl = buildRoomShareUrl(slug);
+      navigator.clipboard.writeText(shareUrl).catch(() => {});
+      alert(t('room_link_copied_alert', { room: title || slug }));
+    }
+
+    async function deleteRoomCompletely(slug, title) {
+      if (!slug || !state.currentUser) return;
+      const displayTitle = title || slug;
+      if (!confirm(t('confirm_delete_room', { title: displayTitle, slug: slug }))) {
+        return;
+      }
 
       setSyncStatus(t('sync_deleting_room'), 'online');
 
       try {
-        // 1. Получаем всех участников комнаты, чтобы убрать комнату из их профилей
-        let memberUsernames = [state.currentUser.username];
-        try {
-          const memRes = await fetch(`${dbBase()}/rooms/${slug}/members.json`);
-          if (memRes.ok) {
-            const memObj = await memRes.json();
-            objectToArray(memObj).forEach(m => {
-              if (m && m.username && !memberUsernames.includes(m.username)) {
-                memberUsernames.push(m.username);
-              }
-            });
+        let memberIds = [];
+        let memberUsernames = [];
+        if (slug === currentRoom) {
+          memberIds = (state.roomMembers || []).map(m => m.id).filter(Boolean);
+          memberUsernames = (state.roomMembers || []).map(m => m.username).filter(Boolean);
+        } else {
+          const rRes = await fetch(`${dbBase()}/rooms/${slug}.json?t=${Date.now()}`);
+          if (rRes.ok) {
+            const rData = await rRes.json();
+            if (rData && rData.members) {
+              const mList = objectToArray(rData.members);
+              memberIds = mList.map(m => m.id).filter(Boolean);
+              memberUsernames = mList.map(m => m.username).filter(Boolean);
+            }
           }
-        } catch (e) {}
+        }
 
-        // 2. Удаляем саму комнату целиком из базы данных Firebase
+        if (!memberUsernames.includes(state.currentUser.username)) {
+          memberUsernames.push(state.currentUser.username);
+        }
+
         await fetch(`${dbBase()}/rooms/${slug}.json`, {
           method: 'DELETE'
         });
 
-        // 3. Удаляем привязку к комнате у всех её участников
-        await Promise.all(memberUsernames.map(uname =>
-          fetch(`${dbBase()}/users/${uname}/rooms/${slug}.json`, {
+        for (const uname of memberUsernames) {
+          await fetch(`${dbBase()}/users/${uname}/rooms/${slug}.json`, {
             method: 'DELETE'
-          })
-        ));
+          });
+        }
 
-        // 4. Чистим локальное состояние и кэш
-        if (state.currentUser.rooms) {
+        if (state.currentUser.rooms && state.currentUser.rooms[slug]) {
           delete state.currentUser.rooms[slug];
         }
-        delete drawerRoomOwnersCache[slug];
         localStorage.removeItem(`wl_members_${slug}`);
         localStorage.removeItem(`wl_room_meta_${slug}`);
         localStorage.removeItem(`wl_wishes_${slug}`);
@@ -4792,184 +5114,105 @@
         localStorage.removeItem(`wl_santa_${slug}`);
         localStorage.removeItem(`wl_room_title_${slug}`);
 
-        if (currentRoom === slug) {
-          const remaining = state.currentUser.rooms ? Object.values(state.currentUser.rooms).filter(r => r && r.slug) : [];
-          if (remaining.length > 0) {
-            const nextSlug = remaining[0].slug;
-            localStorage.setItem('wl_room', nextSlug);
-            saveLocal();
-            window.location.href = buildRoomUrl(nextSlug);
-            return;
+        if (slug === currentRoom) {
+          const remainingRooms = getUserRoomsList();
+          if (remainingRooms.length > 0) {
+            const nextRoom = remainingRooms[0];
+            currentRoom = nextRoom.slug;
+            state.roomTitle = nextRoom.title || nextRoom.slug;
+            localStorage.setItem('wl_room', currentRoom);
+            const url = new URL(window.location.href);
+            url.searchParams.set('room', currentRoom);
+            window.history.replaceState({}, '', url.toString());
           } else {
             currentRoom = '';
-            localStorage.removeItem('wl_room');
-            state.roomMembers = [];
-            state.roomMeta = {};
             state.roomTitle = '';
-            state.wishes = [];
-            state.bannedUsers = {};
-            state.archivedWishes = [];
-            state.secretSanta = {};
+            localStorage.removeItem('wl_room');
             const url = new URL(window.location.href);
             url.searchParams.delete('room');
             window.history.replaceState({}, '', url.toString());
           }
+          state.activeTab = 'all';
+          state.roomMembers = [];
+          state.wishes = [];
+          state.roomMeta = {};
+          state.bannedUsers = {};
+          state.archivedWishes = [];
+          state.secretSanta = {};
         }
 
         saveLocal();
-        updateRoomHeaderUI();
-        updateAdminUI();
-        renderTabs();
-        renderColumns();
+        await pullFromCloud();
         renderDrawerRooms();
-        setSyncStatus(currentRoom ? state.roomTitle : t('sync_room_deleted'), 'online');
+        setSyncStatus(t('sync_room_deleted'), 'online');
       } catch (err) {
-        console.error('Ошибка при удалении комнаты:', err);
+        console.error('Delete room error:', err);
         alert(t('err_delete_room'));
+        setSyncStatus(`${state.roomTitle || currentRoom}`, 'online');
       }
     }
 
-    function switchToRoom(slug) {
-      if (slug === currentRoom) {
-        closeRoomsDrawer();
-        return;
-      }
-      localStorage.setItem('wl_room', slug);
-      window.location.href = buildRoomUrl(slug);
-    }
-
-    async function leaveRoom(slug) {
+    async function removeRoomFromMyList(slug) {
       if (!confirm(t('confirm_leave_room'))) return;
-      if (state.currentUser && state.currentUser.rooms) {
+      if (state.currentUser && state.currentUser.rooms && state.currentUser.rooms[slug]) {
         delete state.currentUser.rooms[slug];
         saveLocal();
         await fetch(`${dbBase()}/users/${state.currentUser.username}/rooms/${slug}.json`, {
           method: 'DELETE'
         });
       }
-      renderDrawerRooms();
-    }
-
-    function buildRoomUrl(slug) {
-      const url = new URL(window.location.href);
-      url.search = '';
-      url.hash = '';
-      url.searchParams.set('room', slug);
-      return url.toString();
-    }
-
-    function copySpecificRoomLink(slug) {
-      navigator.clipboard.writeText(buildRoomUrl(slug));
-      alert(t('link_copied_alert'));
-    }
-
-    function previewGeneratedLink() {
-      const raw = document.getElementById('roomNameInput').value.trim();
-      if (!raw) {
-        document.getElementById('generatedLinkPreview').value = t('enter_room_placeholder');
-        return;
-      }
-      const slug = slugifyRoom(raw);
-      document.getElementById('generatedLinkPreview').value = buildRoomUrl(slug);
-    }
-
-    function openModal(id) {
-      if (id === 'roomModal') {
-        document.getElementById('roomNameInput').value = '';
-        previewGeneratedLink();
-      }
-      if (id === 'authModal') {
-        hideAuthError();
-      }
-      document.getElementById(id).classList.add('open');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('open');
-    }
-
-    function copyRoomLink() {
-      const input = document.getElementById('generatedLinkPreview');
-      navigator.clipboard.writeText(input.value);
-      alert(t('link_copied_alert'));
-    }
-
-    function quickCopyCurrentRoomLink() {
-      navigator.clipboard.writeText(buildRoomUrl(currentRoom));
-      alert(t('room_link_copied_alert', { room: state.roomTitle || currentRoom }));
-    }
-
-    async function joinRoomByInput() {
-      const rawTitle = document.getElementById('roomNameInput').value.trim();
-      if (!rawTitle) return;
-      const newSlug = slugifyRoom(rawTitle);
-
-      if (state.currentUser) {
-        if (!state.currentUser.rooms) state.currentUser.rooms = {};
-        state.currentUser.rooms[newSlug] = {
-          slug: newSlug,
-          title: rawTitle,
-          joinedAt: Date.now()
-        };
-        saveLocal();
-        await fetch(`${dbBase()}/users/${state.currentUser.username}/rooms/${newSlug}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(state.currentUser.rooms[newSlug])
-        });
-        // Проверяем, новая ли это комната; если владельца ещё нет — назначаем создателем текущего пользователя
-        let existingMeta = null;
-        try {
-          const mRes = await fetch(`${dbBase()}/rooms/${newSlug}/meta.json`);
-          if (mRes.ok) existingMeta = await mRes.json();
-        } catch (e) {}
-
-        const metaToWrite = { title: rawTitle };
-        if (!existingMeta || !existingMeta.ownerId) {
-          metaToWrite.ownerId = state.currentUser.id;
-          metaToWrite.ownerUsername = state.currentUser.username;
-          metaToWrite.ownerName = state.currentUser.displayName;
-          metaToWrite.createdAt = Date.now();
+      if (slug === currentRoom) {
+        const remaining = getUserRoomsList();
+        if (remaining.length > 0) {
+          await switchToRoom(remaining[0].slug, remaining[0].title);
+        } else {
+          currentRoom = '';
+          state.roomTitle = '';
+          state.roomMembers = [];
+          state.wishes = [];
+          state.roomMeta = {};
+          localStorage.removeItem('wl_room');
+          const url = new URL(window.location.href);
+          url.searchParams.delete('room');
+          window.history.replaceState({}, '', url.toString());
+          saveLocal();
+          updateRoomHeaderUI();
+          renderTabs();
+          renderColumns();
+          renderDrawerRooms();
         }
-
-        await fetch(`${dbBase()}/rooms/${newSlug}/meta.json`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(metaToWrite)
-        });
+      } else {
+        renderDrawerRooms();
       }
-
-      localStorage.setItem('wl_room', newSlug);
-      localStorage.setItem(`wl_room_title_${newSlug}`, rawTitle);
-      window.location.href = buildRoomUrl(newSlug);
     }
 
-    // Icon Picker UI
-    function renderIconPicker(containerId, selectedKey) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = Object.keys(AVATAR_ICONS).map(key => `
-        <button type="button" class="icon-choice-btn ${key === selectedKey ? 'selected' : ''}" data-icon="${key}">
-          ${AVATAR_ICONS[key]}
-        </button>
-      `).join('');
-
-      container.querySelectorAll('.icon-choice-btn').forEach(btn => {
-        btn.onclick = () => {
-          const k = btn.getAttribute('data-icon');
-          if (containerId === 'authIconPicker') {
-            selectedRegisterIcon = k;
-            renderIconPicker('authIconPicker', selectedRegisterIcon);
-          } else {
-            selectedSettingsIcon = k;
-            renderIconPicker('settingsIconPicker', selectedSettingsIcon);
-            updateAvatarSettingsPreview();
-          }
-        };
-      });
+    // ==========================================
+    // GLOBAL AUTHENTICATION
+    // ==========================================
+    function handleAccountButtonClick() {
+      if (state.currentUser) {
+        openProfileSettingsModal();
+      } else {
+        switchAuthMode('login');
+        openModal('authModal');
+      }
     }
 
-    // Global Auth
+    function openAuthModal(mode) {
+      switchAuthMode(mode || 'login');
+      openModal('authModal');
+    }
+
+    function switchAuthMode(mode) {
+      authMode = mode;
+      document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
+      document.getElementById('tabRegisterBtn').classList.toggle('active', mode === 'register');
+      document.getElementById('registerFields').style.display = mode === 'register' ? 'block' : 'none';
+      document.getElementById('authModalTitle').textContent = mode === 'register' ? t('auth_modal_reg_title') : t('auth_modal_login_title');
+      document.getElementById('authSubmitBtn').textContent = mode === 'register' ? t('register_btn') : t('login_btn');
+      hideAuthError();
+    }
+
     function showAuthError(msg) {
       const box = document.getElementById('authErrorBox');
       box.textContent = msg;
@@ -4979,98 +5222,55 @@
     function hideAuthError() {
       const box = document.getElementById('authErrorBox');
       box.style.display = 'none';
-    }
-
-    function updateHeaderAccountUI() {
-      const user = state.currentUser;
-      const nameEl = document.getElementById('headerAccountName');
-      const avatarEl = document.getElementById('headerAvatar');
-      const fabBtn = document.getElementById('fabAddBtn');
-
-      if (user) {
-        nameEl.textContent = user.displayName;
-        avatarEl.style.background = user.accentColor ? `${user.accentColor}22` : 'var(--accent-soft)';
-        avatarEl.style.color = user.accentColor || 'var(--accent)';
-        avatarEl.innerHTML = user.avatar ? `<img src="${user.avatar}" />` : getAvatarSvg(user.icon);
-        fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>${t('add_wish_fab')}</span>`;
-      } else {
-        nameEl.textContent = t('login_btn');
-        avatarEl.style.background = 'var(--seg-bg)';
-        avatarEl.style.color = 'var(--text-secondary)';
-        avatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-        fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg><span>${t('login_account_fab')}</span>`;
-      }
-    }
-
-    function handleAccountButtonClick() {
-      if (state.currentUser) {
-        openProfileSettings();
-      } else {
-        switchAuthMode('login');
-        openModal('authModal');
-      }
-    }
-
-    function switchAuthMode(mode) {
-      authMode = mode;
-      hideAuthError();
-      document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
-      document.getElementById('tabRegisterBtn').classList.toggle('active', mode === 'register');
-      document.getElementById('registerFields').style.display = mode === 'register' ? 'block' : 'none';
-      document.getElementById('authModalTitle').textContent = mode === 'register' ? t('auth_modal_reg_title') : t('auth_modal_login_title');
-      document.getElementById('authSubmitBtn').textContent = mode === 'register' ? t('register_btn') : t('login_btn');
+      box.textContent = '';
     }
 
     async function submitAuth(event) {
       event.preventDefault();
       hideAuthError();
 
-      const submitBtn = document.getElementById('authSubmitBtn');
-      const username = document.getElementById('authUsername').value.trim().toLowerCase().replace(/[^a-z0-9_.-]/g, '');
+      const rawUsername = document.getElementById('authUsername').value.trim().toLowerCase();
+      const username = rawUsername.replace(/[^a-z0-9_]/g, '');
       const password = document.getElementById('authPassword').value;
+      const submitBtn = document.getElementById('authSubmitBtn');
 
-      if (!username) {
+      if (!username || username.length < 2) {
         showAuthError(t('err_username_latin'));
         return;
       }
-      if (!password) return;
 
       submitBtn.disabled = true;
       submitBtn.textContent = t('checking_btn');
 
       try {
         const passHash = await hashPassword(password);
-        const userUrl = `${dbBase()}/users/${username}.json?t=${Date.now()}`;
-        const res = await fetch(userUrl);
-        if (!res.ok) throw new Error('Network error');
-        const existingUser = await res.json();
+        const userRes = await fetch(`${dbBase()}/users/${username}.json?t=${Date.now()}`);
+        const existingUser = userRes.ok ? await userRes.json() : null;
 
         if (authMode === 'register') {
           if (existingUser) {
             showAuthError(t('err_username_taken'));
+            submitBtn.disabled = false;
+            submitBtn.textContent = t('register_btn');
             return;
           }
 
           const displayName = document.getElementById('authDisplayName').value.trim() || username;
+          const userId = 'user_' + username + '_' + Math.random().toString(36).slice(2, 6);
+
           const newUser = {
-            id: 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-            username,
+            id: userId,
+            username: username,
+            displayName: displayName,
             passwordHash: passHash,
-            displayName,
             icon: selectedRegisterIcon,
             avatar: '',
             bio: '',
             clothesSize: '',
             shoeSize: '',
             ringSize: '',
-            accentColor: ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)],
-            rooms: currentRoom ? {
-              [currentRoom]: {
-                slug: currentRoom,
-                title: state.roomTitle || currentRoom,
-                joinedAt: Date.now()
-              }
-            } : {}
+            accentColor: '#FF2D55',
+            rooms: {}
           };
 
           await fetch(`${dbBase()}/users/${username}.json`, {
@@ -5080,31 +5280,47 @@
           });
 
           state.currentUser = newUser;
-          await joinCurrentRoomAsUser(newUser);
-          await pullFromCloud();
-
+          saveLocal();
+          if (currentRoom) {
+            await joinCurrentRoomAsUser(newUser);
+            await pullFromCloud();
+          } else {
+            updateHeaderAccountUI();
+            renderTabs();
+            renderColumns();
+            openModal('roomModal');
+          }
           closeModal('authModal');
-          document.getElementById('authForm').reset();
-          openModal('tutorialModal');
         } else {
           if (!existingUser) {
-            showAuthError(t('err_user_not_found', { username: username }));
+            showAuthError(t('err_user_not_found', { username }));
+            submitBtn.disabled = false;
+            submitBtn.textContent = t('login_btn');
             return;
           }
+
           if (existingUser.passwordHash !== passHash) {
             showAuthError(t('err_wrong_password'));
+            submitBtn.disabled = false;
+            submitBtn.textContent = t('login_btn');
             return;
           }
 
           state.currentUser = existingUser;
-          await joinCurrentRoomAsUser(existingUser);
-          await pullFromCloud();
-
+          saveLocal();
+          if (currentRoom) {
+            await joinCurrentRoomAsUser(existingUser);
+            await pullFromCloud();
+          } else {
+            await pullFromCloud();
+            if (!currentRoom) {
+              openModal('roomModal');
+            }
+          }
           closeModal('authModal');
-          document.getElementById('authForm').reset();
         }
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error('Auth error:', err);
         showAuthError(t('err_network'));
       } finally {
         submitBtn.disabled = false;
@@ -5114,48 +5330,77 @@
 
     function logoutAccount() {
       state.currentUser = null;
+      state.activeTab = 'all';
       saveLocal();
-      updateHeaderAccountUI();
-      renderColumns();
       closeModal('profileSettingsModal');
+      updateHeaderAccountUI();
+      updateAdminUI();
+      updateSantaDrawerBadge();
+      renderTabs();
+      renderColumns();
       switchAuthMode('login');
       openModal('authModal');
     }
 
-    // Profile Settings
-    function openProfileSettings() {
-      const user = state.currentUser;
-      if (!user) return;
-      document.getElementById('settingsDisplayName').value = user.displayName || '';
-      document.getElementById('settingsBio').value = user.bio || '';
-      document.getElementById('settingsClothesSize').value = user.clothesSize || '';
-      document.getElementById('settingsShoeSize').value = user.shoeSize || '';
-      document.getElementById('settingsRingSize').value = user.ringSize || '';
+    function updateHeaderAccountUI() {
+      const nameEl = document.getElementById('headerAccountName');
+      const avatarEl = document.getElementById('headerAvatar');
+      if (!state.currentUser) {
+        nameEl.textContent = t('login_btn');
+        avatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+        return;
+      }
+      nameEl.textContent = state.currentUser.displayName;
+      if (state.currentUser.avatar) {
+        avatarEl.innerHTML = `<img src="${state.currentUser.avatar}" />`;
+      } else {
+        avatarEl.innerHTML = getAvatarSvg(state.currentUser.icon);
+      }
+    }
+
+    // ==========================================
+    // PROFILE SETTINGS & ICON PICKER
+    // ==========================================
+    function renderIconPicker(containerId, activeIcon) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = Object.keys(AVATAR_ICONS).map(key => `
+        <button type="button" class="icon-choice-btn ${key === activeIcon ? 'selected' : ''}" onclick="selectIconChoice('${containerId}', '${key}')">
+          ${AVATAR_ICONS[key]}
+        </button>
+      `).join('');
+    }
+
+    function selectIconChoice(containerId, iconKey) {
+      if (containerId === 'authIconPicker') {
+        selectedRegisterIcon = iconKey;
+      } else {
+        selectedSettingsIcon = iconKey;
+        updateSettingsAvatarPreview();
+      }
+      renderIconPicker(containerId, iconKey);
+    }
+
+    function openProfileSettingsModal() {
+      if (!state.currentUser) return;
+      const u = state.currentUser;
+      document.getElementById('settingsDisplayName').value = u.displayName || '';
+      document.getElementById('settingsBio').value = u.bio || '';
+      document.getElementById('settingsClothesSize').value = u.clothesSize || '';
+      document.getElementById('settingsShoeSize').value = u.shoeSize || '';
+      document.getElementById('settingsRingSize').value = u.ringSize || '';
       document.getElementById('settingsNewPassword').value = '';
+      currentAvatarPhoto = u.avatar || '';
+      selectedSettingsIcon = u.icon || 'sparkles';
+      selectedAccentColor = u.accentColor || '#FF2D55';
 
-      selectedSettingsIcon = user.icon || 'sparkles';
       renderIconPicker('settingsIconPicker', selectedSettingsIcon);
-
-      currentAvatarPhoto = user.avatar || '';
-      updateAvatarSettingsPreview();
-      selectedAccentColor = user.accentColor || ACCENT_COLORS[0];
+      updateSettingsAvatarPreview();
       renderColorSwatches();
       openModal('profileSettingsModal');
     }
 
-    function renderColorSwatches() {
-      const container = document.getElementById('colorSwatches');
-      container.innerHTML = ACCENT_COLORS.map(c => `
-        <button type="button" class="swatch ${c === selectedAccentColor ? 'selected' : ''}" style="background:${c};" onclick="selectAccentColor('${c}')"></button>
-      `).join('');
-    }
-
-    function selectAccentColor(color) {
-      selectedAccentColor = color;
-      renderColorSwatches();
-    }
-
-    function updateAvatarSettingsPreview() {
+    function updateSettingsAvatarPreview() {
       const preview = document.getElementById('settingsAvatarPreview');
       const removeBtn = document.getElementById('removeAvatarBtn');
       if (currentAvatarPhoto) {
@@ -5170,96 +5415,189 @@
     function handleAvatarUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
-      compressImage(file, 260, 0.8, (dataUrl) => {
+      compressImage(file, 300, 0.8, (dataUrl) => {
         currentAvatarPhoto = dataUrl;
-        updateAvatarSettingsPreview();
+        updateSettingsAvatarPreview();
       });
     }
 
     function clearAvatarPhoto() {
       currentAvatarPhoto = '';
       document.getElementById('avatarPhotoInput').value = '';
-      updateAvatarSettingsPreview();
+      updateSettingsAvatarPreview();
+    }
+
+    function renderColorSwatches() {
+      const container = document.getElementById('colorSwatches');
+      container.innerHTML = ACCENT_COLORS.map(c => `
+        <button type="button" class="swatch ${c === selectedAccentColor ? 'selected' : ''}" style="background:${c}" onclick="selectColor('${c}')"></button>
+      `).join('');
+    }
+
+    function selectColor(c) {
+      selectedAccentColor = c;
+      renderColorSwatches();
     }
 
     async function saveProfileSettings(event) {
       event.preventDefault();
-      const user = state.currentUser;
-      if (!user) return;
+      if (!state.currentUser) return;
 
-      user.displayName = document.getElementById('settingsDisplayName').value.trim() || user.username;
-      user.icon = selectedSettingsIcon;
-      user.bio = document.getElementById('settingsBio').value.trim();
-      user.clothesSize = document.getElementById('settingsClothesSize').value.trim();
-      user.shoeSize = document.getElementById('settingsShoeSize').value.trim();
-      user.ringSize = document.getElementById('settingsRingSize').value.trim();
-      user.avatar = currentAvatarPhoto;
-      user.accentColor = selectedAccentColor;
-
+      const u = state.currentUser;
       const newPass = document.getElementById('settingsNewPassword').value;
-      if (newPass) user.passwordHash = await hashPassword(newPass);
-
-      saveLocal();
-      updateHeaderAccountUI();
-      closeModal('profileSettingsModal');
-
-      await fetch(`${dbBase()}/users/${user.username}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      });
-
-      const roomsList = user.rooms ? Object.keys(user.rooms) : [currentRoom];
-      const memberProfile = {
-        id: user.id,
-        username: user.username,
-        displayName: user.displayName,
-        icon: user.icon,
-        avatar: user.avatar,
-        bio: user.bio,
-        clothesSize: user.clothesSize,
-        shoeSize: user.shoeSize,
-        ringSize: user.ringSize,
-        accentColor: user.accentColor
+      const updatedUser = {
+        ...u,
+        displayName: document.getElementById('settingsDisplayName').value.trim() || u.username,
+        bio: document.getElementById('settingsBio').value.trim(),
+        clothesSize: document.getElementById('settingsClothesSize').value.trim(),
+        shoeSize: document.getElementById('settingsShoeSize').value.trim(),
+        ringSize: document.getElementById('settingsRingSize').value.trim(),
+        icon: selectedSettingsIcon,
+        avatar: currentAvatarPhoto,
+        accentColor: selectedAccentColor
       };
 
-      await Promise.all(roomsList.map(rSlug =>
-        fetch(`${dbBase()}/rooms/${rSlug}/members/${user.id}.json`, {
+      if (newPass) {
+        updatedUser.passwordHash = await hashPassword(newPass);
+      }
+
+      state.currentUser = updatedUser;
+      saveLocal();
+
+      await fetch(`${dbBase()}/users/${u.username}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedUser)
+      });
+
+      if (currentRoom) {
+        const memberProfile = {
+          id: updatedUser.id,
+          username: updatedUser.username,
+          displayName: updatedUser.displayName,
+          icon: updatedUser.icon,
+          avatar: updatedUser.avatar,
+          bio: updatedUser.bio,
+          clothesSize: updatedUser.clothesSize,
+          shoeSize: updatedUser.shoeSize,
+          ringSize: updatedUser.ringSize,
+          accentColor: updatedUser.accentColor
+        };
+        await fetch(`${dbBase()}/rooms/${currentRoom}/members/${updatedUser.id}.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(memberProfile)
-        })
-      ));
+        });
+      }
 
+      updateHeaderAccountUI();
+      closeModal('profileSettingsModal');
       await pullFromCloud();
     }
 
-    function compressImage(file, maxWidth, quality, callback) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          let width = img.width; let height = img.height;
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
-          canvas.width = width; canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          callback(canvas.toDataURL('image/jpeg', quality));
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    // ==========================================
+    // ROOM CREATION / JOIN
+    // ==========================================
+    function previewGeneratedLink() {
+      const rawName = document.getElementById('roomNameInput').value.trim();
+      const slug = rawName ? slugifyRoom(rawName) : '';
+      const url = new URL(window.location.href);
+      if (slug) {
+        url.searchParams.set('room', slug);
+      } else {
+        url.searchParams.delete('room');
+      }
+      url.hash = '';
+      document.getElementById('generatedLinkPreview').value = slug ? url.toString() : t('enter_room_placeholder');
     }
 
-    // Search, Filter, Sort
+    function copyRoomLink() {
+      const val = document.getElementById('generatedLinkPreview').value;
+      if (!val || val.startsWith('Введите') || val.startsWith('Enter') || val.startsWith('Жоғарыда')) return;
+      navigator.clipboard.writeText(val).catch(() => {});
+      alert(t('link_copied_alert'));
+    }
+
+    async function joinRoomByInput() {
+      const rawName = document.getElementById('roomNameInput').value.trim();
+      if (!rawName) return;
+      const slug = slugifyRoom(rawName);
+
+      currentRoom = slug;
+      state.roomTitle = rawName;
+      state.activeTab = 'all';
+      state.roomMeta = {};
+      state.bannedUsers = {};
+      state.archivedWishes = [];
+      state.secretSanta = {};
+      localStorage.setItem('wl_room', slug);
+      localStorage.setItem(`wl_room_title_${slug}`, rawName);
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('room', slug);
+      window.history.replaceState({}, '', url.toString());
+
+      closeModal('roomModal');
+      document.getElementById('roomNameInput').value = '';
+      updateRoomHeaderUI();
+
+      await pullFromCloud();
+
+      if (state.currentUser) {
+        if (isCurrentUserBanned()) {
+          renderColumns();
+          return;
+        }
+        await joinCurrentRoomAsUser(state.currentUser, rawName);
+        await pullFromCloud();
+      } else {
+        switchAuthMode('login');
+        openModal('authModal');
+      }
+    }
+
+    // ==========================================
+    // TABS & RENDERING
+    // ==========================================
+    function renderTabs() {
+      const tabsEl = document.getElementById('profileTabs');
+      const members = state.roomMembers;
+
+      if (!currentRoom || members.length === 0) {
+        tabsEl.innerHTML = '';
+        return;
+      }
+
+      if (state.activeTab !== 'all' && !members.some(m => m.id === state.activeTab)) {
+        state.activeTab = 'all';
+      }
+
+      let html = `<button class="seg-btn ${state.activeTab === 'all' ? 'active' : ''}" onclick="setTab('all')">${t('all_lists_tab')} <span class="seg-count">${state.wishes.length}</span></button>`;
+
+      members.forEach(m => {
+        const count = state.wishes.filter(w => w.ownerId === m.id).length;
+        const isMe = state.currentUser && m.id === state.currentUser.id;
+        html += `<button class="seg-btn ${state.activeTab === m.id ? 'active' : ''}" onclick="setTab('${m.id}')">${escapeHtml(m.displayName)}${isMe ? ` (${t('you_label')})` : ''} <span class="seg-count">${count}</span></button>`;
+      });
+
+      tabsEl.innerHTML = html;
+    }
+
+    function setTab(tab) {
+      state.activeTab = tab;
+      renderTabs();
+      renderColumns();
+    }
+
+    function setFilter(filter) {
+      state.filter = filter;
+      document.querySelectorAll('#filterPills .pill').forEach(p => p.classList.toggle('active', p.dataset.filter === filter));
+      renderColumns();
+    }
+
     function handleSearchInput() {
-      const val = document.getElementById('searchInput').value;
-      state.search = val.trim().toLowerCase();
-      document.getElementById('clearSearchBtn').style.display = val ? 'flex' : 'none';
+      state.search = document.getElementById('searchInput').value.trim().toLowerCase();
+      document.getElementById('clearSearchBtn').style.display = state.search ? 'inline-flex' : 'none';
       renderColumns();
     }
 
@@ -5270,403 +5608,407 @@
       renderColumns();
     }
 
-    function setFilter(filterKey) {
-      state.filter = filterKey;
-      document.querySelectorAll('#filterPills .pill').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.filter === filterKey);
-      });
-      renderColumns();
-    }
-
     function handleSortChange() {
       state.sort = document.getElementById('sortSelect').value;
       renderColumns();
     }
 
-    function parsePriceNumber(priceStr) {
-      if (!priceStr) return Infinity;
-      const digits = String(priceStr).replace(/[^\d]/g, '');
-      return digits ? Number(digits) : Infinity;
+    function parsePrice(priceStr) {
+      if (!priceStr) return 0;
+      const num = parseFloat(String(priceStr).replace(/[^\d.,]/g, '').replace(',', '.'));
+      return isNaN(num) ? 0 : num;
     }
 
-    function filterAndSortWishes(list) {
-      let filtered = list.filter(w => {
-        const prio = normalizePriority(w.priority);
-        if (state.filter === 'active' && w.fulfilled) return false;
-        if (state.filter === 'planned' && (!w.planned || w.fulfilled)) return false;
-        if (state.filter === 'fulfilled' && !w.fulfilled) return false;
-        if (state.filter === 'essential' && prio !== 'essential') return false;
-        if (state.filter === 'high' && prio !== 'high') return false;
-        if (state.filter === 'dream' && prio !== 'dream') return false;
-        if (state.filter === 'photo' && !w.photo) return false;
+    function getFilteredSortedWishes(ownerId) {
+      let list = state.wishes.filter(w => w.ownerId === ownerId);
 
-        if (state.search) {
-          const hay = `${w.title || ''} ${w.caption || ''} ${w.price || ''}`.toLowerCase();
-          if (!hay.includes(state.search)) return false;
-        }
-        return true;
-      });
+      if (state.filter === 'active') list = list.filter(w => !w.fulfilled && !w.plannedBy);
+      else if (state.filter === 'planned') list = list.filter(w => !w.fulfilled && Boolean(w.plannedBy));
+      else if (state.filter === 'fulfilled') list = list.filter(w => w.fulfilled);
+      else if (state.filter === 'essential') list = list.filter(w => normalizePriority(w.priority) === 'essential');
+      else if (state.filter === 'high') list = list.filter(w => normalizePriority(w.priority) === 'high');
+      else if (state.filter === 'dream') list = list.filter(w => normalizePriority(w.priority) === 'dream');
+      else if (state.filter === 'photo') list = list.filter(w => Boolean(w.photo));
 
-      filtered.sort((a, b) => {
-        if (state.sort === 'priority') {
-          const wa = getPriorityMeta(normalizePriority(a.priority))?.weight || 0;
-          const wb = getPriorityMeta(normalizePriority(b.priority))?.weight || 0;
-          return wb - wa || (b.createdAt || 0) - (a.createdAt || 0);
-        }
-        if (state.sort === 'price_asc') return parsePriceNumber(a.price) - parsePriceNumber(b.price);
-        if (state.sort === 'price_desc') {
-          const pa = parsePriceNumber(a.price); const pb = parsePriceNumber(b.price);
-          if (pa === Infinity && pb === Infinity) return 0;
-          if (pa === Infinity) return 1; if (pb === Infinity) return -1;
-          return pb - pa;
-        }
-        return (b.createdAt || 0) - (a.createdAt || 0);
-      });
+      if (state.search) {
+        list = list.filter(w =>
+          (w.title && w.title.toLowerCase().includes(state.search)) ||
+          (w.caption && w.caption.toLowerCase().includes(state.search))
+        );
+      }
 
-      return filtered;
-    }
+      if (state.sort === 'priority') {
+        list.sort((a, b) => getPriorityMeta(normalizePriority(b.priority)).weight - getPriorityMeta(normalizePriority(a.priority)).weight);
+      } else if (state.sort === 'price_asc') {
+        list.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      } else if (state.sort === 'price_desc') {
+        list.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+      } else {
+        list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      }
 
-    function renderTabs() {
-      const tabsEl = document.getElementById('profileTabs');
-      let html = `<button class="seg-btn ${state.activeTab === 'all' ? 'active' : ''}" onclick="setTab('all')">${t('all_lists_tab')} <span class="seg-count">${state.wishes.length}</span></button>`;
-      state.roomMembers.forEach(acc => {
-        const count = state.wishes.filter(w => w.ownerId === acc.id).length;
-        html += `<button class="seg-btn ${state.activeTab === acc.id ? 'active' : ''}" onclick="setTab('${acc.id}')">${escapeHtml(acc.displayName)} <span class="seg-count">${count}</span></button>`;
-      });
-      tabsEl.innerHTML = html;
-    }
-
-    function setTab(tabId) {
-      state.activeTab = tabId;
-      renderTabs();
-      renderColumns();
-    }
-
-    function openLightbox(src) {
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightbox').classList.add('open');
+      return list;
     }
 
     function renderColumns() {
       const container = document.getElementById('columnsContainer');
-      const fabBtn = document.getElementById('fabAddBtn');
+      const fab = document.getElementById('fabAddBtn');
 
       if (!currentRoom) {
-        if (fabBtn) {
-          fabBtn.style.display = 'flex';
-          fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>${t('create_room_fab')}</span>`;
-        }
         container.className = 'columns-container';
+        fab.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>${t('create_room_fab')}</span>`;
+        fab.onclick = () => openModal('roomModal');
         container.innerHTML = `
-          <div class="empty-box" style="max-width:480px; margin:24px auto; padding:40px 24px;">
-            <div style="width:54px; height:54px; border-radius:16px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
-              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
-            </div>
-            <div style="font-size:18px; font-weight:800; color:var(--text);">${t('no_active_room_title')}</div>
-            <div style="line-height:1.5;">${t('no_active_room_desc')}</div>
-            <button class="primary-btn" style="max-width:280px; margin-top:4px;" onclick="openModal('roomModal')">${t('create_or_join_room_btn')}</button>
+          <div class="empty-box" style="grid-column: 1 / -1;">
+            <div style="font-size:16px; font-weight:800; color:var(--text);">${t('no_active_room_title')}</div>
+            <div>${t('no_active_room_desc')}</div>
+            <button type="button" class="primary-btn" style="max-width:260px;" onclick="openModal('roomModal')">${t('create_or_join_room_btn')}</button>
           </div>
         `;
         return;
       }
 
-      if (isCurrentUserBanned()) {
-        if (fabBtn) fabBtn.style.display = 'none';
+      if (state.currentUser && isCurrentUserBanned()) {
         container.className = 'columns-container';
+        fab.style.display = 'none';
         container.innerHTML = `
-          <div class="blocked-screen">
+          <div class="blocked-screen" style="grid-column: 1 / -1;">
             <div style="width:52px; height:52px; border-radius:16px; background:rgba(255,59,48,0.12); color:#FF3B30; display:flex; align-items:center; justify-content:center;">
               <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
             </div>
             <div style="font-size:18px; font-weight:800;">${t('access_restricted_title')}</div>
-            <div style="font-size:14px; color:var(--text-secondary); line-height:1.45;">
+            <p class="info-text" style="margin-bottom:4px;">
               ${t('access_restricted_desc', { room: escapeHtml(state.roomTitle) })}
-            </div>
-            <button class="primary-btn" style="max-width:240px;" onclick="openRoomsDrawer()">${t('open_my_rooms_btn')}</button>
+            </p>
+            <button type="button" class="primary-btn" onclick="openRoomsDrawer()">${t('open_my_rooms_btn')}</button>
           </div>
         `;
         return;
-      } else {
-        if (fabBtn) fabBtn.style.display = 'flex';
       }
 
-      if (state.roomMembers.length === 0) {
+      fab.style.display = 'flex';
+      if (!state.currentUser) {
+        fab.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>${t('login_account_fab')}</span>`;
+        fab.onclick = () => { switchAuthMode('login'); openModal('authModal'); };
+      } else {
+        fab.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>${t('add_wish_fab')}</span>`;
+        fab.onclick = () => openAddWishModal();
+      }
+
+      const membersToShow = state.activeTab === 'all'
+        ? state.roomMembers
+        : state.roomMembers.filter(m => m.id === state.activeTab);
+
+      if (membersToShow.length === 0) {
         container.className = 'columns-container';
         container.innerHTML = `
-          <div class="empty-box">
-            <svg class="icon icon-lg" style="color:var(--text-tertiary);" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <div style="font-size:16px; font-weight:700; color:var(--text);">${t('room_empty_title', { room: escapeHtml(state.roomTitle) })}</div>
+          <div class="empty-box" style="grid-column: 1 / -1;">
+            <div style="font-size:16px; font-weight:800; color:var(--text);">${t('room_empty_title', { room: escapeHtml(state.roomTitle) })}</div>
             <div>${t('room_empty_desc')}</div>
-            <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('login'); openModal('authModal');">${t('login_or_register_btn')}</button>
+            <button type="button" class="primary-btn" style="max-width:260px;" onclick="openAuthModal('login')">${t('login_or_register_btn')}</button>
           </div>
         `;
         return;
       }
 
-      const visibleAccounts = state.activeTab === 'all'
-        ? state.roomMembers
-        : state.roomMembers.filter(a => a.id === state.activeTab);
+      container.className = membersToShow.length === 2 ? 'columns-container two-cols' : 'columns-container';
 
-      container.className = visibleAccounts.length > 1 ? 'columns-container two-cols' : 'columns-container';
+      container.innerHTML = membersToShow.map(member => {
+        const isCurrentUserOwner = Boolean(state.currentUser && member.id === state.currentUser.id);
+        const wishes = getFilteredSortedWishes(member.id);
+        const accent = member.accentColor || '#FF2D55';
 
-      container.innerHTML = visibleAccounts.map(acc => {
-        const isOwner = state.currentUser && state.currentUser.id === acc.id;
-        const rawWishes = state.wishes.filter(w => w.ownerId === acc.id);
-        const profileWishes = filterAndSortWishes(rawWishes);
-        const accent = acc.accentColor || '#FF2D55';
+        const sizesHtml = (member.clothesSize || member.shoeSize || member.ringSize)
+          ? `<div class="profile-sizes-row">
+               ${member.clothesSize ? `<span class="size-chip">${t('size_clothes', { val: escapeHtml(member.clothesSize) })}</span>` : ''}
+               ${member.shoeSize ? `<span class="size-chip">${t('size_shoes', { val: escapeHtml(member.shoeSize) })}</span>` : ''}
+               ${member.ringSize ? `<span class="size-chip">${escapeHtml(member.ringSize)}</span>` : ''}
+             </div>`
+          : '';
 
-        const sizesHtml = [
-          acc.clothesSize ? t('size_clothes', { val: escapeHtml(acc.clothesSize) }) : '',
-          acc.shoeSize ? t('size_shoes', { val: escapeHtml(acc.shoeSize) }) : '',
-          acc.ringSize ? `${escapeHtml(acc.ringSize)}` : ''
-        ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
+        const ownerToolbarHtml = isCurrentUserOwner
+          ? `<div class="owner-toolbar">
+               <button class="action-pill" onclick="exportMyWishlist()" title="${t('download_wishlist_title')}">
+                 <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                 <span>${t('download_wishlist_btn')}</span>
+               </button>
+               <button class="action-pill" onclick="triggerImportWishlist()" title="${t('upload_wishlist_title')}">
+                 <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                 <span>${t('upload_wishlist_btn')}</span>
+               </button>
+             </div>`
+          : '';
 
-        const ownerToolbarHtml = isOwner ? `
-          <div class="owner-toolbar">
-            <button class="action-pill" onclick="exportMyWishlist()" title="${t('download_wishlist_title')}">
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              <span>${t('download_wishlist_btn')}</span>
-            </button>
-            <button class="action-pill" onclick="triggerImportWishlist()" title="${t('upload_wishlist_title')}">
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-              <span>${t('upload_wishlist_btn')}</span>
-            </button>
-          </div>
-        ` : '';
-
-        const cardsHtml = profileWishes.length === 0
-          ? `<div class="empty-box"><div>${rawWishes.length === 0 ? t('no_wishes_yet', { name: escapeHtml(acc.displayName) }) : t('nothing_found')}</div></div>`
-          : profileWishes.map(w => {
-            const pKey = normalizePriority(w.priority);
-            const pMeta = getPriorityMeta(pKey);
-            const isPlanned = Boolean(w.planned && !w.fulfilled);
-            const plannedBadgeText = w.plannedByName ? t('planned_by', { name: escapeHtml(w.plannedByName) }) : t('planned_btn');
-
-            return `
-            <article class="wish-card ${w.fulfilled ? 'fulfilled' : (isPlanned ? 'planned' : '')}">
-              ${w.photo ? `
-                <div class="wish-img-wrap" onclick="openLightbox('${w.photo}')">
-                  <img src="${w.photo}" class="wish-img" alt="${escapeHtml(w.title)}" loading="lazy" />
-                  <span class="wish-priority-tag">${pMeta.label}</span>
-                  ${isPlanned ? `<span class="wish-status-badge">${plannedBadgeText}</span>` : ''}
-                </div>
-              ` : ''}
-              <div class="wish-body">
-                ${!w.photo ? `
-                  <div style="display:flex; flex-wrap:wrap; gap:4px; align-items:center;">
-                    <span class="wish-priority-tag ${pMeta.cls}">${pMeta.label}</span>
-                    ${isPlanned ? `<span class="wish-status-badge">${plannedBadgeText}</span>` : ''}
-                  </div>
-                ` : ''}
-                <div class="wish-top-row">
-                  <h3 class="wish-title">${escapeHtml(w.title)}</h3>
-                  ${w.price ? `<span class="wish-price">${escapeHtml(w.price)}</span>` : ''}
-                </div>
-                ${w.caption ? `<p class="wish-caption">${escapeHtml(w.caption)}</p>` : ''}
-                <div class="wish-footer">
-                  ${w.link ? `
-                    <a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link">
-                      <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                      <span>${t('link_btn')}</span>
-                    </a>
-                  ` : ''}
-                  <div class="wish-controls">
-                    <button class="action-pill plan ${isPlanned ? 'active' : ''}" onclick="togglePlanned('${w.id}')" title="${isPlanned ? plannedBadgeText : t('plan_btn')}">
-                      <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-                      <span>${isPlanned ? t('planned_btn') : t('plan_btn')}</span>
-                    </button>
-                    <button class="action-pill done ${w.fulfilled ? 'active' : ''}" onclick="toggleFulfilled('${w.id}')">
-                      <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span>${w.fulfilled ? t('fulfilled_btn') : t('gift_btn')}</span>
-                    </button>
-                    ${isOwner ? `
-                      <div class="wish-owner-actions">
-                        <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="${t('edit_btn_title')}">
-                          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-                        </button>
-                        <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="${t('delete_btn_title')}">
-                          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </button>
-                      </div>
-                    ` : ''}
-                  </div>
-                </div>
-              </div>
-            </article>
-          `}).join('');
+        const wishesHtml = wishes.length
+          ? `<div class="wish-grid">${wishes.map(w => renderWishCard(w, isCurrentUserOwner)).join('')}</div>`
+          : `<div class="empty-box">${state.search || state.filter !== 'all' ? t('nothing_found') : t('no_wishes_yet', { name: escapeHtml(member.displayName) })}</div>`;
 
         return `
-          <section class="profile-column">
+          <div class="profile-column">
             <div class="profile-banner-card">
-              <div class="profile-banner-accent" style="background:${accent};"></div>
+              <div class="profile-banner-accent" style="background:${accent}"></div>
               <div class="profile-banner-top">
                 <div class="profile-identity">
-                  <div class="avatar-large" style="color:${accent};">${acc.avatar ? `<img src="${acc.avatar}" />` : getAvatarSvg(acc.icon)}</div>
+                  <div class="avatar-large" style="border-color:${accent}33; color:${accent};">
+                    ${member.avatar ? `<img src="${member.avatar}" />` : getAvatarSvg(member.icon)}
+                  </div>
                   <div class="profile-name-block">
-                    <h2 class="column-title">
-                      ${escapeHtml(acc.displayName)}
-                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">${t('you_badge')}</span>` : `<span class="readonly-badge">${t('member_badge')}</span>`}
-                      ${(state.roomMeta && state.roomMeta.ownerId === acc.id) ? `<span class="admin-badge">${t('admin_badge_creator')}</span>` : ''}
-                    </h2>
-                    <div class="profile-username">@${escapeHtml(acc.username)} · ${t('wishes_count_meta', { count: rawWishes.length })}</div>
+                    <div class="column-title">
+                      <span>${escapeHtml(member.displayName)}</span>
+                      ${isCurrentUserOwner ? `<span class="owner-badge">${t('you_badge')}</span>` : `<span class="readonly-badge">${t('member_badge')}</span>`}
+                    </div>
+                    <div class="profile-username">@${escapeHtml(member.username)} · ${t('wishes_count_meta', { count: state.wishes.filter(w => w.ownerId === member.id).length })}</div>
                   </div>
                 </div>
-                ${isOwner ? `
-                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="${t('profile_settings_title_attr')}">
+                ${isCurrentUserOwner ? `
+                  <button class="icon-btn" onclick="openProfileSettingsModal()" title="${t('profile_settings_title_attr')}">
                     <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                   </button>
                 ` : ''}
               </div>
-              ${acc.bio ? `<p class="profile-bio">${escapeHtml(acc.bio)}</p>` : ''}
-              ${sizesHtml ? `<div class="profile-sizes-row">${sizesHtml}</div>` : ''}
+              ${member.bio ? `<div class="profile-bio">${escapeHtml(member.bio)}</div>` : ''}
+              ${sizesHtml}
               ${ownerToolbarHtml}
             </div>
-            <div class="wish-grid">${cardsHtml}</div>
-          </section>
+            ${wishesHtml}
+          </div>
         `;
       }).join('');
     }
 
-    // Add / Edit Wish
+    function renderWishCard(w, isOwner) {
+      const pMeta = getPriorityMeta(normalizePriority(w.priority));
+      const isPlanned = Boolean(w.plannedBy);
+      const isPlannedByMe = Boolean(state.currentUser && w.plannedById === state.currentUser.id);
+      const canTogglePlan = Boolean(state.currentUser && !isOwner && (!isPlanned || isPlannedByMe));
+
+      return `
+        <article class="wish-card ${w.fulfilled ? 'fulfilled' : ''} ${(!w.fulfilled && isPlanned) ? 'planned' : ''}" id="card_${w.id}">
+          ${w.photo ? `
+            <div class="wish-img-wrap" onclick="openLightbox('${w.photo}')">
+              <img src="${w.photo}" class="wish-img" loading="lazy" alt="${escapeHtml(w.title)}" />
+              <span class="wish-priority-tag">${pMeta.label}</span>
+              ${(!w.fulfilled && isPlanned) ? `<span class="wish-status-badge">${escapeHtml(w.plannedBy)}</span>` : ''}
+            </div>
+          ` : ''}
+          <div class="wish-body">
+            <div class="wish-top-row">
+              ${!w.photo ? `
+                <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin-bottom:2px;">
+                  <span class="wish-priority-tag ${pMeta.cls}">${pMeta.label}</span>
+                  ${(!w.fulfilled && isPlanned) ? `<span class="wish-status-badge">${escapeHtml(w.plannedBy)}</span>` : ''}
+                </div>
+              ` : ''}
+              <h3 class="wish-title">${escapeHtml(w.title)}</h3>
+              ${w.price ? `<span class="wish-price">${escapeHtml(w.price)}</span>` : ''}
+            </div>
+            ${w.caption ? `<p class="wish-caption">${escapeHtml(w.caption)}</p>` : ''}
+            <div class="wish-footer">
+              ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link"><svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg><span>${t('link_btn')}</span></a>` : ''}
+              <div class="wish-controls">
+                ${isOwner ? `
+                  <button class="action-pill done ${w.fulfilled ? 'active' : ''}" onclick="toggleFulfilled('${w.id}')">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>${t('fulfilled_btn')}</span>
+                  </button>
+                  <div class="wish-owner-actions">
+                    <button class="action-pill action-icon" onclick="openEditWishModal('${w.id}')" title="${t('edit_btn_title')}"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="${t('delete_btn_title')}"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                ` : (state.currentUser ? `
+                  ${!w.fulfilled ? `
+                    <button class="action-pill plan ${isPlannedByMe ? 'active' : ''}" onclick="togglePlanned('${w.id}')" ${!canTogglePlan ? 'disabled' : ''}>
+                      <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      <span>${isPlanned ? (isPlannedByMe ? t('planned_btn') : t('planned_by', { name: escapeHtml(w.plannedBy) })) : t('plan_btn')}</span>
+                    </button>
+                  ` : ''}
+                  <button class="action-pill done ${w.fulfilled ? 'active' : ''}" onclick="toggleFulfilled('${w.id}')">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>${w.fulfilled ? t('fulfilled_btn') : t('gift_btn')}</span>
+                  </button>
+                ` : '')}
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // ==========================================
+    // WISH CRUD
+    // ==========================================
     function openAddWishModal() {
-      const user = state.currentUser;
-      if (!user) {
+      if (!state.currentUser) {
         switchAuthMode('login');
         openModal('authModal');
         return;
       }
-      if (!currentRoom) {
-        openModal('roomModal');
-        return;
-      }
-      document.getElementById('wishModalTitle').textContent = t('new_wish_for_user', { name: user.displayName });
+      document.getElementById('wishModalTitle').textContent = t('new_wish_for_user', { name: state.currentUser.displayName });
       document.getElementById('wishId').value = '';
-      document.getElementById('wishForm').reset();
-      clearPhoto();
-      openModal('wishModal');
-    }
-
-    function editWish(id) {
-      const wish = state.wishes.find(w => w.id === id);
-      if (!wish || !state.currentUser || wish.ownerId !== state.currentUser.id) return;
-
-      document.getElementById('wishModalTitle').textContent = t('edit_wish_title');
-      document.getElementById('wishId').value = wish.id;
-      document.getElementById('wishTitle').value = wish.title || '';
-      document.getElementById('wishCaption').value = wish.caption || '';
-      document.getElementById('wishPriority').value = normalizePriority(wish.priority);
-      document.getElementById('wishPrice').value = wish.price || '';
-      document.getElementById('wishLink').value = wish.link || '';
-
-      if (wish.photo) {
-        currentWishPhoto = wish.photo;
-        const preview = document.getElementById('photoPreview');
-        preview.src = wish.photo; preview.style.display = 'block';
-        document.getElementById('photoPlaceholder').style.display = 'none';
-        document.getElementById('removePhotoBtn').style.display = 'inline-flex';
-      } else {
-        clearPhoto();
-      }
-      openModal('wishModal');
-    }
-
-    function handlePhotoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      compressImage(file, 720, 0.72, (dataUrl) => {
-        currentWishPhoto = dataUrl;
-        const preview = document.getElementById('photoPreview');
-        preview.src = dataUrl; preview.style.display = 'block';
-        document.getElementById('photoPlaceholder').style.display = 'none';
-        document.getElementById('removePhotoBtn').style.display = 'inline-flex';
-      });
-    }
-
-    function clearPhoto() {
+      document.getElementById('wishTitle').value = '';
+      document.getElementById('wishCaption').value = '';
+      document.getElementById('wishPriority').value = 'high';
+      document.getElementById('wishPrice').value = '';
+      document.getElementById('wishLink').value = '';
       currentWishPhoto = '';
-      document.getElementById('wishPhotoInput').value = '';
-      document.getElementById('photoPreview').style.display = 'none';
-      document.getElementById('photoPlaceholder').style.display = 'flex';
-      document.getElementById('removePhotoBtn').style.display = 'none';
+      updatePhotoPreview();
+      openModal('wishModal');
+    }
+
+    function openEditWishModal(id) {
+      const w = state.wishes.find(item => item.id === id);
+      if (!w) return;
+      document.getElementById('wishModalTitle').textContent = t('edit_wish_title');
+      document.getElementById('wishId').value = w.id;
+      document.getElementById('wishTitle').value = w.title;
+      document.getElementById('wishCaption').value = w.caption || '';
+      document.getElementById('wishPriority').value = normalizePriority(w.priority);
+      document.getElementById('wishPrice').value = w.price || '';
+      document.getElementById('wishLink').value = w.link || '';
+      currentWishPhoto = w.photo || '';
+      updatePhotoPreview();
+      openModal('wishModal');
     }
 
     async function saveWish(event) {
       event.preventDefault();
-      const user = state.currentUser;
-      if (!user) return;
+      if (!state.currentUser) return;
 
       const id = document.getElementById('wishId').value;
       const existing = id ? state.wishes.find(w => w.id === id) : null;
+      const rawPrice = document.getElementById('wishPrice').value.trim();
+      const formattedPrice = formatPriceWithTenge(rawPrice);
 
-      const wishData = {
-        id: id || 'w_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-        ownerId: user.id,
+      const wishObj = {
+        id: id || ('wish_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6)),
+        ownerId: existing ? existing.ownerId : state.currentUser.id,
         title: document.getElementById('wishTitle').value.trim(),
         caption: document.getElementById('wishCaption').value.trim(),
         priority: document.getElementById('wishPriority').value,
-        price: document.getElementById('wishPrice').value.trim(),
+        price: formattedPrice,
         link: document.getElementById('wishLink').value.trim(),
         photo: currentWishPhoto,
-        planned: existing ? Boolean(existing.planned) : false,
-        plannedById: existing ? (existing.plannedById || '') : '',
-        plannedByName: existing ? (existing.plannedByName || '') : '',
         fulfilled: existing ? existing.fulfilled : false,
+        plannedBy: existing ? (existing.plannedBy || '') : '',
+        plannedById: existing ? (existing.plannedById || '') : '',
         createdAt: existing ? existing.createdAt : Date.now()
       };
 
-      if (id) {
-        const idx = state.wishes.findIndex(w => w.id === id);
-        if (idx !== -1) state.wishes[idx] = wishData;
+      if (existing) {
+        state.wishes = state.wishes.map(w => w.id === id ? wishObj : w);
       } else {
-        state.wishes.unshift(wishData);
+        state.wishes.unshift(wishObj);
       }
 
       saveLocal();
       renderTabs();
       renderColumns();
       closeModal('wishModal');
-      await saveWishToCloud(wishData);
+      await saveWishToCloud(wishObj);
     }
 
     async function togglePlanned(id) {
-      const wish = state.wishes.find(w => w.id === id);
-      if (!wish) return;
-      if (wish.planned) {
-        wish.planned = false;
-        wish.plannedById = '';
-        wish.plannedByName = '';
-      } else {
-        wish.planned = true;
-        wish.fulfilled = false;
-        wish.plannedById = state.currentUser ? state.currentUser.id : '';
-        wish.plannedByName = state.currentUser ? state.currentUser.displayName : '';
-      }
+      if (!state.currentUser) return;
+      const w = state.wishes.find(item => item.id === id);
+      if (!w || w.fulfilled) return;
+      if (w.ownerId === state.currentUser.id) return;
+      if (w.plannedBy && w.plannedById && w.plannedById !== state.currentUser.id) return;
+
+      const isCurrentlyMine = w.plannedById === state.currentUser.id;
+      w.plannedBy = isCurrentlyMine ? '' : state.currentUser.displayName;
+      w.plannedById = isCurrentlyMine ? '' : state.currentUser.id;
+
       saveLocal();
       renderColumns();
-      await saveWishToCloud(wish);
+      await saveWishToCloud(w);
     }
 
     async function toggleFulfilled(id) {
-      const wish = state.wishes.find(w => w.id === id);
-      if (!wish) return;
-      wish.fulfilled = !wish.fulfilled;
-      if (wish.fulfilled) {
-        wish.planned = false;
+      const w = state.wishes.find(item => item.id === id);
+      if (!w) return;
+      w.fulfilled = !w.fulfilled;
+      if (w.fulfilled) {
+        w.plannedBy = '';
+        w.plannedById = '';
       }
       saveLocal();
       renderColumns();
-      await saveWishToCloud(wish);
+      await saveWishToCloud(w);
     }
 
     async function deleteWish(id) {
-      const wish = state.wishes.find(w => w.id === id);
-      if (!wish || !state.currentUser || wish.ownerId !== state.currentUser.id) return;
       if (!confirm(t('confirm_delete_wish'))) return;
-      state.wishes = state.wishes.filter(w => w.id !== id);
+      state.wishes = state.wishes.filter(item => item.id !== id);
       saveLocal();
       renderTabs();
       renderColumns();
       await deleteWishFromCloud(id);
+    }
+
+    // ==========================================
+    // PHOTO COMPRESSION & MODALS
+    // ==========================================
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressImage(file, 720, 0.72, (dataUrl) => {
+        currentWishPhoto = dataUrl;
+        updatePhotoPreview();
+      });
+    }
+
+    function clearPhoto() {
+      currentWishPhoto = '';
+      document.getElementById('wishPhotoInput').value = '';
+      updatePhotoPreview();
+    }
+
+    function updatePhotoPreview() {
+      const preview = document.getElementById('photoPreview');
+      const placeholder = document.getElementById('photoPlaceholder');
+      const removeBtn = document.getElementById('removePhotoBtn');
+      if (currentWishPhoto) {
+        preview.src = currentWishPhoto;
+        preview.style.display = 'block';
+        placeholder.style.display = 'none';
+        removeBtn.style.display = 'inline-flex';
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        placeholder.style.display = 'flex';
+        removeBtn.style.display = 'none';
+      }
+    }
+
+    function compressImage(file, maxWidth, quality, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function openModal(id) {
+      if (id === 'roomModal') previewGeneratedLink();
+      document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
     }
 
     function escapeHtml(str) {
