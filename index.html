@@ -5049,17 +5049,46 @@
       return url.toString();
     }
 
+    async function shareRoomInvite(slug, title) {
+      if (!slug) return;
+      const roomLabel = title || slug;
+      const shareUrl = buildRoomShareUrl(slug);
+      const shareTextMap = {
+        ru: `Заходи в комнату «${roomLabel}» в вишлисте, смотри желания и бронируй подарки:`,
+        en: `Join room “${roomLabel}” on Wishlist, check out wishes, and plan gifts:`,
+        kk: `Вишлистегі «${roomLabel}» бөлмесіне кір, тілектерді қара және сыйлықтарды жоспарла:`
+      };
+      const shareText = shareTextMap[currentLang] || shareTextMap.ru;
+      const shareData = {
+        title: roomLabel,
+        text: shareText,
+        url: shareUrl
+      };
+
+      if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') {
+            return;
+          }
+        }
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).catch(() => {});
+      }
+      alert(t('room_link_copied_alert', { room: roomLabel }));
+    }
+
     function quickCopyCurrentRoomLink() {
       if (!currentRoom) return;
-      const shareUrl = buildRoomShareUrl(currentRoom);
-      navigator.clipboard.writeText(shareUrl).catch(() => {});
-      alert(t('room_link_copied_alert', { room: state.roomTitle || currentRoom }));
+      shareRoomInvite(currentRoom, state.roomTitle || currentRoom);
     }
 
     function copySpecificRoomLink(slug, title) {
-      const shareUrl = buildRoomShareUrl(slug);
-      navigator.clipboard.writeText(shareUrl).catch(() => {});
-      alert(t('room_link_copied_alert', { room: title || slug }));
+      shareRoomInvite(slug, title || slug);
     }
 
     async function deleteRoomCompletely(slug, title) {
