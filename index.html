@@ -1212,6 +1212,58 @@
       box-shadow: var(--shadow-md);
     }
 
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--seg-bg);
+      padding: 2px;
+      border-radius: 10px;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .lang-pill-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 7px;
+      border-radius: 8px;
+      cursor: pointer;
+      line-height: 1;
+      letter-spacing: 0.2px;
+      transition: all 0.16s ease;
+    }
+    .lang-pill-btn:hover {
+      color: var(--text);
+    }
+    .lang-pill-btn.active {
+      background: var(--seg-active);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    }
+    @media (max-width: 520px) {
+      .lang-pill-btn {
+        padding: 5px 5px;
+        font-size: 10px;
+      }
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+      }
+      .account-pill {
+        height: 34px;
+        padding: 0 9px 0 5px;
+        max-width: 112px;
+      }
+      .header-actions {
+        gap: 5px;
+      }
+    }
+
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -1256,6 +1308,11 @@
             </div>
             <span class="account-pill-name" id="headerAccountName">Войти</span>
           </button>
+          <div class="lang-switcher" role="group" aria-label="Language switcher" title="Язык / Language / Тіл">
+            <button type="button" class="lang-pill-btn" data-lang="en" onclick="setServiceLanguage('en')">EN</button>
+            <button type="button" class="lang-pill-btn" data-lang="ru" onclick="setServiceLanguage('ru')">RU</button>
+            <button type="button" class="lang-pill-btn" data-lang="kk" onclick="setServiceLanguage('kk')">KK</button>
+          </div>
           <button class="icon-btn" onclick="openThemePickerModal()" id="themeToggleBtn" title="Тема и оформление"></button>
         </div>
       </div>
@@ -1405,7 +1462,7 @@
   </button>
 
   <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
-    <img id="lightboxImg" src="" alt="Фото" />
+    <img id="lightboxImg" src="" alt="${t('photo_alt')}" />
   </div>
 
   <!-- Modal: Tutorial / Guide -->
@@ -1662,7 +1719,7 @@
               <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
               <span>Выбрать фото из галереи</span>
             </div>
-            <img id="photoPreview" class="photo-preview" alt="Предпросмотр" />
+            <img id="photoPreview" class="photo-preview" alt="${t('preview_alt')}" />
             <input type="file" id="wishPhotoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)" />
           </div>
           <button type="button" id="removePhotoBtn" class="action-pill del" style="display:none; margin-top:8px;" onclick="clearPhoto()">Удалить фото</button>
@@ -1879,7 +1936,44 @@
         </div>
       </div>
 
-      <button type="button" class="primary-btn" style="margin-top:12px;" onclick="closeModal('themePickerModal')">Готово</button>
+
+      <div class="drawer-section-label" style="margin-top:14px;" data-i18n="lang_section_label">Язык сервиса / Language / Тіл</div>
+      <div id="languageOptions">
+        <div class="theme-option-card" id="optLangEn" onclick="setServiceLanguage('en')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="font-weight:800; font-size:12px;">EN</div>
+            <div>
+              <div class="theme-option-title">English</div>
+              <div class="theme-option-sub">Interface in English</div>
+            </div>
+          </div>
+          <span id="checkLangEn" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optLangRu" onclick="setServiceLanguage('ru')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="font-weight:800; font-size:12px;">RU</div>
+            <div>
+              <div class="theme-option-title">Русский</div>
+              <div class="theme-option-sub">Интерфейс на русском языке</div>
+            </div>
+          </div>
+          <span id="checkLangRu" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optLangKk" onclick="setServiceLanguage('kk')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="font-weight:800; font-size:12px;">KK</div>
+            <div>
+              <div class="theme-option-title">Қазақша</div>
+              <div class="theme-option-sub">Қазақ тіліндегі интерфейс</div>
+            </div>
+          </div>
+          <span id="checkLangKk" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+      </div>
+
+      <button type="button" class="primary-btn" style="margin-top:12px;" data-i18n="done_btn" onclick="closeModal('themePickerModal')">Готово</button>
     </div>
   </div>
 
@@ -1930,12 +2024,16 @@
       return AVATAR_ICONS[iconKey] || AVATAR_ICONS.sparkles;
     }
 
-    const PRIORITY_LABELS = {
-      high: { label: 'Очень хочу', cls: 'tag-high', weight: 4 },
-      dream: { label: 'Мечта', cls: 'tag-dream', weight: 3 },
-      idea: { label: 'Идея', cls: 'tag-normal', weight: 2 },
-      small: { label: 'Мелочь', cls: 'tag-normal', weight: 1 }
+    const PRIORITY_WEIGHTS = {
+      high: { cls: 'tag-high', weight: 4, key: 'prio_high' },
+      dream: { cls: 'tag-dream', weight: 3, key: 'prio_dream' },
+      idea: { cls: 'tag-normal', weight: 2, key: 'prio_idea' },
+      small: { cls: 'tag-normal', weight: 1, key: 'prio_small' }
     };
+    function getPriorityMeta(pKey) {
+      const base = PRIORITY_WEIGHTS[pKey] || PRIORITY_WEIGHTS.idea;
+      return { label: t(base.key), cls: base.cls, weight: base.weight };
+    }
 
     function slugifyRoom(raw) {
       if (!raw) return '';
@@ -2254,7 +2352,7 @@
         if (document.getElementById('roomsDrawer').classList.contains('open')) {
           renderDrawerRooms();
         }
-        setSyncStatus('Нет активной комнаты', 'online');
+        setSyncStatus(t('sync_no_room'), 'online');
         return true;
       }
       try {
@@ -2311,7 +2409,7 @@
         return true;
       } catch (err) {
         console.error('Ошибка синхронизации:', err);
-        setSyncStatus('Нет связи с базой', 'error');
+        setSyncStatus(t('sync_no_conn'), 'error');
         return false;
       }
     }
@@ -2342,7 +2440,7 @@
 
       const countSub = document.getElementById('roomMembersCountSub');
       if (countSub) {
-        countSub.textContent = `Участников: ${state.roomMembers.length}`;
+        countSub.textContent = t('members_count', { count: state.roomMembers.length });
       }
 
       // Обложка комнаты в room-bar
@@ -2392,18 +2490,18 @@
 
       if (myAssignment) {
         const target = state.roomMembers.find(m => m.id === myAssignment.targetId);
-        badge.textContent = 'Выпал';
+        badge.textContent = t('santa_badge_picked');
         badge.className = 'santa-drawer-badge';
-        sub.textContent = target ? `Вы дарите: ${target.displayName}` : 'Получатель выбран';
+        sub.textContent = target ? t('santa_you_gift', { name: target.displayName }) : t('santa_recipient_picked');
       } else {
-        badge.textContent = 'Тянуть';
+        badge.textContent = t('santa_badge_draw');
         badge.className = 'santa-drawer-badge pending';
-        sub.textContent = 'Узнайте, кому дарить подарок';
+        sub.textContent = t('santa_draw_hint');
       }
     }
 
     async function saveWishToCloud(wishObj) {
-      setSyncStatus('Сохранение...', 'online');
+      setSyncStatus(t('sync_saving'), 'online');
       await fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${wishObj.id}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -2413,7 +2511,7 @@
     }
 
     async function deleteWishFromCloud(wishId) {
-      setSyncStatus('Удаление...', 'online');
+      setSyncStatus(t('sync_deleting'), 'online');
       await fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${wishId}.json`, {
         method: 'DELETE'
       });
@@ -2446,7 +2544,1198 @@
       }
     }
 
+
+    // ==========================================
+    // MULTI-LANGUAGE SUPPORT (EN / RU / KK)
+    // ==========================================
+    const SERVICE_LANG_KEY = 'wl_lang';
+    const SUPPORTED_LANGS = ['en', 'ru', 'kk'];
+
+    const TRANSLATIONS = {
+      ru: {
+        page_title: 'Wishlist — Общий список желаний',
+        sync_default: 'Синхронизация...',
+        sync_no_room: 'Нет активной комнаты',
+        sync_no_conn: 'Нет связи с базой',
+        sync_saving: 'Сохранение...',
+        sync_deleting: 'Удаление...',
+        sync_importing: 'Импорт вишлиста...',
+        sync_updating_perms: 'Обновление прав...',
+        sync_deleting_room: 'Удаление комнаты...',
+        sync_room_deleted: 'Комната удалена',
+        menu_btn_title: 'Мои комнаты и Тайный Санта',
+        menu_btn_aria: 'Меню комнат',
+        switch_room_title: 'Переключить комнату',
+        tutorial_btn_title: 'Инструкция по использованию',
+        tutorial_btn_aria: 'Туториал',
+        login_btn: 'Войти',
+        theme_btn_title: 'Тема и оформление',
+        drawer_title: 'Меню и комнаты',
+        your_rooms_label: 'Ваши комнаты',
+        new_or_join_room_btn: 'Новая / войти по названию',
+        room_mgmt_label: 'Управление комнатой',
+        admin_panel_title: 'Админ-панель',
+        admin_panel_sub_default: 'Участники, блокировки и архив',
+        admin_badge_creator: 'Создатель',
+        mini_game_label: 'Мини-игра комнаты',
+        santa_title: 'Тайный Санта',
+        santa_sub_default: 'Жеребьёвка участников',
+        santa_badge_open: 'Открыть',
+        santa_badge_picked: 'Выпал',
+        santa_badge_draw: 'Тянуть',
+        santa_you_gift: 'Вы дарите: {name}',
+        santa_recipient_picked: 'Получатель выбран',
+        santa_draw_hint: 'Узнайте, кому дарить подарок',
+        how_to_use_btn: 'Как пользоваться сервисом',
+        room_settings_dots_title: 'Оформление и описание комнаты',
+        members_count: 'Участников: {count}',
+        admin_btn: 'Админ',
+        admin_btn_title: 'Админ-панель создателя',
+        santa_btn: 'Санта',
+        invite_btn: 'Пригласить',
+        search_placeholder: 'Поиск по желаниям...',
+        sort_newest: 'Новые',
+        sort_priority: 'Важные',
+        sort_price_asc: 'Дешевле',
+        sort_price_desc: 'Дороже',
+        filter_all: 'Все',
+        filter_active: 'Актуальные',
+        filter_fulfilled: 'Подаренные',
+        filter_high: 'Очень хочу',
+        filter_dream: 'Мечта',
+        filter_photo: 'С фото',
+        add_wish_fab: 'Добавить желание',
+        create_room_fab: 'Создать комнату',
+        login_account_fab: 'Войти в аккаунт',
+        tutorial_modal_title: 'Инструкция по сервису',
+        tut_1_title: '1. Единый аккаунт и размеры',
+        tut_1_desc: 'Зарегистрируйтесь один раз — ваш аккаунт работает во всех комнатах. В настройках профиля можно указать размеры одежды, обуви и колец, чтобы близкие не ошиблись с подарком.',
+        tut_2_title: '2. Комнаты для разных кругов',
+        tut_2_desc: 'Нажмите на меню <strong>три полоски</strong> слева сверху, чтобы переключаться между комнатами (например: «Пара», «Семья», «Друзья»). Нажмите «Пригласить», чтобы отправить ссылку друзьям.',
+        tut_3_title: '3. Перенос вишлиста между комнатами',
+        tut_3_desc: 'В карточке вашего профиля есть кнопки <strong>«Скачать»</strong> и <strong>«Загрузить»</strong>. Скачайте файл со своими желаниями в одной комнате и загрузите его в другой — все фото, цены, ссылки и размеры перенесутся автоматически.',
+        tut_4_title: '4. Тайный Санта',
+        tut_4_desc: 'Откройте боковое меню слева сверху и нажмите на блок <strong>«Тайный Санта»</strong> внизу. Система случайно выберет вам получателя из участников текущей комнаты и сразу покажет его вишлист.',
+        got_it_btn: 'Всё понятно',
+        room_modal_title: 'Новая или существующая комната',
+        room_modal_desc: 'Введите название комнаты (например: <strong>Мы с любимой</strong>, <strong>Семья</strong> или <strong>Друзья</strong>). Комната привяжется к вашему аккаунту, а ссылкой можно поделиться с близкими.',
+        room_name_label: 'Название комнаты',
+        room_name_placeholder: 'Например: Семья или alex-kate',
+        invite_link_label: 'Ссылка-приглашение',
+        copy_btn: 'Копия',
+        open_room_btn: 'Открыть комнату',
+        enter_room_placeholder: 'Введите название комнаты выше...',
+        link_copied_alert: 'Ссылка скопирована! Отправьте её партнёру или друзьям.',
+        room_link_copied_alert: 'Ссылка на комнату «{room}» скопирована!',
+        auth_modal_login_title: 'Вход в аккаунт',
+        auth_modal_reg_title: 'Создание аккаунта',
+        auth_modal_desc: 'Единый аккаунт для всех ваших комнат: пары, друзей и семьи.',
+        tab_login: 'Войти',
+        tab_register: 'Регистрация',
+        your_name_label: 'Ваше имя *',
+        your_name_placeholder: 'Например: Алина или Максим',
+        profile_icon_label: 'Иконка профиля',
+        username_label: 'Логин *',
+        username_placeholder: 'Придумайте или введите логин',
+        password_label: 'Пароль *',
+        password_placeholder: 'Пароль',
+        register_btn: 'Зарегистрироваться',
+        checking_btn: 'Проверка...',
+        err_username_latin: 'Логин должен состоять из латинских букв или цифр.',
+        err_username_taken: 'Этот логин уже занят. Выберите другой или перейдите на вкладку «Войти».',
+        err_user_not_found: 'Аккаунт «{username}» не найден. Проверьте логин или зарегистрируйтесь.',
+        err_wrong_password: 'Неверный пароль! Попробуйте ещё раз.',
+        err_network: 'Ошибка соединения с базой данных. Проверьте интернет.',
+        profile_settings_title: 'Настройки профиля',
+        photo_or_icon_label: 'Фотография или иконка',
+        upload_photo_btn: 'Загрузить фото',
+        remove_photo_btn: 'Убрать фото',
+        minimal_icon_label: 'Минималистичная иконка (если без фото)',
+        name_req_label: 'Имя *',
+        bio_label: 'О себе / заметка для друзей',
+        bio_placeholder: 'Люблю минимализм, кофе и книги...',
+        clothes_size_label: 'Размер одежды',
+        shoe_size_label: 'Размер обуви',
+        ring_size_label: 'Размер кольца / украшений',
+        ring_size_placeholder: 'Кольцо 16.5',
+        profile_color_label: 'Цвет профиля',
+        new_password_label: 'Новый пароль (если хотите сменить)',
+        new_password_placeholder: 'Оставьте пустым, чтобы не менять',
+        save_profile_btn: 'Сохранить профиль',
+        logout_btn: 'Выйти из аккаунта',
+        new_wish_title: 'Новое желание',
+        new_wish_for_user: 'Новое желание ({name})',
+        edit_wish_title: 'Редактировать желание',
+        wish_photo_label: 'Фотография подарка',
+        choose_gallery_photo: 'Выбрать фото из галереи',
+        delete_photo_btn: 'Удалить фото',
+        wish_title_label: 'Название подарка *',
+        wish_title_placeholder: 'Например: Dyson Airwrap',
+        wish_caption_label: 'Подпись и детали',
+        wish_caption_placeholder: 'Цвет, размер, модель...',
+        wish_priority_label: 'Приоритет',
+        prio_high: 'Очень хочу',
+        prio_dream: 'Мечта',
+        prio_idea: 'Идея',
+        prio_small: 'Мелочь',
+        wish_price_label: 'Цена',
+        wish_link_label: 'Ссылка на товар',
+        save_wish_btn: 'Сохранить в мой список',
+        confirm_delete_wish: 'Удалить желание?',
+        room_settings_modal_title: 'Настройки комнаты',
+        room_settings_desc: 'Установите фото-обложку и описание комнаты — они будут отображаться на главном экране у всех приглашённых участников.',
+        room_cover_label: 'Фото-иконка (обложка комнаты)',
+        remove_cover_btn: 'Убрать обложку',
+        room_title_req_label: 'Название комнаты *',
+        room_title_placeholder: 'Например: День рождения или Наша семья',
+        room_desc_label: 'Описание комнаты (видно всем на главном экране)',
+        room_desc_placeholder: 'Напишите повод, дату праздника, бюджет подарков или любую важную заметку для участников...',
+        save_appearance_btn: 'Сохранить оформление',
+        saving_btn: 'Сохранение...',
+        err_save_room_settings: 'Не удалось сохранить настройки комнаты. Проверьте интернет.',
+        err_only_creator_room_settings: 'Изменять обложку и описание комнаты может только её создатель.',
+        theme_modal_title: 'Тема и тематика фона',
+        brightness_label: 'Режим яркости',
+        light_theme_title: 'Светлая тема',
+        light_theme_sub: 'Чистый светлый интерфейс',
+        dark_theme_title: 'Тёмная тема',
+        dark_theme_sub: 'Комфортный ночной режим',
+        occasion_label: 'Тематический фон',
+        classic_bg_title: 'Классический фон',
+        classic_bg_sub: 'Без декоративного узора на заднем плане',
+        valentine_title: 'День влюблённых (14 февраля)',
+        valentine_sub: 'Сердечки на заднем плане и глубокий бордовый акцент',
+        newyear_title: 'Новый год',
+        newyear_sub: 'Ёлочки, снежинки и хвойно-зелёный акцент',
+        march8_title: '8 Марта',
+        march8_sub: 'Тюльпаны, сердечки и нежно-розовый акцент',
+        color_styles_label: 'Цветовые стили',
+        neon_purple_title: 'Неоновый фиолетовый',
+        neon_purple_sub: 'Глубокое фиолетово-розовое свечение',
+        futuristic_blue_title: 'Футуристичный синий',
+        futuristic_blue_sub: 'Кибер-сетка и холодный неоново-синий акцент',
+        lang_section_label: 'Язык сервиса / Language / Тіл',
+        done_btn: 'Готово',
+        admin_modal_title: 'Админ-панель комнаты',
+        admin_tab_members: 'Участники',
+        admin_tab_bans: 'Чёрный список',
+        admin_tab_archive: 'Архив вишлистов',
+        err_only_creator_admin: 'Доступ к админ-панели есть только у создателя этой комнаты.',
+        no_members_in_room: 'В комнате пока нет участников',
+        admin_members_intro: 'Вы создатель комнаты «<strong>{room}</strong>». При исключении или блокировке участника его вишлист не удаляется безвозвратно, а переносится во вкладку <strong>«Архив вишлистов»</strong>.',
+        wishes_count_short: 'Желаний: {count}',
+        you_label: 'Вы',
+        kick_btn: 'Исключить',
+        kick_title: 'Исключить из комнаты (вишлист улетит в архив)',
+        ban_btn: 'Бан',
+        ban_title: 'Заблокировать вход в комнату (вишлист улетит в архив)',
+        ban_list_empty_title: 'Чёрный список пуст',
+        ban_list_empty_desc: 'Заблокированные пользователи не могут зайти в эту комнату даже по прямой ссылке-приглашению.',
+        ban_list_intro: 'Заблокированные пользователи не могут присоединиться к комнате повторно, пока вы не снимете блокировку.',
+        unban_btn: 'Разблокировать',
+        archive_empty_title: 'Архив вишлистов пуст',
+        archive_empty_desc: 'Когда вы исключите или заблокируете участника, его список желаний автоматически сохранится здесь.',
+        archive_intro: 'Сохранённые вишлисты исключённых и заблокированных участников комнаты.',
+        archived_meta: 'Архивировано: {date} · Желаний: {count}',
+        status_banned: 'Заблокирован',
+        status_kicked: 'Исключён',
+        no_price: 'Без цены',
+        link_btn: 'Ссылка',
+        archive_no_wishes: 'У пользователя не было желаний на момент исключения.',
+        download_json_btn: 'Скачать JSON',
+        delete_from_archive_btn: 'Удалить из архива',
+        err_cannot_kick_creator: 'Нельзя исключить создателя комнаты.',
+        confirm_ban_member: 'Заблокировать пользователя {name} (@{username})? Он будет удалён из комнаты, не сможет зайти по ссылке, а его вишлист перенесётся в архив.',
+        confirm_kick_member: 'Исключить пользователя {name} (@{username}) из комнаты? Его вишлист не удалится, а улетит в архив.',
+        confirm_delete_archive: 'Окончательно удалить этот архивный вишлист?',
+        export_empty_alert: 'В вашем вишлисте в этой комнате пока нет желаний для скачивания.',
+        import_bad_format: 'Неверный формат файла. Выберите файл вишлиста (.json), скачанный из этого сервиса.',
+        import_empty_file: 'В выбранном файле нет желаний.',
+        import_success_alert: 'Успешно загружено желаний: {count}!',
+        import_read_error: 'Ошибка при чтении файла вишлиста.',
+        santa_login_title: 'Войдите в аккаунт',
+        santa_login_desc: 'Чтобы участвовать в Тайном Санте этой комнаты, сначала войдите в свой профиль.',
+        santa_draw_title: 'Жеребьёвка в комнате «{room}»',
+        santa_draw_desc: 'Нажмите кнопку ниже — система случайным образом выберет одного из участников комнаты (кроме вас), которому вы будете дарить подарок, и сразу откроет его вишлист. Никто другой не увидит, кто вам выпал!',
+        santa_stats: 'Участников в комнате: {members} · Уже вытянули: {picked}',
+        santa_draw_btn: 'Узнать, кому я дарю',
+        santa_need_2: 'Для игры нужно минимум 2 участника в комнате. Пригласите друзей по ссылке!',
+        santa_target_left: 'Выбранный участник больше не в комнате.',
+        santa_reset_btn: 'Сбросить жеребьёвку комнаты',
+        santa_shuffling: 'Перемешиваем имена...',
+        santa_not_enough: 'В комнате пока недостаточно других участников для жеребьёвки.',
+        santa_draw_error: 'Не удалось провести жеребьёвку. Проверьте подключение к интернету.',
+        santa_confirm_reset: 'Сбросить результаты Тайного Санты для всех участников этой комнаты, чтобы провести игру заново?',
+        santa_for_label: 'Вы Тайный Санта для:',
+        santa_no_active_wishes: 'У {name} пока нет активных желаний в этой комнате.',
+        price_not_set: 'Цена не указана',
+        size_clothes: 'Одежда: {val}',
+        size_shoes: 'Обувь: {val}',
+        santa_active_wishes_count: 'Актуальный вишлист ({count}):',
+        open_full_wishlist_btn: 'Открыть полный вишлист на главном экране',
+        reset_santa_room_btn: 'Сбросить жеребьёвку для всей комнаты',
+        no_user_rooms_empty: 'Вы пока не состоите ни в одной комнате. Создайте первую комнату кнопкой ниже!',
+        creator_suffix: ' · Создатель',
+        room_settings_short_title: 'Настройки обложки и описания комнаты',
+        copy_link_short_title: 'Скопировать ссылку',
+        delete_room_title: 'Полностью удалить комнату из базы данных',
+        leave_room_title: 'Выйти из комнаты',
+        confirm_delete_room: 'Вы уверены, что хотите ПОЛНОСТЬЮ удалить комнату «{title}» (#{slug}) из базы данных? Все списки желаний, участники и данные Тайного Санты в этой комнате будут безвозвратно удалены.',
+        err_delete_room: 'Не удалось полностью удалить комнату. Проверьте подключение к интернету.',
+        confirm_leave_room: 'Убрать эту комнату из вашего списка? Вы всегда сможете вернуться в неё по ссылке или названию.',
+        all_lists_tab: 'Все списки',
+        no_active_room_title: 'У вас пока нет активной комнаты',
+        no_active_room_desc: 'Создайте свою комнату для вишлистов или войдите в существующую по названию или ссылке-приглашению от близких.',
+        create_or_join_room_btn: 'Создать или войти в комнату',
+        access_restricted_title: 'Доступ к комнате ограничен',
+        access_restricted_desc: 'Создатель комнаты «<strong>{room}</strong>» ограничил вам доступ к этому списку. Вы можете переключиться на другую комнату через меню слева сверху.',
+        open_my_rooms_btn: 'Открыть мои комнаты',
+        room_empty_title: 'В комнате «{room}» пока никого нет',
+        room_empty_desc: 'Войдите в аккаунт, чтобы присоединиться к комнате и добавлять желания',
+        login_or_register_btn: 'Войти или создать аккаунт',
+        download_wishlist_btn: 'Скачать вишлист',
+        download_wishlist_title: 'Скачать вишлист файлом для переноса в другую комнату',
+        upload_wishlist_btn: 'Загрузить',
+        upload_wishlist_title: 'Загрузить вишлист из файла',
+        no_wishes_yet: 'У {name} пока нет желаний',
+        nothing_found: 'Ничего не найдено',
+        fulfilled_btn: 'Подарено',
+        gift_btn: 'Подарить',
+        edit_btn_title: 'Изменить',
+        delete_btn_title: 'Удалить',
+        you_badge: 'Вы',
+        member_badge: 'Участник',
+        wishes_count_meta: 'Желаний: {count}',
+        profile_settings_title_attr: 'Настройки профиля',
+        photo_alt: 'Фото',
+        preview_alt: 'Предпросмотр',
+        admin_drawer_sub_stats: 'Архив: {archive} · Бан-лист: {bans}',
+        admin_drawer_badge_count: '{count} уч.'
+      },
+      en: {
+        page_title: 'Wishlist — Shared Wish List',
+        sync_default: 'Syncing...',
+        sync_no_room: 'No active room',
+        sync_no_conn: 'No database connection',
+        sync_saving: 'Saving...',
+        sync_deleting: 'Deleting...',
+        sync_importing: 'Importing wishlist...',
+        sync_updating_perms: 'Updating permissions...',
+        sync_deleting_room: 'Deleting room...',
+        sync_room_deleted: 'Room deleted',
+        menu_btn_title: 'My Rooms & Secret Santa',
+        menu_btn_aria: 'Rooms menu',
+        switch_room_title: 'Switch room',
+        tutorial_btn_title: 'How to use',
+        tutorial_btn_aria: 'Tutorial',
+        login_btn: 'Sign in',
+        theme_btn_title: 'Theme & appearance',
+        drawer_title: 'Menu & Rooms',
+        your_rooms_label: 'Your rooms',
+        new_or_join_room_btn: 'New / join by name',
+        room_mgmt_label: 'Room management',
+        admin_panel_title: 'Admin Panel',
+        admin_panel_sub_default: 'Members, bans & archive',
+        admin_badge_creator: 'Creator',
+        mini_game_label: 'Room mini-game',
+        santa_title: 'Secret Santa',
+        santa_sub_default: 'Participant draw',
+        santa_badge_open: 'Open',
+        santa_badge_picked: 'Assigned',
+        santa_badge_draw: 'Draw',
+        santa_you_gift: 'You gift: {name}',
+        santa_recipient_picked: 'Recipient picked',
+        santa_draw_hint: 'Find out who you gift to',
+        how_to_use_btn: 'How to use the service',
+        room_settings_dots_title: 'Room appearance & description',
+        members_count: 'Members: {count}',
+        admin_btn: 'Admin',
+        admin_btn_title: 'Creator admin panel',
+        santa_btn: 'Santa',
+        invite_btn: 'Invite',
+        search_placeholder: 'Search wishes...',
+        sort_newest: 'Newest',
+        sort_priority: 'Priority',
+        sort_price_asc: 'Price: Low to High',
+        sort_price_desc: 'Price: High to Low',
+        filter_all: 'All',
+        filter_active: 'Active',
+        filter_fulfilled: 'Gifted',
+        filter_high: 'Want a lot',
+        filter_dream: 'Dream',
+        filter_photo: 'With photo',
+        add_wish_fab: 'Add wish',
+        create_room_fab: 'Create room',
+        login_account_fab: 'Sign in to account',
+        tutorial_modal_title: 'Service Guide',
+        tut_1_title: '1. Single account & sizes',
+        tut_1_desc: 'Register once — your account works across all rooms. In profile settings, you can add clothing, shoe, and ring sizes so loved ones get the right fit.',
+        tut_2_title: '2. Rooms for different circles',
+        tut_2_desc: 'Tap the <strong>three-line menu</strong> in the top left to switch between rooms (e.g., “Couple”, “Family”, “Friends”). Tap “Invite” to share a link.',
+        tut_3_title: '3. Moving a wishlist between rooms',
+        tut_3_desc: 'Your profile card has <strong>“Download”</strong> and <strong>“Upload”</strong> buttons. Export your wishes in one room and import them in another — photos, prices, links, and sizes transfer automatically.',
+        tut_4_title: '4. Secret Santa',
+        tut_4_desc: 'Open the side menu in the top left and tap <strong>“Secret Santa”</strong> at the bottom. The system randomly picks a recipient from the room and shows their wishlist right away.',
+        got_it_btn: 'Got it',
+        room_modal_title: 'New or existing room',
+        room_modal_desc: 'Enter a room name (e.g. <strong>Couple</strong>, <strong>Family</strong>, or <strong>Friends</strong>). The room links to your account, and you can share the invite link.',
+        room_name_label: 'Room name',
+        room_name_placeholder: 'E.g. Family or alex-kate',
+        invite_link_label: 'Invite link',
+        copy_btn: 'Copy',
+        open_room_btn: 'Open room',
+        enter_room_placeholder: 'Enter room name above...',
+        link_copied_alert: 'Link copied! Send it to your partner or friends.',
+        room_link_copied_alert: 'Invite link for room “{room}” copied!',
+        auth_modal_login_title: 'Account Sign In',
+        auth_modal_reg_title: 'Create Account',
+        auth_modal_desc: 'One account for all your rooms: couple, friends, and family.',
+        tab_login: 'Sign in',
+        tab_register: 'Register',
+        your_name_label: 'Your name *',
+        your_name_placeholder: 'E.g. Alina or Max',
+        profile_icon_label: 'Profile icon',
+        username_label: 'Username *',
+        username_placeholder: 'Choose or enter username',
+        password_label: 'Password *',
+        password_placeholder: 'Password',
+        register_btn: 'Register',
+        checking_btn: 'Checking...',
+        err_username_latin: 'Username must contain Latin letters or numbers.',
+        err_username_taken: 'This username is already taken. Pick another or switch to “Sign in”.',
+        err_user_not_found: 'Account “{username}” not found. Check username or register.',
+        err_wrong_password: 'Incorrect password! Please try again.',
+        err_network: 'Database connection error. Check your internet.',
+        profile_settings_title: 'Profile Settings',
+        photo_or_icon_label: 'Photo or icon',
+        upload_photo_btn: 'Upload photo',
+        remove_photo_btn: 'Remove photo',
+        minimal_icon_label: 'Minimal icon (when no photo)',
+        name_req_label: 'Name *',
+        bio_label: 'About / note for friends',
+        bio_placeholder: 'Love minimalism, coffee, and books...',
+        clothes_size_label: 'Clothing size',
+        shoe_size_label: 'Shoe size',
+        ring_size_label: 'Ring / jewelry size',
+        ring_size_placeholder: 'Ring 16.5 / 7',
+        profile_color_label: 'Profile color',
+        new_password_label: 'New password (optional)',
+        new_password_placeholder: 'Leave blank to keep current',
+        save_profile_btn: 'Save profile',
+        logout_btn: 'Sign out',
+        new_wish_title: 'New wish',
+        new_wish_for_user: 'New wish ({name})',
+        edit_wish_title: 'Edit wish',
+        wish_photo_label: 'Gift photo',
+        choose_gallery_photo: 'Choose photo from gallery',
+        delete_photo_btn: 'Delete photo',
+        wish_title_label: 'Gift title *',
+        wish_title_placeholder: 'E.g. Dyson Airwrap',
+        wish_caption_label: 'Caption & details',
+        wish_caption_placeholder: 'Color, size, model...',
+        wish_priority_label: 'Priority',
+        prio_high: 'Want a lot',
+        prio_dream: 'Dream',
+        prio_idea: 'Idea',
+        prio_small: 'Small thing',
+        wish_price_label: 'Price',
+        wish_link_label: 'Product link',
+        save_wish_btn: 'Save to my list',
+        confirm_delete_wish: 'Delete this wish?',
+        room_settings_modal_title: 'Room Settings',
+        room_settings_desc: 'Set a cover photo and room description — they will appear on the main screen for all invited members.',
+        room_cover_label: 'Cover icon (room avatar)',
+        remove_cover_btn: 'Remove cover',
+        room_title_req_label: 'Room name *',
+        room_title_placeholder: 'E.g. Birthday or Our Family',
+        room_desc_label: 'Room description (visible to everyone on main screen)',
+        room_desc_placeholder: 'Write the occasion, date, gift budget, or any note for members...',
+        save_appearance_btn: 'Save appearance',
+        saving_btn: 'Saving...',
+        err_save_room_settings: 'Failed to save room settings. Check your internet.',
+        err_only_creator_room_settings: 'Only the room creator can change the cover and description.',
+        theme_modal_title: 'Theme & Background Style',
+        brightness_label: 'Brightness mode',
+        light_theme_title: 'Light theme',
+        light_theme_sub: 'Clean light interface',
+        dark_theme_title: 'Dark theme',
+        dark_theme_sub: 'Comfortable night mode',
+        occasion_label: 'Occasion background',
+        classic_bg_title: 'Classic background',
+        classic_bg_sub: 'No decorative pattern in background',
+        valentine_title: "Valentine's Day (Feb 14)",
+        valentine_sub: 'Hearts background and deep burgundy accent',
+        newyear_title: 'New Year',
+        newyear_sub: 'Trees, snowflakes, and pine-green accent',
+        march8_title: "Women's Day (March 8)",
+        march8_sub: 'Tulips, hearts, and soft pink accent',
+        color_styles_label: 'Color styles',
+        neon_purple_title: 'Neon Purple',
+        neon_purple_sub: 'Deep purple-pink glow',
+        futuristic_blue_title: 'Futuristic Blue',
+        futuristic_blue_sub: 'Cyber grid and cool neon-blue accent',
+        lang_section_label: 'Service Language / Язык сервиса / Тіл',
+        done_btn: 'Done',
+        admin_modal_title: 'Room Admin Panel',
+        admin_tab_members: 'Members',
+        admin_tab_bans: 'Ban list',
+        admin_tab_archive: 'Wishlist archive',
+        err_only_creator_admin: 'Only the creator of this room can access the admin panel.',
+        no_members_in_room: 'No members in this room yet',
+        admin_members_intro: 'You are the creator of “<strong>{room}</strong>”. When removing or banning a member, their wishlist is moved to <strong>“Wishlist archive”</strong> rather than permanently lost.',
+        wishes_count_short: 'Wishes: {count}',
+        you_label: 'You',
+        kick_btn: 'Remove',
+        kick_title: 'Remove from room (wishlist moves to archive)',
+        ban_btn: 'Ban',
+        ban_title: 'Block access to room (wishlist moves to archive)',
+        ban_list_empty_title: 'Ban list is empty',
+        ban_list_empty_desc: 'Banned users cannot enter this room even via a direct invite link.',
+        ban_list_intro: 'Banned users cannot rejoin the room until you unban them.',
+        unban_btn: 'Unban',
+        archive_empty_title: 'Wishlist archive is empty',
+        archive_empty_desc: 'When you remove or ban a member, their wish list is automatically saved here.',
+        archive_intro: 'Saved wish lists of removed and banned room members.',
+        archived_meta: 'Archived: {date} · Wishes: {count}',
+        status_banned: 'Banned',
+        status_kicked: 'Removed',
+        no_price: 'No price',
+        link_btn: 'Link',
+        archive_no_wishes: 'This user had no wishes when removed.',
+        download_json_btn: 'Download JSON',
+        delete_from_archive_btn: 'Delete from archive',
+        err_cannot_kick_creator: 'You cannot remove the room creator.',
+        confirm_ban_member: 'Ban {name} (@{username})? They will be removed from the room, blocked from joining via link, and their wishlist will move to archive.',
+        confirm_kick_member: 'Remove {name} (@{username}) from the room? Their wishlist will be saved in archive.',
+        confirm_delete_archive: 'Permanently delete this archived wishlist?',
+        export_empty_alert: 'You have no wishes in this room to export yet.',
+        import_bad_format: 'Invalid file format. Choose a wishlist (.json) file exported from this service.',
+        import_empty_file: 'The selected file contains no wishes.',
+        import_success_alert: 'Successfully imported wishes: {count}!',
+        import_read_error: 'Error reading wishlist file.',
+        santa_login_title: 'Sign in to your account',
+        santa_login_desc: 'Sign in to your profile first to join Secret Santa in this room.',
+        santa_draw_title: 'Draw in room “{room}”',
+        santa_draw_desc: 'Tap below — the system randomly picks another room member for you to gift and opens their wishlist right away. No one else sees who you got!',
+        santa_stats: 'Room members: {members} · Already drawn: {picked}',
+        santa_draw_btn: 'Find out who I gift to',
+        santa_need_2: 'At least 2 members in the room are needed to play. Invite friends via link!',
+        santa_target_left: 'The selected member is no longer in the room.',
+        santa_reset_btn: 'Reset room draw',
+        santa_shuffling: 'Shuffling names...',
+        santa_not_enough: 'Not enough other members in the room to draw yet.',
+        santa_draw_error: 'Could not complete draw. Check your internet connection.',
+        santa_confirm_reset: 'Reset Secret Santa results for all members in this room to start over?',
+        santa_for_label: 'You are Secret Santa for:',
+        santa_no_active_wishes: '{name} has no active wishes in this room yet.',
+        price_not_set: 'Price not specified',
+        size_clothes: 'Clothes: {val}',
+        size_shoes: 'Shoes: {val}',
+        santa_active_wishes_count: 'Active wishlist ({count}):',
+        open_full_wishlist_btn: 'Open full wishlist on main screen',
+        reset_santa_room_btn: 'Reset draw for the whole room',
+        no_user_rooms_empty: 'You are not in any room yet. Create your first room using the button below!',
+        creator_suffix: ' · Creator',
+        room_settings_short_title: 'Room cover & description settings',
+        copy_link_short_title: 'Copy link',
+        delete_room_title: 'Permanently delete room from database',
+        leave_room_title: 'Leave room',
+        confirm_delete_room: 'Are you sure you want to PERMANENTLY delete room “{title}” (#{slug}) from the database? All wish lists, members, and Secret Santa data in this room will be deleted.',
+        err_delete_room: 'Failed to permanently delete room. Check your internet connection.',
+        confirm_leave_room: 'Remove this room from your list? You can always rejoin via link or room name.',
+        all_lists_tab: 'All lists',
+        no_active_room_title: 'You have no active room yet',
+        no_active_room_desc: 'Create your own wish list room or join an existing one by name or invite link.',
+        create_or_join_room_btn: 'Create or join a room',
+        access_restricted_title: 'Room access restricted',
+        access_restricted_desc: 'The creator of room “<strong>{room}</strong>” restricted your access to this list. You can switch to another room via the top-left menu.',
+        open_my_rooms_btn: 'Open my rooms',
+        room_empty_title: 'No one is in room “{room}” yet',
+        room_empty_desc: 'Sign in to join the room and add wishes',
+        login_or_register_btn: 'Sign in or create account',
+        download_wishlist_btn: 'Download wishlist',
+        download_wishlist_title: 'Download wishlist file to transfer to another room',
+        upload_wishlist_btn: 'Upload',
+        upload_wishlist_title: 'Upload wishlist from file',
+        no_wishes_yet: '{name} has no wishes yet',
+        nothing_found: 'Nothing found',
+        fulfilled_btn: 'Gifted',
+        gift_btn: 'Gift',
+        edit_btn_title: 'Edit',
+        delete_btn_title: 'Delete',
+        you_badge: 'You',
+        member_badge: 'Member',
+        wishes_count_meta: 'Wishes: {count}',
+        profile_settings_title_attr: 'Profile settings',
+        photo_alt: 'Photo',
+        preview_alt: 'Preview',
+        admin_drawer_sub_stats: 'Archive: {archive} · Bans: {bans}',
+        admin_drawer_badge_count: '{count} mem.'
+      },
+      kk: {
+        page_title: 'Wishlist — Ортақ тілектер тізімі',
+        sync_default: 'Үндестіру...',
+        sync_no_room: 'Белсенді бөлме жоқ',
+        sync_no_conn: 'Базамен байланыс жоқ',
+        sync_saving: 'Сақталуда...',
+        sync_deleting: 'Өшірілуде...',
+        sync_importing: 'Тілектер жүктелуде...',
+        sync_updating_perms: 'Құқықтар жаңартылуда...',
+        sync_deleting_room: 'Бөлме өшірілуде...',
+        sync_room_deleted: 'Бөлме өшірілді',
+        menu_btn_title: 'Менің бөлмелерім және Құпия Санта',
+        menu_btn_aria: 'Бөлмелер мәзірі',
+        switch_room_title: 'Бөлмені ауыстыру',
+        tutorial_btn_title: 'Қолдану нұсқаулығы',
+        tutorial_btn_aria: 'Нұсқаулық',
+        login_btn: 'Кіру',
+        theme_btn_title: 'Тақырып және безендіру',
+        drawer_title: 'Мәзір және бөлмелер',
+        your_rooms_label: 'Сіздің бөлмелеріңіз',
+        new_or_join_room_btn: 'Жаңа / атауымен кіру',
+        room_mgmt_label: 'Бөлмені басқару',
+        admin_panel_title: 'Әкімші панелі',
+        admin_panel_sub_default: 'Қатысушылар, бұғаттау және мұрағат',
+        admin_badge_creator: 'Құрушы',
+        mini_game_label: 'Бөлме шағын ойыны',
+        santa_title: 'Құпия Санта',
+        santa_sub_default: 'Қатысушылар жеребесі',
+        santa_badge_open: 'Ашу',
+        santa_badge_picked: 'Түсті',
+        santa_badge_draw: 'Суыру',
+        santa_you_gift: 'Сіз сыйлайсыз: {name}',
+        santa_recipient_picked: 'Алушы таңдалды',
+        santa_draw_hint: 'Кімге сыйлық беретініңізді біліңіз',
+        how_to_use_btn: 'Сервисті қалай қолдануға болады',
+        room_settings_dots_title: 'Бөлмені безендіру және сипаттамасы',
+        members_count: 'Қатысушылар: {count}',
+        admin_btn: 'Әкімші',
+        admin_btn_title: 'Құрушының әкімші панелі',
+        santa_btn: 'Санта',
+        invite_btn: 'Шақыру',
+        search_placeholder: 'Тілектер бойынша іздеу...',
+        sort_newest: 'Жаңалары',
+        sort_priority: 'Маңыздылары',
+        sort_price_asc: 'Арзанырақ',
+        sort_price_desc: 'Қымбатырақ',
+        filter_all: 'Барлығы',
+        filter_active: 'Өзекті',
+        filter_fulfilled: 'Сыйланған',
+        filter_high: 'Қатты қалаймын',
+        filter_dream: 'Арман',
+        filter_photo: 'Фотомен',
+        add_wish_fab: 'Тілек қосу',
+        create_room_fab: 'Бөлме құру',
+        login_account_fab: 'Аккаунтқа кіру',
+        tutorial_modal_title: 'Сервис нұсқаулығы',
+        tut_1_title: '1. Бірыңғай аккаунт және өлшемдер',
+        tut_1_desc: 'Бір рет тіркеліңіз — аккаунтыңыз барлық бөлмеде жұмыс істейді. Профиль баптауларында киім, аяқ киім және сақина өлшемдерін көрсетуге болады.',
+        tut_2_title: '2. Әртүрлі ортаға арналған бөлмелер',
+        tut_2_desc: 'Жоғарғы сол жақтағы <strong>үш сызық</strong> мәзірін басып, бөлмелер арасында ауысыңыз (мысалы: «Жұп», «Отбасы», «Достар»). Сілтеме жіберу үшін «Шақыру» түймесін басыңыз.',
+        tut_3_title: '3. Тілектер тізімін бөлмелер арасында көшіру',
+        tut_3_desc: 'Профиль карточкасында <strong>«Жүктеп алу»</strong> және <strong>«Жүктеу»</strong> түймелері бар. Бір бөлмеде тілектер файлын сақтап, екінші бөлмеге жүктеңіз — фотолар, бағалар, сілтемелер мен өлшемдер бірге көшеді.',
+        tut_4_title: '4. Құпия Санта',
+        tut_4_desc: 'Жоғарғы сол жақтағы бүйірлік мәзірді ашып, төмендегі <strong>«Құпия Санта»</strong> бөлімін басыңыз. Жүйе бөлме қатысушылары арасынан сыйлық алушыны кездейсоқ таңдап, оның тізімін көрсетеді.',
+        got_it_btn: 'Бәрі түсінікті',
+        room_modal_title: 'Жаңа немесе бар бөлме',
+        room_modal_desc: 'Бөлме атауын енгізіңіз (мысалы: <strong>Отбасы</strong> немесе <strong>Достар</strong>). Бөлме аккаунтыңызға бекітіледі, ал сілтемені жақындарыңызбен бөлісе аласыз.',
+        room_name_label: 'Бөлме атауы',
+        room_name_placeholder: 'Мысалы: Отбасы немесе alex-kate',
+        invite_link_label: 'Шақыру сілтемесі',
+        copy_btn: 'Көшіру',
+        open_room_btn: 'Бөлмені ашу',
+        enter_room_placeholder: 'Жоғарыда бөлме атауын енгізіңіз...',
+        link_copied_alert: 'Сілтеме көшірілді! Жұбыңызға немесе достарыңызға жіберіңіз.',
+        room_link_copied_alert: '«{room}» бөлмесінің сілтемесі көшірілді!',
+        auth_modal_login_title: 'Аккаунтқа кіру',
+        auth_modal_reg_title: 'Аккаунт құру',
+        auth_modal_desc: 'Барлық бөлмелеріңізге арналған бірыңғай аккаунт: жұп, достар және отбасы.',
+        tab_login: 'Кіру',
+        tab_register: 'Тіркелу',
+        your_name_label: 'Атыңыз *',
+        your_name_placeholder: 'Мысалы: Алина немесе Максим',
+        profile_icon_label: 'Профиль белгішесі',
+        username_label: 'Логин *',
+        username_placeholder: 'Логин ойлап табыңыз немесе енгізіңіз',
+        password_label: 'Құпия сөз *',
+        password_placeholder: 'Құпия сөз',
+        register_btn: 'Тіркелу',
+        checking_btn: 'Тексерілуде...',
+        err_username_latin: 'Логин латын әріптерінен немесе сандардан тұруы керек.',
+        err_username_taken: 'Бұл логин бос емес. Басқасын таңдаңыз немесе «Кіру» қойындысына өтіңіз.',
+        err_user_not_found: '«{username}» аккаунты табылмады. Логинді тексеріңіз немесе тіркеліңіз.',
+        err_wrong_password: 'Құпия сөз қате! Қайта көріңіз.',
+        err_network: 'Деректер базасымен байланыс қатесі. Интернетті тексеріңіз.',
+        profile_settings_title: 'Профиль баптаулары',
+        photo_or_icon_label: 'Фотосурет немесе белгіше',
+        upload_photo_btn: 'Фото жүктеу',
+        remove_photo_btn: 'Фотоны алып тастау',
+        minimal_icon_label: 'Минималистік белгіше (фото болмаса)',
+        name_req_label: 'Аты *',
+        bio_label: 'Өзім туралы / достарға ескертпе',
+        bio_placeholder: 'Минимализм, кофе және кітаптар ұнайды...',
+        clothes_size_label: 'Киім өлшемі',
+        shoe_size_label: 'Аяқ киім өлшемі',
+        ring_size_label: 'Сақина / әшекей өлшемі',
+        ring_size_placeholder: 'Сақина 16.5',
+        profile_color_label: 'Профиль түсі',
+        new_password_label: 'Жаңа құпия сөз (өзгерткіңіз келсе)',
+        new_password_placeholder: 'Өзгертпеу үшін бос қалдырыңыз',
+        save_profile_btn: 'Профильді сақтау',
+        logout_btn: 'Аккаунттан шығу',
+        new_wish_title: 'Жаңа тілек',
+        new_wish_for_user: 'Жаңа тілек ({name})',
+        edit_wish_title: 'Тілекті өңдеу',
+        wish_photo_label: 'Сыйлық фотосы',
+        choose_gallery_photo: 'Галереядан фото таңдау',
+        delete_photo_btn: 'Фотоны өшіру',
+        wish_title_label: 'Сыйлық атауы *',
+        wish_title_placeholder: 'Мысалы: Dyson Airwrap',
+        wish_caption_label: 'Сипаттама және толық ақпарат',
+        wish_caption_placeholder: 'Түсі, өлшемі, үлгісі...',
+        wish_priority_label: 'Маңыздылығы',
+        prio_high: 'Қатты қалаймын',
+        prio_dream: 'Арман',
+        prio_idea: 'Идея',
+        prio_small: 'Ұсақ-түйек',
+        wish_price_label: 'Бағасы',
+        wish_link_label: 'Тауар сілтемесі',
+        save_wish_btn: 'Тізіміме сақтау',
+        confirm_delete_wish: 'Тілекті өшіру керек пе?',
+        room_settings_modal_title: 'Бөлме баптаулары',
+        room_settings_desc: 'Бөлме мұқабасы мен сипаттамасын орнатыңыз — олар басты экранда барлық қатысушыға көрінеді.',
+        room_cover_label: 'Фото-белгіше (бөлме мұқабасы)',
+        remove_cover_btn: 'Мұқабаны алып тастау',
+        room_title_req_label: 'Бөлме атауы *',
+        room_title_placeholder: 'Мысалы: Туған күн немесе Біздің отбасы',
+        room_desc_label: 'Бөлме сипаттамасы (басты экранда бәріне көрінеді)',
+        room_desc_placeholder: 'Мереке себебін, күнін, сыйлық бюджетін немесе қатысушыларға жазба жазыңыз...',
+        save_appearance_btn: 'Безендіруді сақтау',
+        saving_btn: 'Сақталуда...',
+        err_save_room_settings: 'Бөлме баптауларын сақтау мүмкін болмады. Интернетті тексеріңіз.',
+        err_only_creator_room_settings: 'Бөлме мұқабасы мен сипаттамасын тек оның құрушысы өзгерте алады.',
+        theme_modal_title: 'Тақырып және фон стилі',
+        brightness_label: 'Жарықтық режимі',
+        light_theme_title: 'Ашық тақырып',
+        light_theme_sub: 'Таза ашық интерфейс',
+        dark_theme_title: 'Қараңғы тақырып',
+        dark_theme_sub: 'Ыңғайлы түнгі режим',
+        occasion_label: 'Тақырыптық фон',
+        classic_bg_title: 'Классикалық фон',
+        classic_bg_sub: 'Артқы фонда өрнексіз',
+        valentine_title: 'Ғашықтар күні (14 ақпан)',
+        valentine_sub: 'Жүрекшелер фоны және қою қызыл-қоңыр екпін',
+        newyear_title: 'Жаңа жыл',
+        newyear_sub: 'Шыршалар, қар түйіршіктері және жасыл екпін',
+        march8_title: '8 Наурыз',
+        march8_sub: 'Қызғалдақтар, жүрекшелер және нәзік қызғылт екпін',
+        color_styles_label: 'Түстік стильдер',
+        neon_purple_title: 'Неон күлгін',
+        neon_purple_sub: 'Қою күлгін-қызғылт жарқыл',
+        futuristic_blue_title: 'Футуристік көк',
+        futuristic_blue_sub: 'Кибер-тор және салқын неон-көк екпін',
+        lang_section_label: 'Тіл / Язык сервиса / Language',
+        done_btn: 'Дайын',
+        admin_modal_title: 'Бөлменің әкімші панелі',
+        admin_tab_members: 'Қатысушылар',
+        admin_tab_bans: 'Қара тізім',
+        admin_tab_archive: 'Тілектер мұрағаты',
+        err_only_creator_admin: 'Әкімші панеліне тек осы бөлменің құрушысы кіре алады.',
+        no_members_in_room: 'Бөлмеде әлі қатысушылар жоқ',
+        admin_members_intro: 'Сіз «<strong>{room}</strong>» бөлмесінің құрушысыз. Қатысушыны шығарғанда немесе бұғаттағанда оның тілектер тізімі бірден жойылмай, <strong>«Тілектер мұрағаты»</strong> қойындысына өтеді.',
+        wishes_count_short: 'Тілектер: {count}',
+        you_label: 'Сіз',
+        kick_btn: 'Шығару',
+        kick_title: 'Бөлмеден шығару (тізім мұрағатқа өтеді)',
+        ban_btn: 'Бұғаттау',
+        ban_title: 'Бөлмеге кіруді бұғаттау (тізім мұрағатқа өтеді)',
+        ban_list_empty_title: 'Қара тізім бос',
+        ban_list_empty_desc: 'Бұғатталған қолданушылар тікелей шақыру сілтемесімен де бұл бөлмеге кіре алмайды.',
+        ban_list_intro: 'Бұғатты алғанша бұғатталған қолданушылар бөлмеге қайта кіре алмайды.',
+        unban_btn: 'Бұғатты алу',
+        archive_empty_title: 'Тілектер мұрағаты бос',
+        archive_empty_desc: 'Қатысушыны шығарғанда немесе бұғаттағанда оның тілектер тізімі осында сақталады.',
+        archive_intro: 'Шығарылған және бұғатталған қатысушылардың сақталған тілектер тізімдері.',
+        archived_meta: 'Мұрағатталды: {date} · Тілектер: {count}',
+        status_banned: 'Бұғатталған',
+        status_kicked: 'Шығарылған',
+        no_price: 'Бағасы көрсетілмеген',
+        link_btn: 'Сілтеме',
+        archive_no_wishes: 'Шығарылған сәтте қолданушыда тілектер болмаған.',
+        download_json_btn: 'JSON жүктеу',
+        delete_from_archive_btn: 'Мұрағаттан өшіру',
+        err_cannot_kick_creator: 'Бөлме құрушысын шығару мүмкін емес.',
+        confirm_ban_member: '{name} (@{username}) қолданушысын бұғаттау керек пе? Ол бөлмеден шығарылады, сілтеме арқылы кіре алмайды, ал тізімі мұрағатқа өтеді.',
+        confirm_kick_member: '{name} (@{username}) қолданушысын бөлмеден шығару керек пе? Оның тілектер тізімі мұрағатта сақталады.',
+        confirm_delete_archive: 'Бұл мұрағатталған тізімді біржола өшіру керек пе?',
+        export_empty_alert: 'Бұл бөлмеде жүктеп алуға болатын тілектеріңіз әлі жоқ.',
+        import_bad_format: 'Файл пішімі дұрыс емес. Осы сервистен жүктелген (.json) тілектер файлын таңдаңыз.',
+        import_empty_file: 'Таңдалған файлда тілектер жоқ.',
+        import_success_alert: 'Тілектер сәтті жүктелді: {count}!',
+        import_read_error: 'Тілектер файлын оқу қатесі.',
+        santa_login_title: 'Аккаунтқа кіріңіз',
+        santa_login_desc: 'Бұл бөлмеде Құпия Сантаға қатысу үшін алдымен профиліңізге кіріңіз.',
+        santa_draw_title: '«{room}» бөлмесіндегі жеребе',
+        santa_draw_desc: 'Төмендегі түймені басыңыз — жүйе сізге сыйлық беретін бөлме қатысушысын кездейсоқ таңдап, оның тізімін ашады. Сізге кім түскенін басқалар көрмейді!',
+        santa_stats: 'Бөлмедегі қатысушылар: {members} · Суырылды: {picked}',
+        santa_draw_btn: 'Кімге сыйлық беретінімді білу',
+        santa_need_2: 'Ойнау үшін бөлмеде кемінде 2 қатысушы болуы керек. Сілтеме арқылы достарды шақырыңыз!',
+        santa_target_left: 'Таңдалған қатысушы бөлмеден шығып кетті.',
+        santa_reset_btn: 'Бөлме жеребесін қайта бастау',
+        santa_shuffling: 'Есімдер араластырылуда...',
+        santa_not_enough: 'Жеребе өткізу үшін бөлмеде басқа қатысушылар әлі жеткіліксіз.',
+        santa_draw_error: 'Жеребе өткізу мүмкін болмады. Интернет байланысын тексеріңіз.',
+        santa_confirm_reset: 'Ойынды қайта бастау үшін осы бөлмедегі барлық қатысушының Құпия Санта нәтижесін тазалау керек пе?',
+        santa_for_label: 'Сіз Құпия Сантасыз:',
+        santa_no_active_wishes: '{name} қолданушысында бұл бөлмеде белсенді тілектер әлі жоқ.',
+        price_not_set: 'Бағасы көрсетілмеген',
+        size_clothes: 'Киім: {val}',
+        size_shoes: 'Аяқ киім: {val}',
+        santa_active_wishes_count: 'Өзекті тілектер ({count}):',
+        open_full_wishlist_btn: 'Басты экранда толық тізімді ашу',
+        reset_santa_room_btn: 'Бүкіл бөлме үшін жеребені тазалау',
+        no_user_rooms_empty: 'Сіз әлі ешбір бөлмеде жоқсыз. Төмендегі түйме арқылы алғашқы бөлмені құрыңыз!',
+        creator_suffix: ' · Құрушы',
+        room_settings_short_title: 'Бөлме мұқабасы мен сипаттамасы баптаулары',
+        copy_link_short_title: 'Сілтемені көшіру',
+        delete_room_title: 'Бөлмені деректер базасынан біржола өшіру',
+        leave_room_title: 'Бөлмеден шығу',
+        confirm_delete_room: '«{title}» (#{slug}) бөлмесін деректер базасынан БІРЖОЛА өшіргіңіз келе ме? Бұл бөлмедегі барлық тілектер, қатысушылар және Құпия Санта деректері өшіріледі.',
+        err_delete_room: 'Бөлмені толық өшіру мүмкін болмады. Интернет байланысын тексеріңіз.',
+        confirm_leave_room: 'Бұл бөлмені тізіміңізден алып тастау керек пе? Сілтеме немесе атау арқылы кез келген уақытта қайта кіре аласыз.',
+        all_lists_tab: 'Барлық тізімдер',
+        no_active_room_title: 'Сізде белсенді бөлме жоқ',
+        no_active_room_desc: 'Тілектерге арналған өз бөлмеңізді құрыңыз немесе атауы не шақыру сілтемесі арқылы бар бөлмеге кіріңіз.',
+        create_or_join_room_btn: 'Бөлме құру немесе кіру',
+        access_restricted_title: 'Бөлмеге кіру шектелген',
+        access_restricted_desc: '«<strong>{room}</strong>» бөлмесінің құрушысы сіздің осы тізімге кіруіңізді шектеді. Жоғарғы сол жақ мәзір арқылы басқа бөлмеге ауыса аласыз.',
+        open_my_rooms_btn: 'Менің бөлмелерімді ашу',
+        room_empty_title: '«{room}» бөлмесінде әлі ешкім жоқ',
+        room_empty_desc: 'Бөлмеге қосылу және тілектер қосу үшін аккаунтқа кіріңіз',
+        login_or_register_btn: 'Кіру немесе аккаунт құру',
+        download_wishlist_btn: 'Тізімді жүктеп алу',
+        download_wishlist_title: 'Басқа бөлмеге көшіру үшін тілектерді файлмен жүктеп алу',
+        upload_wishlist_btn: 'Жүктеу',
+        upload_wishlist_title: 'Файлдан тілектерді жүктеу',
+        no_wishes_yet: '{name} қолданушысында әлі тілектер жоқ',
+        nothing_found: 'Ештеңе табылмады',
+        fulfilled_btn: 'Сыйланды',
+        gift_btn: 'Сыйлау',
+        edit_btn_title: 'Өңдеу',
+        delete_btn_title: 'Өшіру',
+        you_badge: 'Сіз',
+        member_badge: 'Қатысушы',
+        wishes_count_meta: 'Тілектер: {count}',
+        profile_settings_title_attr: 'Профиль баптаулары',
+        photo_alt: 'Фото',
+        preview_alt: 'Алдын ала қарау',
+        admin_drawer_sub_stats: 'Мұрағат: {archive} · Қара тізім: {bans}',
+        admin_drawer_badge_count: '{count} қатыс.'
+      }
+    };
+
+    function detectServiceLanguage() {
+      const saved = localStorage.getItem(SERVICE_LANG_KEY);
+      if (saved && SUPPORTED_LANGS.includes(saved)) {
+        return saved;
+      }
+      const navLangs = Array.isArray(navigator.languages) ? navigator.languages : [navigator.language || ''];
+      for (const raw of navLangs) {
+        const code = String(raw || '').slice(0, 2).toLowerCase();
+        if (code === 'kk' || code === 'kz') return 'kk';
+        if (code === 'en') return 'en';
+        if (code === 'ru') return 'ru';
+      }
+      return 'ru';
+    }
+
+    let currentLang = detectServiceLanguage();
+
+    function t(key, params = {}) {
+      const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.ru;
+      const fallback = TRANSLATIONS.ru;
+      let str = Object.prototype.hasOwnProperty.call(dict, key)
+        ? dict[key]
+        : (Object.prototype.hasOwnProperty.call(fallback, key) ? fallback[key] : key);
+      Object.entries(params).forEach(([k, v]) => {
+        str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
+      });
+      return str;
+    }
+
+    function applyStaticTranslations() {
+      document.documentElement.lang = currentLang;
+      document.title = t('page_title');
+
+      document.querySelectorAll('.lang-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+        btn.setAttribute('aria-pressed', String(btn.dataset.lang === currentLang));
+      });
+
+      const langMap = {
+        en: ['optLangEn', 'checkLangEn'],
+        ru: ['optLangRu', 'checkLangRu'],
+        kk: ['optLangKk', 'checkLangKk']
+      };
+      Object.entries(langMap).forEach(([code, [cardId, checkId]]) => {
+        const cardEl = document.getElementById(cardId);
+        const checkEl = document.getElementById(checkId);
+        const active = currentLang === code;
+        if (cardEl) cardEl.classList.toggle('active', active);
+        if (checkEl) checkEl.style.display = active ? 'inline' : 'none';
+      });
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (k) el.textContent = t(k);
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const k = el.getAttribute('data-i18n-html');
+        if (k) el.innerHTML = t(k);
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const k = el.getAttribute('data-i18n-placeholder');
+        if (k) el.placeholder = t(k);
+      });
+
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const k = el.getAttribute('data-i18n-title');
+        if (k) el.title = t(k);
+      });
+
+      const menuBtn = document.querySelector('.header-left .icon-btn');
+      if (menuBtn) {
+        menuBtn.title = t('menu_btn_title');
+        menuBtn.setAttribute('aria-label', t('menu_btn_aria'));
+      }
+      const brandTitleEl = document.querySelector('.app-title');
+      if (brandTitleEl) brandTitleEl.title = t('switch_room_title');
+
+      const tutBtn = document.querySelector('.header-actions .icon-btn[onclick*="tutorialModal"]');
+      if (tutBtn) {
+        tutBtn.title = t('tutorial_btn_title');
+        tutBtn.setAttribute('aria-label', t('tutorial_btn_aria'));
+      }
+      const themeBtn = document.getElementById('themeToggleBtn');
+      if (themeBtn) themeBtn.title = t('theme_btn_title');
+
+      const drawerTitleSpan = document.querySelector('.drawer-title span');
+      if (drawerTitleSpan) drawerTitleSpan.textContent = t('drawer_title');
+
+      const drawerLabels = document.querySelectorAll('.drawer-panel .drawer-section-label');
+      if (drawerLabels[0]) drawerLabels[0].textContent = t('your_rooms_label');
+      if (drawerLabels[1]) drawerLabels[1].textContent = t('room_mgmt_label');
+      if (drawerLabels[2]) drawerLabels[2].textContent = t('mini_game_label');
+
+      const newRoomDrawerBtn = document.querySelector('.drawer-panel button[onclick*="roomModal"]');
+      if (newRoomDrawerBtn) {
+        newRoomDrawerBtn.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg><span>${t('new_or_join_room_btn')}</span>`;
+      }
+
+      const adminDrawerCard = document.querySelector('.admin-drawer-card');
+      if (adminDrawerCard) {
+        const titleDiv = adminDrawerCard.querySelector('div[style*="font-size:15px"]');
+        if (titleDiv) titleDiv.textContent = t('admin_panel_title');
+      }
+
+      const santaDrawerCard = document.querySelector('.santa-drawer-card');
+      if (santaDrawerCard) {
+        const titleDiv = santaDrawerCard.querySelector('div[style*="font-size:15px"]');
+        if (titleDiv) titleDiv.textContent = t('santa_title');
+      }
+
+      const howToUseBtn = document.querySelector('.drawer-panel button[onclick*="tutorialModal"]');
+      if (howToUseBtn) {
+        howToUseBtn.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>${t('how_to_use_btn')}</span>`;
+      }
+
+      const dotsBtn = document.getElementById('roomBarDotsBtn');
+      if (dotsBtn) dotsBtn.title = t('room_settings_dots_title');
+
+      const barAdminBtn = document.getElementById('roomBarAdminBtn');
+      if (barAdminBtn) {
+        barAdminBtn.title = t('admin_btn_title');
+        barAdminBtn.innerHTML = `<svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>${t('admin_btn')}</span>`;
+      }
+
+      const santaBarBtn = document.querySelector('.room-actions button[onclick*="openSecretSantaModal"]');
+      if (santaBarBtn) {
+        santaBarBtn.title = t('santa_title');
+        santaBarBtn.innerHTML = `<svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg><span>${t('santa_btn')}</span>`;
+      }
+
+      const inviteBarBtn = document.querySelector('.room-actions button[onclick*="quickCopyCurrentRoomLink"]');
+      if (inviteBarBtn) {
+        inviteBarBtn.innerHTML = `<svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>${t('invite_btn')}</span>`;
+      }
+
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) searchInput.placeholder = t('search_placeholder');
+
+      const sortSelect = document.getElementById('sortSelect');
+      if (sortSelect) {
+        const opts = {
+          newest: t('sort_newest'),
+          priority: t('sort_priority'),
+          price_asc: t('sort_price_asc'),
+          price_desc: t('sort_price_desc')
+        };
+        Array.from(sortSelect.options).forEach(o => {
+          if (opts[o.value]) o.textContent = opts[o.value];
+        });
+      }
+
+      const pillMap = {
+        all: t('filter_all'),
+        active: t('filter_active'),
+        fulfilled: t('filter_fulfilled'),
+        high: t('filter_high'),
+        dream: t('filter_dream'),
+        photo: t('filter_photo')
+      };
+      document.querySelectorAll('#filterPills .pill').forEach(btn => {
+        const fk = btn.dataset.filter;
+        if (pillMap[fk]) btn.textContent = pillMap[fk];
+      });
+
+      const prioSelect = document.getElementById('wishPriority');
+      if (prioSelect) {
+        const pOpts = {
+          high: t('prio_high'),
+          dream: t('prio_dream'),
+          idea: t('prio_idea'),
+          small: t('prio_small')
+        };
+        Array.from(prioSelect.options).forEach(o => {
+          if (pOpts[o.value]) o.textContent = pOpts[o.value];
+        });
+      }
+
+      // Tutorial modal
+      const tutModalTitle = document.querySelector('#tutorialModal .modal-title span');
+      if (tutModalTitle) tutModalTitle.textContent = t('tutorial_modal_title');
+      const tutCards = document.querySelectorAll('#tutorialModal .tutorial-card');
+      if (tutCards[0]) {
+        tutCards[0].querySelector('h4').textContent = t('tut_1_title');
+        tutCards[0].querySelector('p').textContent = t('tut_1_desc');
+      }
+      if (tutCards[1]) {
+        tutCards[1].querySelector('h4').textContent = t('tut_2_title');
+        tutCards[1].querySelector('p').innerHTML = t('tut_2_desc');
+      }
+      if (tutCards[2]) {
+        tutCards[2].querySelector('h4').textContent = t('tut_3_title');
+        tutCards[2].querySelector('p').innerHTML = t('tut_3_desc');
+      }
+      if (tutCards[3]) {
+        tutCards[3].querySelector('h4').textContent = t('tut_4_title');
+        tutCards[3].querySelector('p').innerHTML = t('tut_4_desc');
+      }
+      const tutGotItBtn = document.querySelector('#tutorialModal .primary-btn');
+      if (tutGotItBtn) tutGotItBtn.textContent = t('got_it_btn');
+
+      // Santa modal title
+      const santaModalTitle = document.querySelector('#secretSantaModal .modal-title span');
+      if (santaModalTitle) santaModalTitle.textContent = t('santa_title');
+
+      // Room modal
+      const roomModalTitle = document.querySelector('#roomModal .modal-title');
+      if (roomModalTitle) roomModalTitle.textContent = t('room_modal_title');
+      const roomModalDesc = document.querySelector('#roomModal .info-text');
+      if (roomModalDesc) roomModalDesc.innerHTML = t('room_modal_desc');
+      const roomLabels = document.querySelectorAll('#roomModal .form-label');
+      if (roomLabels[0]) roomLabels[0].textContent = t('room_name_label');
+      if (roomLabels[1]) roomLabels[1].textContent = t('invite_link_label');
+      const roomNameInput = document.getElementById('roomNameInput');
+      if (roomNameInput) roomNameInput.placeholder = t('room_name_placeholder');
+      const copyLinkBtnSpan = document.querySelector('#roomModal .action-pill span');
+      if (copyLinkBtnSpan) copyLinkBtnSpan.textContent = t('copy_btn');
+      const openRoomBtn = document.querySelector('#roomModal .primary-btn');
+      if (openRoomBtn) openRoomBtn.textContent = t('open_room_btn');
+
+      // Auth modal
+      const authDesc = document.querySelector('#authModal .info-text');
+      if (authDesc) authDesc.textContent = t('auth_modal_desc');
+      const tabLoginBtn = document.getElementById('tabLoginBtn');
+      if (tabLoginBtn) tabLoginBtn.textContent = t('tab_login');
+      const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+      if (tabRegisterBtn) tabRegisterBtn.textContent = t('tab_register');
+      const regLabels = document.querySelectorAll('#registerFields .form-label');
+      if (regLabels[0]) regLabels[0].textContent = t('your_name_label');
+      if (regLabels[1]) regLabels[1].textContent = t('profile_icon_label');
+      const authDisplayName = document.getElementById('authDisplayName');
+      if (authDisplayName) authDisplayName.placeholder = t('your_name_placeholder');
+      const authUsername = document.getElementById('authUsername');
+      if (authUsername) authUsername.placeholder = t('username_placeholder');
+      const authPassword = document.getElementById('authPassword');
+      if (authPassword) authPassword.placeholder = t('password_placeholder');
+      const authFormLabels = document.querySelectorAll('#authForm > .form-group .form-label');
+      if (authFormLabels[0]) authFormLabels[0].textContent = t('username_label');
+      if (authFormLabels[1]) authFormLabels[1].textContent = t('password_label');
+      const authSubmitBtn = document.getElementById('authSubmitBtn');
+      if (authSubmitBtn && !authSubmitBtn.disabled) {
+        authSubmitBtn.textContent = authMode === 'register' ? t('register_btn') : t('login_btn');
+      }
+
+      // Profile settings modal
+      const profTitle = document.querySelector('#profileSettingsModal .modal-title');
+      if (profTitle) profTitle.textContent = t('profile_settings_title');
+      const profGroups = document.querySelectorAll('#profileSettingsModal form .form-group');
+      if (profGroups[0]) {
+        profGroups[0].querySelector('.form-label').textContent = t('photo_or_icon_label');
+        const upBtnSpan = profGroups[0].querySelector('button[onclick*="avatarPhotoInput"] span');
+        if (upBtnSpan) upBtnSpan.textContent = t('upload_photo_btn');
+        const remBtn = document.getElementById('removeAvatarBtn');
+        if (remBtn) remBtn.textContent = t('remove_photo_btn');
+      }
+      if (profGroups[1]) profGroups[1].querySelector('.form-label').textContent = t('minimal_icon_label');
+      if (profGroups[2]) profGroups[2].querySelector('.form-label').textContent = t('name_req_label');
+      if (profGroups[3]) {
+        profGroups[3].querySelector('.form-label').textContent = t('bio_label');
+        document.getElementById('settingsBio').placeholder = t('bio_placeholder');
+      }
+      if (profGroups[4]) {
+        const subLabels = profGroups[4].querySelectorAll('.form-label');
+        if (subLabels[0]) subLabels[0].textContent = t('clothes_size_label');
+        if (subLabels[1]) subLabels[1].textContent = t('shoe_size_label');
+      }
+      if (profGroups[5]) {
+        profGroups[5].querySelector('.form-label').textContent = t('ring_size_label');
+        document.getElementById('settingsRingSize').placeholder = t('ring_size_placeholder');
+      }
+      if (profGroups[6]) profGroups[6].querySelector('.form-label').textContent = t('profile_color_label');
+      if (profGroups[7]) {
+        profGroups[7].querySelector('.form-label').textContent = t('new_password_label');
+        document.getElementById('settingsNewPassword').placeholder = t('new_password_placeholder');
+      }
+      const saveProfBtn = document.querySelector('#profileSettingsModal form .primary-btn');
+      if (saveProfBtn) saveProfBtn.textContent = t('save_profile_btn');
+      const logoutBtn = document.querySelector('#profileSettingsModal > .secondary-btn');
+      if (logoutBtn) {
+        logoutBtn.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg><span>${t('logout_btn')}</span>`;
+      }
+
+      // Wish modal
+      const wishGroups = document.querySelectorAll('#wishForm .form-group');
+      if (wishGroups[0]) {
+        wishGroups[0].querySelector('.form-label').textContent = t('wish_photo_label');
+        const galSpan = document.querySelector('#photoPlaceholder span');
+        if (galSpan) galSpan.textContent = t('choose_gallery_photo');
+        const delPhotoBtn = document.getElementById('removePhotoBtn');
+        if (delPhotoBtn) delPhotoBtn.textContent = t('delete_photo_btn');
+      }
+      if (wishGroups[1]) {
+        wishGroups[1].querySelector('.form-label').textContent = t('wish_title_label');
+        document.getElementById('wishTitle').placeholder = t('wish_title_placeholder');
+      }
+      if (wishGroups[2]) {
+        wishGroups[2].querySelector('.form-label').textContent = t('wish_caption_label');
+        document.getElementById('wishCaption').placeholder = t('wish_caption_placeholder');
+      }
+      if (wishGroups[3]) {
+        const pLabels = wishGroups[3].querySelectorAll('.form-label');
+        if (pLabels[0]) pLabels[0].textContent = t('wish_priority_label');
+        if (pLabels[1]) pLabels[1].textContent = t('wish_price_label');
+      }
+      if (wishGroups[4]) wishGroups[4].querySelector('.form-label').textContent = t('wish_link_label');
+      const saveWishBtn = document.getElementById('saveWishBtn');
+      if (saveWishBtn) saveWishBtn.textContent = t('save_wish_btn');
+
+      // Room settings modal
+      const rsTitle = document.querySelector('#roomSettingsModal .modal-title span');
+      if (rsTitle) rsTitle.textContent = t('room_settings_modal_title');
+      const rsDesc = document.querySelector('#roomSettingsModal .info-text');
+      if (rsDesc) rsDesc.textContent = t('room_settings_desc');
+      const rsGroups = document.querySelectorAll('#roomSettingsModal form .form-group');
+      if (rsGroups[0]) {
+        rsGroups[0].querySelector('.form-label').textContent = t('room_cover_label');
+        const upCovSpan = rsGroups[0].querySelector('button[onclick*="roomCoverPhotoInput"] span');
+        if (upCovSpan) upCovSpan.textContent = t('upload_photo_btn');
+        const remCovBtn = document.getElementById('removeRoomCoverBtn');
+        if (remCovBtn) remCovBtn.textContent = t('remove_cover_btn');
+      }
+      if (rsGroups[1]) {
+        rsGroups[1].querySelector('.form-label').textContent = t('room_title_req_label');
+        document.getElementById('roomSettingsTitleInput').placeholder = t('room_title_placeholder');
+      }
+      if (rsGroups[2]) {
+        rsGroups[2].querySelector('.form-label').textContent = t('room_desc_label');
+        document.getElementById('roomSettingsDescInput').placeholder = t('room_desc_placeholder');
+      }
+      const saveAppBtn = document.getElementById('saveRoomSettingsBtn');
+      if (saveAppBtn && !saveAppBtn.disabled) saveAppBtn.textContent = t('save_appearance_btn');
+
+      // Theme modal
+      const thTitle = document.querySelector('#themePickerModal .modal-title span');
+      if (thTitle) thTitle.textContent = t('theme_modal_title');
+      const thSecLabels = document.querySelectorAll('#themePickerModal .drawer-section-label');
+      if (thSecLabels[0]) thSecLabels[0].textContent = t('brightness_label');
+      if (thSecLabels[1]) thSecLabels[1].textContent = t('occasion_label');
+      if (thSecLabels[2]) thSecLabels[2].textContent = t('color_styles_label');
+      if (thSecLabels[3]) thSecLabels[3].textContent = t('lang_section_label');
+
+      const setCardTexts = (id, titleKey, subKey) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const tEl = el.querySelector('.theme-option-title');
+        const sEl = el.querySelector('.theme-option-sub');
+        if (tEl) tEl.textContent = t(titleKey);
+        if (sEl) sEl.textContent = t(subKey);
+      };
+      setCardTexts('optLightTheme', 'light_theme_title', 'light_theme_sub');
+      setCardTexts('optDarkTheme', 'dark_theme_title', 'dark_theme_sub');
+      setCardTexts('optOccasionNone', 'classic_bg_title', 'classic_bg_sub');
+      setCardTexts('optOccasionValentine', 'valentine_title', 'valentine_sub');
+      setCardTexts('optOccasionNewyear', 'newyear_title', 'newyear_sub');
+      setCardTexts('optOccasionMarch8', 'march8_title', 'march8_sub');
+      setCardTexts('optOccasionNeonpurple', 'neon_purple_title', 'neon_purple_sub');
+      setCardTexts('optOccasionFuturisticblue', 'futuristic_blue_title', 'futuristic_blue_sub');
+
+      // Admin modal
+      const admTitle = document.querySelector('#adminModal .modal-title span');
+      if (admTitle) admTitle.textContent = t('admin_modal_title');
+      const admTabM = document.getElementById('adminTabMembers');
+      if (admTabM) admTabM.textContent = t('admin_tab_members');
+      const admTabB = document.getElementById('adminTabBans');
+      if (admTabB) admTabB.textContent = t('admin_tab_bans');
+      const admTabA = document.getElementById('adminTabArchive');
+      if (admTabA) admTabA.textContent = t('admin_tab_archive');
+    }
+
+    function setServiceLanguage(lang) {
+      if (!SUPPORTED_LANGS.includes(lang)) return;
+      currentLang = lang;
+      localStorage.setItem(SERVICE_LANG_KEY, lang);
+      applyStaticTranslations();
+      updateRoomHeaderUI();
+      updateHeaderAccountUI();
+      updateAdminUI();
+      updateSantaDrawerBadge();
+      renderTabs();
+      renderColumns();
+      if (document.getElementById('roomsDrawer') && document.getElementById('roomsDrawer').classList.contains('open')) {
+        renderDrawerRooms();
+      }
+      if (document.getElementById('secretSantaModal') && document.getElementById('secretSantaModal').classList.contains('open')) {
+        renderSecretSantaModal();
+      }
+      if (document.getElementById('adminModal') && document.getElementById('adminModal').classList.contains('open')) {
+        renderAdminModal();
+      }
+      if (document.getElementById('roomModal') && document.getElementById('roomModal').classList.contains('open')) {
+        previewGeneratedLink();
+      }
+      if (currentRoom) {
+        setSyncStatus(`${state.roomTitle || currentRoom}`, 'online');
+      } else {
+        setSyncStatus(t('sync_no_room'), 'online');
+      }
+    }
+
     async function init() {
+      applyStaticTranslations();
       applyTheme(state.theme);
       applyOccasionTheme(state.occasion);
 
@@ -2506,7 +3795,7 @@
 
     function openRoomSettingsModal() {
       if (!isRoomAdmin()) {
-        alert('Изменять обложку и описание комнаты может только её создатель.');
+        alert(t('err_only_creator_room_settings'));
         return;
       }
       const meta = state.roomMeta || {};
@@ -2553,7 +3842,7 @@
       const newDesc = document.getElementById('roomSettingsDescInput').value.trim();
 
       btn.disabled = true;
-      btn.textContent = 'Сохранение...';
+      btn.textContent = t('saving_btn');
 
       try {
         const metaPatch = {
@@ -2594,10 +3883,10 @@
         await pullFromCloud();
       } catch (e) {
         console.error(e);
-        alert('Не удалось сохранить настройки комнаты. Проверьте интернет.');
+        alert(t('err_save_room_settings'));
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Сохранить оформление';
+        btn.textContent = t('save_appearance_btn');
       }
     }
 
@@ -2619,14 +3908,14 @@
       if (adminFlag && subEl && badgeEl) {
         const archiveCount = state.archivedWishes.length;
         const banCount = Object.keys(state.bannedUsers || {}).length;
-        badgeEl.textContent = `${state.roomMembers.length} уч.`;
-        subEl.textContent = `Архив: ${archiveCount} · Бан-лист: ${banCount}`;
+        badgeEl.textContent = t('admin_drawer_badge_count', { count: state.roomMembers.length });
+        subEl.textContent = t('admin_drawer_sub_stats', { archive: archiveCount, bans: banCount });
       }
     }
 
     function openAdminModal() {
       if (!isRoomAdmin()) {
-        alert('Доступ к админ-панели есть только у создателя этой комнаты.');
+        alert(t('err_only_creator_admin'));
         return;
       }
       currentAdminTab = 'members';
@@ -2654,13 +3943,13 @@
       if (currentAdminTab === 'members') {
         const members = state.roomMembers || [];
         if (members.length === 0) {
-          body.innerHTML = `<div class="empty-box"><div>В комнате пока нет участников</div></div>`;
+          body.innerHTML = `<div class="empty-box"><div>${t('no_members_in_room')}</div></div>`;
           return;
         }
 
         body.innerHTML = `
           <p class="info-text">
-            Вы создатель комнаты «<strong>${escapeHtml(state.roomTitle)}</strong>». При исключении или блокировке участника его вишлист не удаляется безвозвратно, а переносится во вкладку <strong>«Архив вишлистов»</strong>.
+            ${t('admin_members_intro', { room: escapeHtml(state.roomTitle) })}
           </p>
           <div>
             ${members.map(m => {
@@ -2678,16 +3967,16 @@
                         <span>${escapeHtml(m.displayName)}</span>
                         ${isCreator ? `<span class="admin-badge">Создатель</span>` : ''}
                       </div>
-                      <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(m.username)} · Желаний: ${wishCount}</div>
+                      <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(m.username)} · ${t('wishes_count_short', { count: wishCount })}</div>
                     </div>
                   </div>
                   <div class="admin-member-actions">
-                    ${isCreator ? `<span style="font-size:12px; color:var(--text-tertiary); font-weight:600;">Вы</span>` : `
-                      <button type="button" class="btn-kick" onclick="adminRemoveMember('${m.id}', false)" title="Исключить из комнаты (вишлист улетит в архив)">
-                        Исключить
+                    ${isCreator ? `<span style="font-size:12px; color:var(--text-tertiary); font-weight:600;">${t('you_label')}</span>` : `
+                      <button type="button" class="btn-kick" onclick="adminRemoveMember('${m.id}', false)" title="${t('kick_title')}">
+                        ${t('kick_btn')}
                       </button>
-                      <button type="button" class="btn-ban" onclick="adminRemoveMember('${m.id}', true)" title="Заблокировать вход в комнату (вишлист улетит в архив)">
-                        Бан
+                      <button type="button" class="btn-ban" onclick="adminRemoveMember('${m.id}', true)" title="${t('ban_title')}">
+                        ${t('ban_btn')}
                       </button>
                     `}
                   </div>
@@ -2704,15 +3993,15 @@
         if (bans.length === 0) {
           body.innerHTML = `
             <div class="empty-box">
-              <div style="font-weight:700; color:var(--text);">Чёрный список пуст</div>
-              <div>Заблокированные пользователи не могут зайти в эту комнату даже по прямой ссылке-приглашению.</div>
+              <div style="font-weight:700; color:var(--text);">${t('ban_list_empty_title')}</div>
+              <div>${t('ban_list_empty_desc')}</div>
             </div>
           `;
           return;
         }
 
         body.innerHTML = `
-          <p class="info-text">Заблокированные пользователи не могут присоединиться к комнате повторно, пока вы не снимете блокировку.</p>
+          <p class="info-text">${t('ban_list_intro')}</p>
           ${bans.map(b => `
             <div class="admin-member-card">
               <div class="admin-member-left">
@@ -2725,7 +4014,7 @@
                 </div>
               </div>
               <button type="button" class="action-pill" onclick="adminUnbanUser('${escapeHtml(b.id)}', '${escapeHtml(b.username)}')">
-                Разблокировать
+                ${t('unban_btn')}
               </button>
             </div>
           `).join('')}
@@ -2738,28 +4027,29 @@
         if (archives.length === 0) {
           body.innerHTML = `
             <div class="empty-box">
-              <div style="font-weight:700; color:var(--text);">Архив вишлистов пуст</div>
-              <div>Когда вы исключите или заблокируете участника, его список желаний автоматически сохранится здесь.</div>
+              <div style="font-weight:700; color:var(--text);">${t('archive_empty_title')}</div>
+              <div>${t('archive_empty_desc')}</div>
             </div>
           `;
           return;
         }
 
         body.innerHTML = `
-          <p class="info-text">Сохранённые вишлисты исключённых и заблокированных участников комнаты.</p>
+          <p class="info-text">${t('archive_intro')}</p>
           ${archives.map(arc => {
             const wishesArr = Array.isArray(arc.wishes) ? arc.wishes : [];
-            const dateStr = arc.archivedAt ? new Date(arc.archivedAt).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+            const localeMap = { ru: 'ru-RU', en: 'en-US', kk: 'kk-KZ' };
+            const dateStr = arc.archivedAt ? new Date(arc.archivedAt).toLocaleDateString(localeMap[currentLang] || 'ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
             const isBan = arc.reason === 'ban';
             return `
               <div class="archive-card">
                 <div class="archive-header">
                   <div>
                     <div style="font-size:15px; font-weight:800;">${escapeHtml(arc.displayName)} <span style="font-size:12px; font-weight:600; color:var(--text-tertiary);">@${escapeHtml(arc.username)}</span></div>
-                    <div style="font-size:12px; color:var(--text-secondary);">Архивировано: ${dateStr} · Желаний: ${wishesArr.length}</div>
+                    <div style="font-size:12px; color:var(--text-secondary);">${t('archived_meta', { date: dateStr, count: wishesArr.length })}</div>
                   </div>
                   <span class="archive-reason-tag ${isBan ? 'archive-reason-ban' : 'archive-reason-kick'}">
-                    ${isBan ? 'Заблокирован' : 'Исключён'}
+                    ${isBan ? t('status_banned') : t('status_kicked')}
                   </span>
                 </div>
 
@@ -2770,21 +4060,21 @@
                         ${w.photo ? `<img src="${w.photo}" alt="" />` : ''}
                         <div style="flex:1; min-width:0;">
                           <div style="font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(w.title)}</div>
-                          <div style="font-size:11px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : 'Без цены'}${w.caption ? ' · ' + escapeHtml(w.caption) : ''}</div>
+                          <div style="font-size:11px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : t('no_price')}${w.caption ? ' · ' + escapeHtml(w.caption) : ''}</div>
                         </div>
-                        ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="action-pill" style="text-decoration:none; height:28px; font-size:11px;">Ссылка</a>` : ''}
+                        ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="action-pill" style="text-decoration:none; height:28px; font-size:11px;">${t('link_btn')}</a>` : ''}
                       </div>
                     `).join('')}
                   </div>
-                ` : `<div style="font-size:12px; color:var(--text-tertiary);">У пользователя не было желаний на момент исключения.</div>`}
+                ` : `<div style="font-size:12px; color:var(--text-tertiary);">${t('archive_no_wishes')}</div>`}
 
                 <div style="display:flex; gap:8px; justify-content:flex-end; padding-top:6px; border-top:1px solid var(--border);">
                   <button type="button" class="action-pill" onclick="downloadArchivedWishlist('${arc.id}')">
                     <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    <span>Скачать JSON</span>
+                    <span>${t('download_json_btn')}</span>
                   </button>
                   <button type="button" class="action-pill del" onclick="deleteArchivedWishlist('${arc.id}')">
-                    Удалить из архива
+                    ${t('delete_from_archive_btn')}
                   </button>
                 </div>
               </div>
@@ -2799,17 +4089,17 @@
       const member = state.roomMembers.find(m => m.id === memberId);
       if (!member) return;
       if (member.id === state.roomMeta.ownerId) {
-        alert('Нельзя исключить создателя комнаты.');
+        alert(t('err_cannot_kick_creator'));
         return;
       }
 
       const confirmText = shouldBan
-        ? `Заблокировать пользователя ${member.displayName} (@${member.username})? Он будет удалён из комнаты, не сможет зайти по ссылке, а его вишлист перенесётся в архив.`
-        : `Исключить пользователя ${member.displayName} (@${member.username}) из комнаты? Его вишлист не удалится, а улетит в архив.`;
+        ? t('confirm_ban_member', { name: member.displayName, username: member.username })
+        : t('confirm_kick_member', { name: member.displayName, username: member.username });
 
       if (!confirm(confirmText)) return;
 
-      setSyncStatus('Обновление прав...', 'online');
+      setSyncStatus(t('sync_updating_perms'), 'online');
 
       // 1. Собираем все желания пользователя в этой комнате и отправляем в архив
       const userWishes = state.wishes.filter(w => w.ownerId === member.id);
@@ -2905,7 +4195,7 @@
 
     async function deleteArchivedWishlist(archiveId) {
       if (!isRoomAdmin()) return;
-      if (!confirm('Окончательно удалить этот архивный вишлист?')) return;
+      if (!confirm(t('confirm_delete_archive'))) return;
       await fetch(`${dbBase()}/rooms/${currentRoom}/archive/${archiveId}.json`, { method: 'DELETE' });
       await pullFromCloud();
     }
@@ -2919,7 +4209,7 @@
 
       const myWishes = state.wishes.filter(w => w.ownerId === user.id);
       if (myWishes.length === 0) {
-        alert('В вашем вишлисте в этой комнате пока нет желаний для скачивания.');
+        alert(t('export_empty_alert'));
         return;
       }
 
@@ -2979,12 +4269,12 @@
         try {
           const parsed = JSON.parse(e.target.result);
           if (!parsed || !Array.isArray(parsed.wishes)) {
-            alert('Неверный формат файла. Выберите файл вишлиста (.json), скачанный из этого сервиса.');
+            alert(t('import_bad_format'));
             return;
           }
 
           if (parsed.wishes.length === 0) {
-            alert('В выбранном файле нет желаний.');
+            alert(t('import_empty_file'));
             return;
           }
 
@@ -3003,7 +4293,7 @@
             }
           }
 
-          setSyncStatus('Импорт вишлиста...', 'online');
+          setSyncStatus(t('sync_importing'), 'online');
 
           const newWishesToUpload = [];
           parsed.wishes.forEach((item, idx) => {
@@ -3038,10 +4328,10 @@
           ));
 
           setSyncStatus(`${state.roomTitle}`, 'online');
-          alert(`Успешно загружено желаний: ${importedCount}!`);
+          alert(t('import_success_alert', { count: importedCount }));
         } catch (err) {
           console.error(err);
-          alert('Ошибка при чтении файла вишлиста.');
+          alert(t('import_read_error'));
         }
       };
       reader.readAsText(file);
@@ -3062,9 +4352,9 @@
       if (!user) {
         container.innerHTML = `
           <div class="santa-hero">
-            <div style="font-weight:700; font-size:15px;">Войдите в аккаунт</div>
-            <p class="info-text" style="margin:0;">Чтобы участвовать в Тайном Санте этой комнаты, сначала войдите в свой профиль.</p>
-            <button class="primary-btn" onclick="closeModal('secretSantaModal'); openModal('authModal');">Войти</button>
+            <div style="font-weight:700; font-size:15px;">${t('santa_login_title')}</div>
+            <p class="info-text" style="margin:0;">${t('santa_login_desc')}</p>
+            <button class="primary-btn" onclick="closeModal('secretSantaModal'); openModal('authModal');">${t('login_btn')}</button>
           </div>
         `;
         return;
@@ -3083,16 +4373,16 @@
             <div style="width:48px; height:48px; border-radius:14px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
               <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
             </div>
-            <div style="font-size:17px; font-weight:800;">Жеребьёвка в комнате «${escapeHtml(state.roomTitle)}»</div>
+            <div style="font-size:17px; font-weight:800;">${t('santa_draw_title', { room: escapeHtml(state.roomTitle) })}</div>
             <p class="info-text" style="margin:0;">
-              Нажмите кнопку ниже — система случайным образом выберет одного из участников комнаты (кроме вас), которому вы будете дарить подарок, и сразу откроет его вишлист. Никто другой не увидит, кто вам выпал!
+              ${t('santa_draw_desc')}
             </p>
             <div style="font-size:12px; color:var(--text-tertiary); font-weight:600;">
-              Участников в комнате: ${state.roomMembers.length} · Уже вытянули: ${totalParticipants}
+              ${t('santa_stats', { members: state.roomMembers.length, picked: totalParticipants })}
             </div>
             ${canDraw
-              ? `<button type="button" class="primary-btn" id="drawSantaBtn" onclick="drawSecretSanta()">Узнать, кому я дарю</button>`
-              : `<div class="error-banner" style="display:block; margin-top:6px; margin-bottom:0;">Для игры нужно минимум 2 участника в комнате. Пригласите друзей по ссылке!</div>`
+              ? `<button type="button" class="primary-btn" id="drawSantaBtn" onclick="drawSecretSanta()">${t('santa_draw_btn')}</button>`
+              : `<div class="error-banner" style="display:block; margin-top:6px; margin-bottom:0;">${t('santa_need_2')}</div>`
             }
           </div>
         `;
@@ -3104,8 +4394,8 @@
       if (!targetUser) {
         container.innerHTML = `
           <div class="santa-hero">
-            <div>Выбранный участник больше не в комнате.</div>
-            <button type="button" class="secondary-btn" onclick="resetSecretSanta()">Сбросить жеребьёвку комнаты</button>
+            <div>${t('santa_target_left')}</div>
+            <button type="button" class="secondary-btn" onclick="resetSecretSanta()">${t('santa_reset_btn')}</button>
           </div>
         `;
         return;
@@ -3114,13 +4404,13 @@
       const targetWishes = state.wishes.filter(w => w.ownerId === targetUser.id && !w.fulfilled);
       const targetAccent = targetUser.accentColor || '#FF2D55';
       const targetSizes = [
-        targetUser.clothesSize ? `Одежда: ${escapeHtml(targetUser.clothesSize)}` : '',
-        targetUser.shoeSize ? `Обувь: ${escapeHtml(targetUser.shoeSize)}` : '',
+        targetUser.clothesSize ? t('size_clothes', { val: escapeHtml(targetUser.clothesSize) }) : '',
+        targetUser.shoeSize ? t('size_shoes', { val: escapeHtml(targetUser.shoeSize) }) : '',
         targetUser.ringSize ? `${escapeHtml(targetUser.ringSize)}` : ''
       ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
 
       const wishesPreviewHtml = targetWishes.length === 0
-        ? `<div style="font-size:13px; color:var(--text-secondary); text-align:center; padding:12px;">У ${escapeHtml(targetUser.displayName)} пока нет активных желаний в этой комнате.</div>`
+        ? `<div style="font-size:13px; color:var(--text-secondary); text-align:center; padding:12px;">${t('santa_no_active_wishes', { name: escapeHtml(targetUser.displayName) })}</div>`
         : targetWishes.map(w => `
           <div class="santa-mini-wish">
             ${w.photo ? `<img src="${w.photo}" alt="" />` : `
@@ -3130,7 +4420,7 @@
             `}
             <div style="flex:1; min-width:0;">
               <div style="font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(w.title)}</div>
-              <div style="font-size:12px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : 'Цена не указана'}</div>
+              <div style="font-size:12px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : t('price_not_set')}</div>
             </div>
             ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="action-pill" style="text-decoration:none;">Ссылка</a>` : ''}
           </div>
@@ -3138,7 +4428,7 @@
 
       container.innerHTML = `
         <div class="santa-target-card">
-          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--accent);">Вы Тайный Санта для:</div>
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--accent);">${t('santa_for_label')}</div>
           <div style="display:flex; align-items:center; gap:12px;">
             <div class="avatar-large" style="color:${targetAccent};">${targetUser.avatar ? `<img src="${targetUser.avatar}" />` : getAvatarSvg(targetUser.icon)}</div>
             <div>
@@ -3151,18 +4441,18 @@
         </div>
 
         <div style="font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text-secondary);">
-          Актуальный вишлист (${targetWishes.length}):
+          ${t('santa_active_wishes_count', { count: targetWishes.length })}
         </div>
         <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
           ${wishesPreviewHtml}
         </div>
 
         <button type="button" class="primary-btn" onclick="openRecipientWishlistTab('${targetUser.id}')">
-          Открыть полный вишлист на главном экране
+          ${t('open_full_wishlist_btn')}
         </button>
 
         <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="resetSecretSanta()">
-          Сбросить жеребьёвку для всей комнаты
+          ${t('reset_santa_room_btn')}
         </button>
       `;
     }
@@ -3174,7 +4464,7 @@
       const btn = document.getElementById('drawSantaBtn');
       if (btn) {
         btn.disabled = true;
-        btn.textContent = 'Перемешиваем имена...';
+        btn.textContent = t('santa_shuffling');
       }
 
       try {
@@ -3204,7 +4494,7 @@
         }
 
         if (candidates.length === 0) {
-          alert('В комнате пока недостаточно других участников для жеребьёвки.');
+          alert(t('santa_not_enough'));
           return;
         }
 
@@ -3230,7 +4520,7 @@
         renderSecretSantaModal();
       } catch (err) {
         console.error(err);
-        alert('Не удалось провести жеребьёвку. Проверьте подключение к интернету.');
+        alert(t('santa_draw_error'));
       }
     }
 
@@ -3241,7 +4531,7 @@
     }
 
     async function resetSecretSanta() {
-      if (!confirm('Сбросить результаты Тайного Санты для всех участников этой комнаты, чтобы провести игру заново?')) return;
+      if (!confirm(t('santa_confirm_reset'))) return;
       state.secretSanta = {};
       saveLocal();
       updateSantaDrawerBadge();
@@ -3274,7 +4564,7 @@
       }
 
       if (roomsArr.length === 0) {
-        listEl.innerHTML = `<div style="font-size:13px; color:var(--text-secondary); background:var(--card); border:1px dashed var(--border-strong); border-radius:13px; padding:14px; text-align:center;">Вы пока не состоите ни в одной комнате. Создайте первую комнату кнопкой ниже!</div>`;
+        listEl.innerHTML = `<div style="font-size:13px; color:var(--text-secondary); background:var(--card); border:1px dashed var(--border-strong); border-radius:13px; padding:14px; text-align:center;">${t('no_user_rooms_empty')}</div>`;
         return;
       }
 
@@ -3294,24 +4584,24 @@
                 </div>
                 <div class="room-item-info">
                   <div class="room-item-name">${escapeHtml(titleToShow)}</div>
-                  <div class="room-item-slug">#${escapeHtml(r.slug)}${isCreatorOfThisRoom ? ' · Создатель' : ''}</div>
+                  <div class="room-item-slug">#${escapeHtml(r.slug)}${isCreatorOfThisRoom ? t('creator_suffix') : ''}</div>
                 </div>
               </div>
               <div class="room-item-actions" onclick="event.stopPropagation()">
                 ${isActive && isCreatorOfThisRoom ? `
-                  <button class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="Настройки обложки и описания комнаты">
+                  <button class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="${t('room_settings_short_title')}">
                     <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
                   </button>
                 ` : ''}
-                <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="Скопировать ссылку">
+                <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="${t('copy_link_short_title')}">
                   <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                 </button>
                 ${isCreatorOfThisRoom ? `
-                  <button class="mini-icon-btn del" onclick="deleteRoomCompletely('${escapeHtml(r.slug)}', '${escapeHtml(titleToShow)}')" title="Полностью удалить комнату из базы данных">
+                  <button class="mini-icon-btn del" onclick="deleteRoomCompletely('${escapeHtml(r.slug)}', '${escapeHtml(titleToShow)}')" title="${t('delete_room_title')}">
                     <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                   </button>
                 ` : `
-                  <button class="mini-icon-btn del" onclick="leaveRoom('${escapeHtml(r.slug)}')" title="Выйти из комнаты">
+                  <button class="mini-icon-btn del" onclick="leaveRoom('${escapeHtml(r.slug)}')" title="${t('leave_room_title')}">
                     <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                   </button>
                 `}
@@ -3341,10 +4631,10 @@
 
     async function deleteRoomCompletely(slug, roomTitle) {
       if (!state.currentUser) return;
-      const confirmed = confirm(`Вы уверены, что хотите ПОЛНОСТЬЮ удалить комнату «${roomTitle}» (#${slug}) из базы данных? Все списки желаний, участники и данные Тайного Санты в этой комнате будут безвозвратно удалены.`);
+      const confirmed = confirm(t('confirm_delete_room', { title: roomTitle, slug: slug }));
       if (!confirmed) return;
 
-      setSyncStatus('Удаление комнаты...', 'online');
+      setSyncStatus(t('sync_deleting_room'), 'online');
 
       try {
         // 1. Получаем всех участников комнаты, чтобы убрать комнату из их профилей
@@ -3416,10 +4706,10 @@
         renderTabs();
         renderColumns();
         renderDrawerRooms();
-        setSyncStatus(currentRoom ? state.roomTitle : 'Комната удалена', 'online');
+        setSyncStatus(currentRoom ? state.roomTitle : t('sync_room_deleted'), 'online');
       } catch (err) {
         console.error('Ошибка при удалении комнаты:', err);
-        alert('Не удалось полностью удалить комнату. Проверьте подключение к интернету.');
+        alert(t('err_delete_room'));
       }
     }
 
@@ -3433,7 +4723,7 @@
     }
 
     async function leaveRoom(slug) {
-      if (!confirm('Убрать эту комнату из вашего списка? Вы всегда сможете вернуться в неё по ссылке или названию.')) return;
+      if (!confirm(t('confirm_leave_room'))) return;
       if (state.currentUser && state.currentUser.rooms) {
         delete state.currentUser.rooms[slug];
         saveLocal();
@@ -3454,13 +4744,13 @@
 
     function copySpecificRoomLink(slug) {
       navigator.clipboard.writeText(buildRoomUrl(slug));
-      alert('Ссылка-приглашение скопирована!');
+      alert(t('link_copied_alert'));
     }
 
     function previewGeneratedLink() {
       const raw = document.getElementById('roomNameInput').value.trim();
       if (!raw) {
-        document.getElementById('generatedLinkPreview').value = 'Введите название комнаты выше...';
+        document.getElementById('generatedLinkPreview').value = t('enter_room_placeholder');
         return;
       }
       const slug = slugifyRoom(raw);
@@ -3485,12 +4775,12 @@
     function copyRoomLink() {
       const input = document.getElementById('generatedLinkPreview');
       navigator.clipboard.writeText(input.value);
-      alert('Ссылка скопирована! Отправьте её партнёру или друзьям.');
+      alert(t('link_copied_alert'));
     }
 
     function quickCopyCurrentRoomLink() {
       navigator.clipboard.writeText(buildRoomUrl(currentRoom));
-      alert(`Ссылка на комнату «${state.roomTitle || currentRoom}» скопирована!`);
+      alert(t('room_link_copied_alert', { room: state.roomTitle || currentRoom }));
     }
 
     async function joinRoomByInput() {
@@ -3588,7 +4878,7 @@
         avatarEl.innerHTML = user.avatar ? `<img src="${user.avatar}" />` : getAvatarSvg(user.icon);
         fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Добавить желание</span>`;
       } else {
-        nameEl.textContent = 'Войти';
+        nameEl.textContent = t('login_btn');
         avatarEl.style.background = 'var(--seg-bg)';
         avatarEl.style.color = 'var(--text-secondary)';
         avatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
@@ -3624,13 +4914,13 @@
       const password = document.getElementById('authPassword').value;
 
       if (!username) {
-        showAuthError('Логин должен состоять из латинских букв или цифр.');
+        showAuthError(t('err_username_latin'));
         return;
       }
       if (!password) return;
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Проверка...';
+      submitBtn.textContent = t('checking_btn');
 
       try {
         const passHash = await hashPassword(password);
@@ -3641,7 +4931,7 @@
 
         if (authMode === 'register') {
           if (existingUser) {
-            showAuthError('Этот логин уже занят. Выберите другой или перейдите на вкладку «Войти».');
+            showAuthError(t('err_username_taken'));
             return;
           }
 
@@ -3682,11 +4972,11 @@
           openModal('tutorialModal');
         } else {
           if (!existingUser) {
-            showAuthError(`Аккаунт «${username}» не найден. Проверьте логин или зарегистрируйтесь.`);
+            showAuthError(t('err_user_not_found', { username: username }));
             return;
           }
           if (existingUser.passwordHash !== passHash) {
-            showAuthError('Неверный пароль! Попробуйте ещё раз.');
+            showAuthError(t('err_wrong_password'));
             return;
           }
 
@@ -3699,10 +4989,10 @@
         }
       } catch (e) {
         console.error(e);
-        showAuthError('Ошибка соединения с базой данных. Проверьте интернет.');
+        showAuthError(t('err_network'));
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = authMode === 'register' ? 'Зарегистрироваться' : 'Войти';
+        submitBtn.textContent = authMode === 'register' ? t('register_btn') : t('login_btn');
       }
     }
 
@@ -3901,8 +5191,8 @@
 
       filtered.sort((a, b) => {
         if (state.sort === 'priority') {
-          const wa = PRIORITY_LABELS[normalizePriority(a.priority)]?.weight || 0;
-          const wb = PRIORITY_LABELS[normalizePriority(b.priority)]?.weight || 0;
+          const wa = getPriorityMeta(normalizePriority(a.priority))?.weight || 0;
+          const wb = getPriorityMeta(normalizePriority(b.priority))?.weight || 0;
           return wb - wa || (b.createdAt || 0) - (a.createdAt || 0);
         }
         if (state.sort === 'price_asc') return parsePriceNumber(a.price) - parsePriceNumber(b.price);
@@ -3920,7 +5210,7 @@
 
     function renderTabs() {
       const tabsEl = document.getElementById('profileTabs');
-      let html = `<button class="seg-btn ${state.activeTab === 'all' ? 'active' : ''}" onclick="setTab('all')">Все списки <span class="seg-count">${state.wishes.length}</span></button>`;
+      let html = `<button class="seg-btn ${state.activeTab === 'all' ? 'active' : ''}" onclick="setTab('all')">${t('all_lists_tab')} <span class="seg-count">${state.wishes.length}</span></button>`;
       state.roomMembers.forEach(acc => {
         const count = state.wishes.filter(w => w.ownerId === acc.id).length;
         html += `<button class="seg-btn ${state.activeTab === acc.id ? 'active' : ''}" onclick="setTab('${acc.id}')">${escapeHtml(acc.displayName)} <span class="seg-count">${count}</span></button>`;
@@ -3954,9 +5244,9 @@
             <div style="width:54px; height:54px; border-radius:16px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
               <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
             </div>
-            <div style="font-size:18px; font-weight:800; color:var(--text);">У вас пока нет активной комнаты</div>
-            <div style="line-height:1.5;">Создайте свою комнату для вишлистов или войдите в существующую по названию или ссылке-приглашению от близких.</div>
-            <button class="primary-btn" style="max-width:280px; margin-top:4px;" onclick="openModal('roomModal')">Создать или войти в комнату</button>
+            <div style="font-size:18px; font-weight:800; color:var(--text);">${t('no_active_room_title')}</div>
+            <div style="line-height:1.5;">${t('no_active_room_desc')}</div>
+            <button class="primary-btn" style="max-width:280px; margin-top:4px;" onclick="openModal('roomModal')">${t('create_or_join_room_btn')}</button>
           </div>
         `;
         return;
@@ -3970,11 +5260,11 @@
             <div style="width:52px; height:52px; border-radius:16px; background:rgba(255,59,48,0.12); color:#FF3B30; display:flex; align-items:center; justify-content:center;">
               <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
             </div>
-            <div style="font-size:18px; font-weight:800;">Доступ к комнате ограничен</div>
+            <div style="font-size:18px; font-weight:800;">${t('access_restricted_title')}</div>
             <div style="font-size:14px; color:var(--text-secondary); line-height:1.45;">
-              Создатель комнаты «<strong>${escapeHtml(state.roomTitle)}</strong>» ограничил вам доступ к этому списку. Вы можете переключиться на другую комнату через меню слева сверху.
+              ${t('access_restricted_desc', { room: escapeHtml(state.roomTitle) })}
             </div>
-            <button class="primary-btn" style="max-width:240px;" onclick="openRoomsDrawer()">Открыть мои комнаты</button>
+            <button class="primary-btn" style="max-width:240px;" onclick="openRoomsDrawer()">${t('open_my_rooms_btn')}</button>
           </div>
         `;
         return;
@@ -3987,9 +5277,9 @@
         container.innerHTML = `
           <div class="empty-box">
             <svg class="icon icon-lg" style="color:var(--text-tertiary);" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <div style="font-size:16px; font-weight:700; color:var(--text);">В комнате «${escapeHtml(state.roomTitle)}» пока никого нет</div>
-            <div>Войдите в аккаунт, чтобы присоединиться к комнате и добавлять желания</div>
-            <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('login'); openModal('authModal');">Войти или создать аккаунт</button>
+            <div style="font-size:16px; font-weight:700; color:var(--text);">${t('room_empty_title', { room: escapeHtml(state.roomTitle) })}</div>
+            <div>${t('room_empty_desc')}</div>
+            <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('login'); openModal('authModal');">${t('login_or_register_btn')}</button>
           </div>
         `;
         return;
@@ -4008,29 +5298,29 @@
         const accent = acc.accentColor || '#FF2D55';
 
         const sizesHtml = [
-          acc.clothesSize ? `Одежда: ${escapeHtml(acc.clothesSize)}` : '',
-          acc.shoeSize ? `Обувь: ${escapeHtml(acc.shoeSize)}` : '',
+          acc.clothesSize ? t('size_clothes', { val: escapeHtml(acc.clothesSize) }) : '',
+          acc.shoeSize ? t('size_shoes', { val: escapeHtml(acc.shoeSize) }) : '',
           acc.ringSize ? `${escapeHtml(acc.ringSize)}` : ''
         ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
 
         const ownerToolbarHtml = isOwner ? `
           <div class="owner-toolbar">
-            <button class="action-pill" onclick="exportMyWishlist()" title="Скачать вишлист файлом для переноса в другую комнату">
+            <button class="action-pill" onclick="exportMyWishlist()" title="${t('download_wishlist_title')}">
               <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              <span>Скачать вишлист</span>
+              <span>${t('download_wishlist_btn')}</span>
             </button>
-            <button class="action-pill" onclick="triggerImportWishlist()" title="Загрузить вишлист из файла">
+            <button class="action-pill" onclick="triggerImportWishlist()" title="${t('upload_wishlist_title')}">
               <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-              <span>Загрузить</span>
+              <span>${t('upload_wishlist_btn')}</span>
             </button>
           </div>
         ` : '';
 
         const cardsHtml = profileWishes.length === 0
-          ? `<div class="empty-box"><div>${rawWishes.length === 0 ? `У ${escapeHtml(acc.displayName)} пока нет желаний` : 'Ничего не найдено'}</div></div>`
+          ? `<div class="empty-box"><div>${rawWishes.length === 0 ? t('no_wishes_yet', { name: escapeHtml(acc.displayName) }) : t('nothing_found')}</div></div>`
           : profileWishes.map(w => {
             const pKey = normalizePriority(w.priority);
-            const pMeta = PRIORITY_LABELS[pKey] || PRIORITY_LABELS.idea;
+            const pMeta = getPriorityMeta(pKey);
 
             return `
             <article class="wish-card ${w.fulfilled ? 'fulfilled' : ''}">
@@ -4057,13 +5347,13 @@
                   <div class="wish-controls">
                     <button class="action-pill done" onclick="toggleFulfilled('${w.id}')">
                       <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span>${w.fulfilled ? 'Подарено' : 'Подарить'}</span>
+                      <span>${w.fulfilled ? t('fulfilled_btn') : t('gift_btn')}</span>
                     </button>
                     ${isOwner ? `
-                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="Изменить">
+                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="${t('edit_btn_title')}">
                         <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
                       </button>
-                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="Удалить">
+                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="${t('delete_btn_title')}">
                         <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                       </button>
                     ` : ''}
@@ -4083,14 +5373,14 @@
                   <div class="profile-name-block">
                     <h2 class="column-title">
                       ${escapeHtml(acc.displayName)}
-                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">Вы</span>` : `<span class="readonly-badge">Участник</span>`}
-                      ${(state.roomMeta && state.roomMeta.ownerId === acc.id) ? `<span class="admin-badge">Создатель</span>` : ''}
+                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">${t('you_badge')}</span>` : `<span class="readonly-badge">${t('member_badge')}</span>`}
+                      ${(state.roomMeta && state.roomMeta.ownerId === acc.id) ? `<span class="admin-badge">${t('admin_badge_creator')}</span>` : ''}
                     </h2>
-                    <div class="profile-username">@${escapeHtml(acc.username)} · Желаний: ${rawWishes.length}</div>
+                    <div class="profile-username">@${escapeHtml(acc.username)} · ${t('wishes_count_meta', { count: rawWishes.length })}</div>
                   </div>
                 </div>
                 ${isOwner ? `
-                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки профиля">
+                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="${t('profile_settings_title_attr')}">
                     <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                   </button>
                 ` : ''}
@@ -4117,7 +5407,7 @@
         openModal('roomModal');
         return;
       }
-      document.getElementById('wishModalTitle').textContent = `Новое желание (${user.displayName})`;
+      document.getElementById('wishModalTitle').textContent = t('new_wish_for_user', { name: user.displayName });
       document.getElementById('wishId').value = '';
       document.getElementById('wishForm').reset();
       clearPhoto();
@@ -4128,7 +5418,7 @@
       const wish = state.wishes.find(w => w.id === id);
       if (!wish || !state.currentUser || wish.ownerId !== state.currentUser.id) return;
 
-      document.getElementById('wishModalTitle').textContent = 'Редактировать желание';
+      document.getElementById('wishModalTitle').textContent = t('edit_wish_title');
       document.getElementById('wishId').value = wish.id;
       document.getElementById('wishTitle').value = wish.title || '';
       document.getElementById('wishCaption').value = wish.caption || '';
@@ -4215,7 +5505,7 @@
     async function deleteWish(id) {
       const wish = state.wishes.find(w => w.id === id);
       if (!wish || !state.currentUser || wish.ownerId !== state.currentUser.id) return;
-      if (!confirm('Удалить желание?')) return;
+      if (!confirm(t('confirm_delete_wish'))) return;
       state.wishes = state.wishes.filter(w => w.id !== id);
       saveLocal();
       renderTabs();
