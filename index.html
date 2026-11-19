@@ -14,8 +14,8 @@
   <style>
     :root, [data-theme="light"] {
       --bg: #F5F5F7;
-      --bg-elevated: rgba(255, 255, 255, 0.86);
-      --card: #FFFFFF;
+      --bg-elevated: rgba(255, 255, 255, 0.88);
+      --card: rgba(255, 255, 255, 0.96);
       --card-subtle: #F2F2F7;
       --text: #111113;
       --text-secondary: #6E6E73;
@@ -40,8 +40,8 @@
 
     [data-theme="dark"] {
       --bg: #000000;
-      --bg-elevated: rgba(24, 24, 26, 0.86);
-      --card: #161618;
+      --bg-elevated: rgba(24, 24, 26, 0.88);
+      --card: rgba(22, 22, 24, 0.95);
       --card-subtle: #222225;
       --text: #F5F5F7;
       --text-secondary: #98989D;
@@ -60,6 +60,76 @@
       --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.65);
       --seg-bg: rgba(118, 118, 128, 0.22);
       --seg-active: #2C2C2E;
+    }
+
+    /* =========================================================
+       ТЕМАТИЧЕСКИЙ ФОН (СВЕТЛАЯ И ТЁМНАЯ ТЕМЫ + КОНТРАСТ ГРАФИКИ)
+       ========================================================= */
+
+    /* 14 февраля: бордовая гамма */
+    [data-theme="light"] body[data-occasion="valentine"] {
+      --bg: #F6E4E9;
+      --bg-elevated: rgba(253, 238, 242, 0.88);
+      --card: rgba(255, 250, 252, 0.95);
+      --card-subtle: #F7E6EC;
+      --accent: #8B1538;
+      --accent-soft: rgba(139, 21, 56, 0.12);
+      --border: rgba(110, 15, 42, 0.12);
+      --border-strong: rgba(110, 15, 42, 0.22);
+    }
+    [data-theme="dark"] body[data-occasion="valentine"] {
+      --bg: #220911;
+      --bg-elevated: rgba(42, 12, 22, 0.88);
+      --card: rgba(48, 14, 25, 0.94);
+      --card-subtle: #3A101E;
+      --accent: #FF6B8B;
+      --accent-soft: rgba(255, 107, 139, 0.18);
+      --border: rgba(255, 160, 185, 0.14);
+      --border-strong: rgba(255, 160, 185, 0.24);
+    }
+
+    /* Новый год: светло-зелёный / тёмно-зелёный фон */
+    [data-theme="light"] body[data-occasion="newyear"] {
+      --bg: #E3F3E8;
+      --bg-elevated: rgba(235, 249, 240, 0.88);
+      --card: rgba(250, 255, 252, 0.95);
+      --card-subtle: #E6F4EA;
+      --accent: #146C43;
+      --accent-soft: rgba(20, 108, 67, 0.12);
+      --border: rgba(16, 92, 56, 0.13);
+      --border-strong: rgba(16, 92, 56, 0.24);
+    }
+    [data-theme="dark"] body[data-occasion="newyear"] {
+      --bg: #092115;
+      --bg-elevated: rgba(13, 43, 28, 0.88);
+      --card: rgba(16, 50, 33, 0.94);
+      --card-subtle: #133B27;
+      --accent: #4ADE80;
+      --accent-soft: rgba(74, 222, 128, 0.16);
+      --border: rgba(134, 239, 172, 0.14);
+      --border-strong: rgba(134, 239, 172, 0.25);
+    }
+
+    /* 8 марта: нежно-розовый / глубокий ягодно-розовый фон */
+    [data-theme="light"] body[data-occasion="march8"] {
+      --bg: #FCEAF2;
+      --bg-elevated: rgba(255, 242, 248, 0.88);
+      --card: rgba(255, 251, 253, 0.95);
+      --card-subtle: #FBE6F0;
+      --accent: #C2186B;
+      --accent-soft: rgba(194, 24, 107, 0.12);
+      --border: rgba(168, 24, 92, 0.12);
+      --border-strong: rgba(168, 24, 92, 0.22);
+    }
+    [data-theme="dark"] body[data-occasion="march8"] {
+      --bg: #240B1B;
+      --bg-elevated: rgba(44, 13, 33, 0.88);
+      --card: rgba(52, 16, 39, 0.94);
+      --card-subtle: #3D122E;
+      --accent: #F472B6;
+      --accent-soft: rgba(244, 114, 182, 0.18);
+      --border: rgba(249, 168, 212, 0.14);
+      --border-strong: rgba(249, 168, 212, 0.24);
     }
 
     * {
@@ -458,29 +528,34 @@
     /* Room Bar */
     .room-bar { max-width: 1120px; margin: 12px auto 0; padding: 0 16px; }
 
-
-    /* Room Cover Avatar & Description Banner */
     .room-bar-inner {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 12px 14px;
+      border-radius: 18px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       box-shadow: var(--shadow-sm);
     }
     .room-bar-top {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
       width: 100%;
     }
+    @media (min-width: 640px) {
+      .room-bar-top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
     .room-cover-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       background: var(--accent-soft);
       color: var(--accent);
       display: flex;
@@ -498,26 +573,28 @@
     .room-title-stack {
       display: flex;
       flex-direction: column;
+      gap: 2px;
       min-width: 0;
+      flex: 1;
     }
     .room-title-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       min-width: 0;
     }
     .room-title-row strong {
       color: var(--text);
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .room-dots-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
       border: 1px solid var(--border);
       background: var(--card-subtle);
       color: var(--text);
@@ -536,8 +613,8 @@
       color: var(--text-secondary);
       line-height: 1.45;
       background: var(--card-subtle);
-      padding: 9px 12px;
-      border-radius: 11px;
+      padding: 10px 12px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       white-space: pre-line;
       word-break: break-word;
@@ -563,11 +640,22 @@
       object-fit: cover;
     }
 
+    .room-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-secondary);
+      min-width: 0;
+      flex: 1;
+    }
 
-    .room-info { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); min-width: 0; }
-    .room-info strong { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .room-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .room-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
 
     .room-btn {
       border: 1px solid var(--border);
@@ -575,19 +663,24 @@
       color: var(--text);
       font-weight: 600;
       font-size: 12px;
-      padding: 6px 11px;
-      border-radius: 9px;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 10px;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
+      transition: transform 0.12s ease, background-color 0.15s ease;
     }
+    .room-btn:active { transform: scale(0.96); }
 
     .room-btn.accent {
       border: none;
       background: var(--accent-soft);
       color: var(--accent);
+      font-weight: 700;
     }
 
     /* Controls */
@@ -741,7 +834,7 @@
       position: fixed; bottom: calc(var(--safe-bottom) + 18px); right: 20px; z-index: 60;
       background: var(--accent); color: #FFFFFF; border: none; border-radius: 16px;
       padding: 14px 20px; font-size: 15px; font-weight: 700;
-      box-shadow: 0 10px 28px rgba(255, 45, 85, 0.38);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
       display: flex; align-items: center; gap: 8px; cursor: pointer;
     }
 
@@ -866,7 +959,9 @@
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 14px; }
 
-    /* Seasonal & Occasion Themes + Ambient Background Pattern Layer */
+    /* =========================================================
+       КОНТРАСТНЫЕ ТЕМАТИЧЕСКИЕ УЗОРЫ ФОНА (СВЕТЛАЯ / ТЁМНАЯ)
+       ========================================================= */
     .ambient-bg-layer {
       position: fixed;
       inset: 0;
@@ -883,23 +978,37 @@
       opacity: 1;
     }
 
-    body[data-occasion="valentine"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23FF2D55' stroke-opacity='0.14' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 130px 130px;
+    /* 14 февраля: светлая тема — тёмно-бордовые сердечки на светло-бордовом фоне */
+    [data-theme="light"] body[data-occasion="valentine"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='136' height='136' viewBox='0 0 136 136'%3E%3Cg fill='none' stroke='%237A1030' stroke-opacity='0.20' stroke-width='1.75'%3E%3Cpath d='M32 42c0-7.5 6.2-13 13-13 4.3 0 7.6 2.2 9.5 5.4 1.9-3.2 5.2-5.4 9.5-5.4 6.8 0 13 5.5 13 13 0 11-22.5 25-22.5 25S32 53 32 42z'/%3E%3Cpath d='M88 92c0-5 4-8.5 8.5-8.5 2.8 0 5 1.5 6.2 3.6 1.2-2.1 3.4-3.6 6.2-3.6 4.5 0 8.5 3.5 8.5 8.5 0 7.2-14.7 16.5-14.7 16.5S88 99.2 88 92z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 136px 136px;
+    }
+    /* 14 февраля: тёмная тема — светло-розовые сердечки на тёмно-бордовом фоне */
+    [data-theme="dark"] body[data-occasion="valentine"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='136' height='136' viewBox='0 0 136 136'%3E%3Cg fill='none' stroke='%23FF8FA8' stroke-opacity='0.22' stroke-width='1.75'%3E%3Cpath d='M32 42c0-7.5 6.2-13 13-13 4.3 0 7.6 2.2 9.5 5.4 1.9-3.2 5.2-5.4 9.5-5.4 6.8 0 13 5.5 13 13 0 11-22.5 25-22.5 25S32 53 32 42z'/%3E%3Cpath d='M88 92c0-5 4-8.5 8.5-8.5 2.8 0 5 1.5 6.2 3.6 1.2-2.1 3.4-3.6 6.2-3.6 4.5 0 8.5 3.5 8.5 8.5 0 7.2-14.7 16.5-14.7 16.5S88 99.2 88 92z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 136px 136px;
     }
 
-    body[data-occasion="newyear"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%23007AFF' stroke-opacity='0.13' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 150px 150px;
+    /* Новый год: светлая тема — контрастные тёмно-зелёные ёлочки и снежинки на светло-зелёном фоне */
+    [data-theme="light"] body[data-occasion="newyear"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill='none' stroke='%230F5132' stroke-opacity='0.22' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 18l-13 21h7.5l-10 15h31l-10-15H52L38 18z'/%3E%3Cpath d='M38 54v7'/%3E%3Cpath d='M108 82v20M98 92h20M101 85l14 14M115 85l-14 14'/%3E%3Ccircle cx='98' cy='34' r='2.5'/%3E%3Ccircle cx='28' cy='112' r='2.8'/%3E%3Ccircle cx='124' cy='128' r='2.2'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 152px 152px;
     }
-
+    /* Новый год: тёмная тема — светло-салатовые ёлочки и снежинки на тёмно-зелёном фоне */
     [data-theme="dark"] body[data-occasion="newyear"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%2364D2FF' stroke-opacity='0.15' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill='none' stroke='%2386EFAC' stroke-opacity='0.22' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 18l-13 21h7.5l-10 15h31l-10-15H52L38 18z'/%3E%3Cpath d='M38 54v7'/%3E%3Cpath d='M108 82v20M98 92h20M101 85l14 14M115 85l-14 14'/%3E%3Ccircle cx='98' cy='34' r='2.5'/%3E%3Ccircle cx='28' cy='112' r='2.8'/%3E%3Ccircle cx='124' cy='128' r='2.2'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 152px 152px;
     }
 
-    body[data-occasion="march8"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23FF2D55' stroke-opacity='0.15' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2328CD41' stroke-opacity='0.15' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23AF52DE' stroke-opacity='0.15' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 140px 140px;
+    /* 8 марта: светлая тема — контрастные розово-зелёные тюльпаны и сердечки на нежно-розовом фоне */
+    [data-theme="light"] body[data-occasion="march8"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='144' viewBox='0 0 144 144'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M34 52c0-11 9-17 9-17s9 6 9 17c0 6.5-4 10.5-9 10.5s-9-4-9-10.5z' stroke='%23B81462' stroke-opacity='0.22' stroke-width='1.8'/%3E%3Cpath d='M43 62.5v23M43 75c-5.5-2-9.5-6.5-9.5-11M43 73c5.5-2 9.5-6.5 9.5-11' stroke='%23198754' stroke-opacity='0.22' stroke-width='1.7'/%3E%3Cpath d='M88 88c0-4.5 3.8-7.8 7.8-7.8 2.6 0 4.7 1.4 5.9 3.4 1.2-2 3.3-3.4 5.9-3.4 4 0 7.8 3.3 7.8 7.8 0 6.6-13.7 15-13.7 15S88 94.6 88 88z' stroke='%239D174D' stroke-opacity='0.20' stroke-width='1.65'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 144px 144px;
+    }
+    /* 8 марта: тёмная тема — светло-розовые тюльпаны и мятные стебли на тёмно-розовом фоне */
+    [data-theme="dark"] body[data-occasion="march8"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='144' viewBox='0 0 144 144'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M34 52c0-11 9-17 9-17s9 6 9 17c0 6.5-4 10.5-9 10.5s-9-4-9-10.5z' stroke='%23F9A8D4' stroke-opacity='0.24' stroke-width='1.8'/%3E%3Cpath d='M43 62.5v23M43 75c-5.5-2-9.5-6.5-9.5-11M43 73c5.5-2 9.5-6.5 9.5-11' stroke='%236EE7B7' stroke-opacity='0.22' stroke-width='1.7'/%3E%3Cpath d='M88 88c0-4.5 3.8-7.8 7.8-7.8 2.6 0 4.7 1.4 5.9 3.4 1.2-2 3.3-3.4 5.9-3.4 4 0 7.8 3.3 7.8 7.8 0 6.6-13.7 15-13.7 15S88 94.6 88 88z' stroke='%23F472B6' stroke-opacity='0.22' stroke-width='1.65'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 144px 144px;
     }
 
     /* Keep main UI above ambient background */
@@ -909,24 +1018,6 @@
     }
     .header { position: sticky; z-index: 50; }
     .fab { position: fixed; z-index: 60; }
-
-    /* Occasion accent overrides */
-    body[data-occasion="valentine"] {
-      --accent: #FF2D55;
-      --accent-soft: rgba(255, 45, 85, 0.12);
-    }
-    body[data-occasion="newyear"] {
-      --accent: #007AFF;
-      --accent-soft: rgba(0, 122, 255, 0.12);
-    }
-    [data-theme="dark"] body[data-occasion="newyear"] {
-      --accent: #0A84FF;
-      --accent-soft: rgba(10, 132, 255, 0.18);
-    }
-    body[data-occasion="march8"] {
-      --accent: #D946EF;
-      --accent-soft: rgba(217, 70, 239, 0.12);
-    }
 
     .theme-option-card {
       background: var(--card);
@@ -974,7 +1065,6 @@
       color: var(--text-secondary);
     }
 
-  
     /* Admin Panel & Archive Styles */
     .admin-drawer-card {
       background: var(--card);
@@ -1123,7 +1213,6 @@
       gap: 14px;
       box-shadow: var(--shadow-md);
     }
-
   </style>
 </head>
 <body>
@@ -1194,7 +1283,7 @@
           </button>
         </div>
 
-                <!-- Admin Panel Card in Drawer (visible ONLY to room creator) -->
+        <!-- Admin Panel Card in Drawer (visible ONLY to room creator) -->
         <div id="adminDrawerSection" style="display:none;">
           <div class="drawer-section-label">Управление комнатой</div>
           <div class="admin-drawer-card" onclick="closeRoomsDrawer(); openAdminModal();">
@@ -1254,7 +1343,7 @@
                 <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
               </button>
             </div>
-            <span style="font-size:11px; color:var(--text-tertiary);" id="roomMembersCountSub">Участников: 0</span>
+            <span style="font-size:12px; color:var(--text-tertiary);" id="roomMembersCountSub">Участников: 0</span>
           </div>
         </div>
         <div class="room-actions">
@@ -1611,7 +1700,7 @@
     </div>
   </div>
 
-      <!-- Modal: Room Settings (Cover Photo, Title, Description - Creator Only) -->
+  <!-- Modal: Room Settings (Cover Photo, Title, Description - Creator Only) -->
   <div class="modal-backdrop" id="roomSettingsModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -1661,7 +1750,7 @@
     </div>
   </div>
 
-    <!-- Modal: Theme & Occasion Picker -->
+  <!-- Modal: Theme & Occasion Picker -->
   <div class="modal-backdrop" id="themePickerModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -1720,12 +1809,12 @@
 
         <div class="theme-option-card" id="optOccasionValentine" onclick="selectOccasionTheme('valentine')">
           <div class="theme-option-left">
-            <div class="theme-option-icon" style="color:#FF2D55; background:rgba(255,45,85,0.12);">
+            <div class="theme-option-icon" style="color:#8B1538; background:rgba(139,21,56,0.12);">
               <svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
             </div>
             <div>
-              <div class="theme-option-title">День влюблённых</div>
-              <div class="theme-option-sub">Сердечки на заднем плане и тёплый акцент</div>
+              <div class="theme-option-title">14 февраля</div>
+              <div class="theme-option-sub">Бордовый фон и контрастные сердечки</div>
             </div>
           </div>
           <span id="checkOccasionValentine" style="color:var(--accent); font-weight:800; display:none;">✓</span>
@@ -1733,12 +1822,12 @@
 
         <div class="theme-option-card" id="optOccasionNewyear" onclick="selectOccasionTheme('newyear')">
           <div class="theme-option-left">
-            <div class="theme-option-icon" style="color:#007AFF; background:rgba(0,122,255,0.12);">
+            <div class="theme-option-icon" style="color:#146C43; background:rgba(20,108,67,0.12);">
               <svg class="icon" viewBox="0 0 24 24"><path d="M12 3L5 14h4l-3 6h12l-3-6h4L12 3z"/></svg>
             </div>
             <div>
-              <div class="theme-option-title">Новогодняя</div>
-              <div class="theme-option-sub">Ёлочки и снежинки на фоне</div>
+              <div class="theme-option-title">Новый год</div>
+              <div class="theme-option-sub">Зелёный фон, ёлочки и снежинки</div>
             </div>
           </div>
           <span id="checkOccasionNewyear" style="color:var(--accent); font-weight:800; display:none;">✓</span>
@@ -1746,12 +1835,12 @@
 
         <div class="theme-option-card" id="optOccasionMarch8" onclick="selectOccasionTheme('march8')">
           <div class="theme-option-left">
-            <div class="theme-option-icon" style="color:#D946EF; background:rgba(217,70,239,0.12);">
+            <div class="theme-option-icon" style="color:#C2186B; background:rgba(194,24,107,0.12);">
               <svg class="icon" viewBox="0 0 24 24"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m0 0a3 3 0 1 0 3 3m-3-3a3 3 0 1 1-3 3m0 0v9"/></svg>
             </div>
             <div>
               <div class="theme-option-title">8 Марта</div>
-              <div class="theme-option-sub">Тюльпаны и сердечки на заднем плане</div>
+              <div class="theme-option-sub">Нежно-розовый фон и весенние тюльпаны</div>
             </div>
           </div>
           <span id="checkOccasionMarch8" style="color:var(--accent); font-weight:800; display:none;">✓</span>
@@ -1988,7 +2077,6 @@
     async function joinCurrentRoomAsUser(user, customTitle) {
       if (!user) return;
 
-      // Проверяем свежие метаданные и бан-лист комнаты перед входом
       let latestMeta = state.roomMeta || {};
       let latestBans = state.bannedUsers || {};
       let latestMembers = {};
@@ -2004,14 +2092,12 @@
         }
       } catch (e) {}
 
-      // Если пользователь заблокирован в этой комнате — не добавляем его в участники
       if (latestBans[user.id] || latestBans[user.username]) {
         state.bannedUsers = latestBans;
         saveLocal();
         return;
       }
 
-      // Назначаем создателя комнаты, если у комнаты ещё нет владельца (и либо комната пустая, либо этот пользователь самый первый участник)
       const memberList = objectToArray(latestMembers);
       let metaPatch = {};
       let needsMetaPatch = false;
@@ -2157,7 +2243,6 @@
         countSub.textContent = `Участников: ${state.roomMembers.length}`;
       }
 
-      // Обложка комнаты в room-bar
       const barAvatarEl = document.getElementById('roomBarCoverAvatar');
       if (barAvatarEl) {
         if (coverAvatar) {
@@ -2167,7 +2252,6 @@
         }
       }
 
-      // Мини-аватарка комнаты в шапке
       const headerDot = document.getElementById('headerBrandDot');
       const headerRoomAv = document.getElementById('headerRoomAvatar');
       const headerRoomAvImg = document.getElementById('headerRoomAvatarImg');
@@ -2182,7 +2266,6 @@
         }
       }
 
-      // Описание комнаты на главном экране для всех участников
       const descBox = document.getElementById('roomDescriptionBanner');
       if (descBox) {
         if (description) {
@@ -2292,7 +2375,6 @@
         openModal('authModal');
       }
 
-      // Автопоказ туториала при первом входе
       if (!localStorage.getItem('wl_tutorial_seen')) {
         localStorage.setItem('wl_tutorial_seen', '1');
         if (state.currentUser) {
@@ -2304,8 +2386,6 @@
       syncInterval = setInterval(pullFromCloud, 5000);
     }
 
-    
-    
     // ==========================================
     // ROOM COVER & DESCRIPTION SETTINGS (Creator Only)
     // ==========================================
@@ -2618,7 +2698,6 @@
 
       setSyncStatus('Обновление прав...', 'online');
 
-      // 1. Собираем все желания пользователя в этой комнате и отправляем в архив
       const userWishes = state.wishes.filter(w => w.ownerId === member.id);
       const archiveId = 'arc_' + Date.now() + '_' + member.id;
       const archiveEntry = {
@@ -2639,18 +2718,15 @@
         body: JSON.stringify(archiveEntry)
       });
 
-      // 2. Удаляем активные желания пользователя из основного списка комнаты (они уже в архиве)
       await Promise.all(userWishes.map(w =>
         fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${w.id}.json`, { method: 'DELETE' })
       ));
 
-      // 3. Удаляем пользователя из участников комнаты и из его списка комнат
       await fetch(`${dbBase()}/rooms/${currentRoom}/members/${member.id}.json`, { method: 'DELETE' });
       if (member.username) {
         await fetch(`${dbBase()}/users/${member.username}/rooms/${currentRoom}.json`, { method: 'DELETE' });
       }
 
-      // 4. Если выбрана блокировка — добавляем в чёрный список комнаты
       if (shouldBan) {
         const banObj = {
           id: member.id,
@@ -2798,7 +2874,6 @@
           const user = state.currentUser;
           let importedCount = 0;
 
-          // Если у пользователя в текущем профиле пустые размеры/био, а в файле они есть — аккуратно дополняем
           if (parsed.profileMeta) {
             let profileUpdated = false;
             if (!user.bio && parsed.profileMeta.bio) { user.bio = parsed.profileMeta.bio; profileUpdated = true; }
@@ -2906,7 +2981,6 @@
         return;
       }
 
-      // Если пользователь уже вытянул получателя
       const targetUser = state.roomMembers.find(m => m.id === myEntry.targetId);
       if (!targetUser) {
         container.innerHTML = `
@@ -2985,7 +3059,6 @@
       }
 
       try {
-        // Сначала получаем свежие данные комнаты из Firebase, чтобы избежать дублирования получателей
         const res = await fetch(`${dbBase()}/rooms/${currentRoom}.json?t=${Date.now()}`);
         const data = (res.ok ? await res.json() : null) || {};
         const members = objectToArray(data.members);
@@ -2999,13 +3072,8 @@
           return;
         }
 
-        // Собираем список уже занятых получателей
         const takenTargetIds = new Set(Object.values(existingAssignments).map(a => a.targetId));
-
-        // Доступные кандидаты: участники комнаты, кроме самого себя и тех, кто уже выбран другими
         let candidates = members.filter(m => m.id !== user.id && !takenTargetIds.has(m.id));
-
-        // Защита от тупиковой ситуации (например, если остался последний человек и это он сам)
         if (candidates.length === 0) {
           candidates = members.filter(m => m.id !== user.id);
         }
@@ -3198,7 +3266,6 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(state.currentUser.rooms[newSlug])
         });
-        // Проверяем, новая ли это комната; если владельца ещё нет — назначаем создателем текущего пользователя
         let existingMeta = null;
         try {
           const mRes = await fetch(`${dbBase()}/rooms/${newSlug}/meta.json`);
