@@ -200,7 +200,7 @@
       font-weight: 700;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
-      max-width: 165px;
+      max-width: 150px;
       transition: transform 0.15s ease;
     }
     .account-pill:active { transform: scale(0.95); }
@@ -256,7 +256,7 @@
     }
     .seg-count { font-size: 11px; font-weight: 700; opacity: 0.6; }
 
-    /* Drawer / Sidebar for Rooms */
+    /* Drawer / Sidebar for Rooms + Secret Santa */
     .drawer-backdrop {
       position: fixed;
       inset: 0;
@@ -271,8 +271,8 @@
     .drawer-backdrop.open { display: flex; opacity: 1; }
 
     .drawer-panel {
-      width: 310px;
-      max-width: 85vw;
+      width: 315px;
+      max-width: 86vw;
       height: 100%;
       background: var(--bg);
       border-right: 1px solid var(--border);
@@ -406,6 +406,55 @@
     .mini-icon-btn:hover { background: var(--card-subtle); color: var(--text); }
     .mini-icon-btn.del:hover { color: #FF3B30; }
 
+    /* Secret Santa Card in Drawer */
+    .santa-drawer-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+    .santa-drawer-card:hover {
+      border-color: var(--accent);
+    }
+    .santa-drawer-card:active {
+      transform: scale(0.98);
+    }
+    .santa-drawer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .santa-drawer-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .santa-drawer-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+    }
+    .santa-drawer-badge.pending {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
     /* Room Bar */
     .room-bar { max-width: 1120px; margin: 12px auto 0; padding: 0 16px; }
 
@@ -535,7 +584,7 @@
     }
 
     .profile-banner-accent { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
-    .profile-banner-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .profile-banner-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .profile-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
     .avatar-large {
@@ -547,13 +596,22 @@
     .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
 
     .profile-name-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .column-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 7px; }
+    .column-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
     .owner-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
     .readonly-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--seg-bg); color: var(--text-secondary); }
     .profile-username { font-size: 12px; color: var(--text-tertiary); font-weight: 600; }
     .profile-bio { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
     .profile-sizes-row { display: flex; flex-wrap: wrap; gap: 6px; }
     .size-chip { font-size: 11px; font-weight: 600; color: var(--text-secondary); background: var(--card-subtle); border: 1px solid var(--border); padding: 4px 9px; border-radius: 8px; }
+
+    .owner-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
 
     /* Wish Cards */
     .wish-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
@@ -597,7 +655,7 @@
     /* Modals */
     .modal-backdrop { position: fixed; inset: 0; z-index: 160; background: rgba(0, 0, 0, 0.56); backdrop-filter: blur(6px); display: none; align-items: flex-end; justify-content: center; }
     .modal-backdrop.open { display: flex; }
-    .modal-sheet { background: var(--bg); border-top: 1px solid var(--border); width: 100%; max-width: 480px; max-height: 92vh; border-radius: 24px 24px 0 0; padding: 20px 16px calc(var(--safe-bottom) + 20px); overflow-y: auto; }
+    .modal-sheet { background: var(--bg); border-top: 1px solid var(--border); width: 100%; max-width: 520px; max-height: 92vh; border-radius: 24px 24px 0 0; padding: 20px 16px calc(var(--safe-bottom) + 20px); overflow-y: auto; }
     @media (min-width: 600px) { .modal-backdrop { align-items: center; } .modal-sheet { border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); } }
 
     .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
@@ -616,6 +674,71 @@
 
     .info-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px; }
     .error-banner { background: rgba(255, 59, 48, 0.12); color: #FF3B30; padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 12px; display: none; }
+
+    /* Tutorial Steps */
+    .tutorial-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .tutorial-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .tutorial-step-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tutorial-step-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .tutorial-step-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+
+    /* Secret Santa Modal */
+    .santa-hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .santa-target-card {
+      background: var(--card);
+      border: 1.5px solid var(--accent);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .santa-mini-wish {
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .santa-mini-wish img {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
     .photo-upload-box { border: 1.5px dashed var(--border-strong); border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .photo-preview { max-width: 100%; max-height: 200px; border-radius: 10px; display: none; margin: 0 auto; }
@@ -653,11 +776,14 @@
 </head>
 <body>
 
+  <!-- Hidden file input for importing wishlist JSON -->
+  <input type="file" id="importWishlistFileInput" accept=".json,application/json" style="display:none" onchange="handleImportWishlistFile(event)" />
+
   <header class="header">
     <div class="header-inner">
       <div class="header-top">
         <div class="header-left">
-          <button class="icon-btn" onclick="openRoomsDrawer()" title="Мои комнаты" aria-label="Меню комнат">
+          <button class="icon-btn" onclick="openRoomsDrawer()" title="Мои комнаты и Тайный Санта" aria-label="Меню комнат">
             <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
           </button>
 
@@ -674,6 +800,9 @@
         </div>
 
         <div class="header-actions">
+          <button class="icon-btn" onclick="openModal('tutorialModal')" title="Инструкция по использованию" aria-label="Туториал">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </button>
           <button class="account-pill" onclick="handleAccountButtonClick()" id="accountHeaderBtn">
             <div class="account-pill-avatar" id="headerAvatar">
               <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -688,31 +817,52 @@
     </div>
   </header>
 
-  <!-- Sidebar Drawer: User Rooms -->
+  <!-- Sidebar Drawer: User Rooms + Secret Santa -->
   <div class="drawer-backdrop" id="roomsDrawer" onclick="if(event.target === this) closeRoomsDrawer()">
     <aside class="drawer-panel">
       <div class="drawer-header">
         <div class="drawer-title">
           <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
-          <span>Мои комнаты</span>
+          <span>Меню и комнаты</span>
         </div>
         <button class="close-btn" onclick="closeRoomsDrawer()">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
       </div>
 
-      <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+      <div style="flex:1; display:flex; flex-direction:column; gap:18px;">
         <div>
-          <div class="drawer-section-label">Ваши пространства</div>
+          <div class="drawer-section-label">Ваши комнаты</div>
           <div class="rooms-list" id="drawerRoomsList"></div>
+          <button type="button" class="secondary-btn" style="margin-top:10px;" onclick="closeRoomsDrawer(); openModal('roomModal');">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+            <span>Новая / войти по названию</span>
+          </button>
         </div>
-      </div>
 
-      <div>
-        <button type="button" class="primary-btn" onclick="closeRoomsDrawer(); openModal('roomModal');">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-          <span>Создать / войти по названию</span>
-        </button>
+        <!-- Secret Santa Panel at the bottom of the drawer -->
+        <div style="margin-top:auto; padding-top:14px; border-top:1px solid var(--border);">
+          <div class="drawer-section-label">Мини-игра комнаты</div>
+          <div class="santa-drawer-card" onclick="closeRoomsDrawer(); openSecretSantaModal();">
+            <div class="santa-drawer-top">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="santa-drawer-icon">
+                  <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:800; color:var(--text);">Тайный Санта</div>
+                  <div style="font-size:12px; color:var(--text-secondary);" id="santaDrawerSubtitle">Жеребьёвка участников</div>
+                </div>
+              </div>
+              <span class="santa-drawer-badge pending" id="santaDrawerStatusBadge">Открыть</span>
+            </div>
+          </div>
+
+          <button type="button" class="secondary-btn" style="margin-top:10px;" onclick="closeRoomsDrawer(); openModal('tutorialModal');">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Как пользоваться сервисом</span>
+          </button>
+        </div>
       </div>
     </aside>
   </div>
@@ -724,11 +874,14 @@
         <span>Комната: <strong id="currentRoomDisplay">...</strong></span>
       </div>
       <div class="room-actions">
-        <button class="room-btn" onclick="quickCopyCurrentRoomLink()">
+        <button class="room-btn" onclick="openSecretSantaModal()" title="Тайный Санта">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
+          <span>Санта</span>
+        </button>
+        <button class="room-btn accent" onclick="quickCopyCurrentRoomLink()">
           <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           <span>Пригласить</span>
         </button>
-        <button class="room-btn accent" onclick="openRoomsDrawer()">Комнаты</button>
       </div>
     </div>
   </div>
@@ -770,6 +923,82 @@
 
   <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
     <img id="lightboxImg" src="" alt="Фото" />
+  </div>
+
+  <!-- Modal: Tutorial / Guide -->
+  <div class="modal-backdrop" id="tutorialModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Инструкция по сервису</span>
+        </div>
+        <button class="close-btn" onclick="closeModal('tutorialModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="tutorial-list">
+        <div class="tutorial-card">
+          <div class="tutorial-step-icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="tutorial-step-content">
+            <h4>1. Единый аккаунт и размеры</h4>
+            <p>Зарегистрируйтесь один раз — ваш аккаунт работает во всех комнатах. В настройках профиля можно указать размеры одежды, обуви и колец, чтобы близкие не ошиблись с подарком.</p>
+          </div>
+        </div>
+
+        <div class="tutorial-card">
+          <div class="tutorial-step-icon">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          </div>
+          <div class="tutorial-step-content">
+            <h4>2. Комнаты для разных кругов</h4>
+            <p>Нажмите на меню <strong>три полоски</strong> слева сверху, чтобы переключаться между комнатами (например: «Пара», «Семья», «Друзья»). Нажмите «Пригласить», чтобы отправить ссылку друзьям.</p>
+          </div>
+        </div>
+
+        <div class="tutorial-card">
+          <div class="tutorial-step-icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          </div>
+          <div class="tutorial-step-content">
+            <h4>3. Перенос вишлиста между комнатами</h4>
+            <p>В карточке вашего профиля есть кнопки <strong>«Скачать»</strong> и <strong>«Загрузить»</strong>. Скачайте файл со своими желаниями в одной комнате и загрузите его в другой — все фото, цены, ссылки и размеры перенесутся автоматически.</p>
+          </div>
+        </div>
+
+        <div class="tutorial-card">
+          <div class="tutorial-step-icon">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
+          </div>
+          <div class="tutorial-step-content">
+            <h4>4. Тайный Санта</h4>
+            <p>Откройте боковое меню слева сверху и нажмите на блок <strong>«Тайный Санта»</strong> внизу. Система случайно выберет вам получателя из участников текущей комнаты и сразу покажет его вишлист.</p>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="primary-btn" onclick="closeModal('tutorialModal')">Всё понятно</button>
+    </div>
+  </div>
+
+  <!-- Modal: Secret Santa -->
+  <div class="modal-backdrop" id="secretSantaModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+          <span>Тайный Санта</span>
+        </div>
+        <button class="close-btn" onclick="closeModal('secretSantaModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="secretSantaBody"></div>
+    </div>
   </div>
 
   <!-- Modal: Create / Join Room -->
@@ -997,7 +1226,6 @@
 
     const ACCENT_COLORS = ['#FF2D55', '#007AFF', '#34C759', '#AF52DE', '#FF9500', '#5856D6', '#00C7BE'];
 
-    // Минималистичные SVG-иконки вместо эмодзи
     const AVATAR_ICONS = {
       user: '<svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
       heart: '<svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
@@ -1054,12 +1282,12 @@
 
     let currentRoom = getRoomFromURL();
 
-    // Глобальный аккаунт + комнаты этого пользователя + участники текущей комнаты
     let state = {
       currentUser: JSON.parse(localStorage.getItem('wl_global_user')) || null,
       roomMembers: JSON.parse(localStorage.getItem(`wl_members_${currentRoom}`)) || [],
       roomTitle: localStorage.getItem(`wl_room_title_${currentRoom}`) || currentRoom,
       wishes: JSON.parse(localStorage.getItem(`wl_wishes_${currentRoom}`)) || [],
+      secretSanta: JSON.parse(localStorage.getItem(`wl_santa_${currentRoom}`)) || {},
       activeTab: 'all',
       filter: 'all',
       search: '',
@@ -1131,7 +1359,6 @@
       return Object.values(obj).filter(Boolean);
     }
 
-    // Привязать текущую комнату к глобальному аккаунту и добавить пользователя в участники комнаты
     async function joinCurrentRoomAsUser(user, customTitle) {
       if (!user) return;
       if (!user.rooms || typeof user.rooms !== 'object') {
@@ -1161,14 +1388,12 @@
 
       saveLocal();
 
-      // Сохраняем список комнат в глобальном профиле пользователя
       await fetch(`${dbBase()}/users/${user.username}/rooms/${currentRoom}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user.rooms[currentRoom])
       });
 
-      // Сохраняем название комнаты (если ещё не задано)
       if (customTitle) {
         await fetch(`${dbBase()}/rooms/${currentRoom}/meta.json`, {
           method: 'PATCH',
@@ -1177,7 +1402,6 @@
         });
       }
 
-      // Добавляем/обновляем профиль участника внутри самой комнаты
       await fetch(`${dbBase()}/rooms/${currentRoom}/members/${user.id}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -1185,7 +1409,6 @@
       });
     }
 
-    // Синхронизация текущей комнаты и списка комнат пользователя
     async function pullFromCloud() {
       try {
         const res = await fetch(`${dbBase()}/rooms/${currentRoom}.json?t=${Date.now()}`);
@@ -1195,15 +1418,16 @@
         if (data && typeof data === 'object') {
           state.roomMembers = objectToArray(data.members);
           state.wishes = objectToArray(data.wishes);
+          state.secretSanta = (data.secretSanta && typeof data.secretSanta === 'object') ? data.secretSanta : {};
           if (data.meta && data.meta.title) {
             state.roomTitle = data.meta.title;
           }
         } else {
           state.roomMembers = [];
           state.wishes = [];
+          state.secretSanta = {};
         }
 
-        // Если пользователь авторизован, подтягиваем актуальный список его комнат
         if (state.currentUser) {
           const userRes = await fetch(`${dbBase()}/users/${state.currentUser.username}.json?t=${Date.now()}`);
           if (userRes.ok) {
@@ -1217,10 +1441,14 @@
         saveLocal();
         updateRoomHeaderUI();
         updateHeaderAccountUI();
+        updateSantaDrawerBadge();
         renderTabs();
         renderColumns();
         if (document.getElementById('roomsDrawer').classList.contains('open')) {
           renderDrawerRooms();
+        }
+        if (document.getElementById('secretSantaModal').classList.contains('open')) {
+          renderSecretSantaModal();
         }
         setSyncStatus(`${state.roomTitle}`, 'online');
         return true;
@@ -1235,6 +1463,26 @@
       const displayTitle = state.roomTitle || currentRoom;
       document.getElementById('currentRoomDisplay').textContent = displayTitle;
       document.getElementById('brandRoomNameTitle').textContent = displayTitle;
+    }
+
+    function updateSantaDrawerBadge() {
+      const badge = document.getElementById('santaDrawerStatusBadge');
+      const sub = document.getElementById('santaDrawerSubtitle');
+      if (!badge || !sub) return;
+
+      const user = state.currentUser;
+      const myAssignment = user && state.secretSanta && state.secretSanta.assignments ? state.secretSanta.assignments[user.id] : null;
+
+      if (myAssignment) {
+        const target = state.roomMembers.find(m => m.id === myAssignment.targetId);
+        badge.textContent = 'Выпал';
+        badge.className = 'santa-drawer-badge';
+        sub.textContent = target ? `Вы дарите: ${target.displayName}` : 'Получатель выбран';
+      } else {
+        badge.textContent = 'Тянуть';
+        badge.className = 'santa-drawer-badge pending';
+        sub.textContent = 'Узнайте, кому дарить подарок';
+      }
     }
 
     async function saveWishToCloud(wishObj) {
@@ -1271,6 +1519,7 @@
         }
         localStorage.setItem(`wl_members_${currentRoom}`, JSON.stringify(state.roomMembers));
         localStorage.setItem(`wl_wishes_${currentRoom}`, JSON.stringify(state.wishes));
+        localStorage.setItem(`wl_santa_${currentRoom}`, JSON.stringify(state.secretSanta));
         localStorage.setItem(`wl_room_title_${currentRoom}`, state.roomTitle);
       } catch (e) {
         console.warn('LocalStorage переполнен');
@@ -1286,19 +1535,16 @@
         window.history.replaceState({}, '', url.toString());
       }
 
-      renderIconPicker('authIconPicker', selectedRegisterIcon, (key) => {
-        selectedRegisterIcon = key;
-        renderIconPicker('authIconPicker', selectedRegisterIcon, arguments.callee);
-      });
+      renderIconPicker('authIconPicker', selectedRegisterIcon);
 
       updateRoomHeaderUI();
       updateHeaderAccountUI();
+      updateSantaDrawerBadge();
       renderTabs();
       renderColumns();
 
       await pullFromCloud();
 
-      // Если пользователь уже залогинен, но ещё не числится в текущей комнате (например, перешёл по ссылке друга)
       if (state.currentUser) {
         const alreadyMember = state.roomMembers.some(m => m.id === state.currentUser.id);
         const hasInRooms = state.currentUser.rooms && state.currentUser.rooms[currentRoom];
@@ -1311,13 +1557,363 @@
         openModal('authModal');
       }
 
+      // Автопоказ туториала при первом входе
+      if (!localStorage.getItem('wl_tutorial_seen')) {
+        localStorage.setItem('wl_tutorial_seen', '1');
+        if (state.currentUser) {
+          openModal('tutorialModal');
+        }
+      }
+
       if (syncInterval) clearInterval(syncInterval);
       syncInterval = setInterval(pullFromCloud, 5000);
+    }
+
+    // ==========================================
+    // EXPORT & IMPORT WISHLIST (Перенос вишлиста)
+    // ==========================================
+    function exportMyWishlist() {
+      const user = state.currentUser;
+      if (!user) return;
+
+      const myWishes = state.wishes.filter(w => w.ownerId === user.id);
+      if (myWishes.length === 0) {
+        alert('В вашем вишлисте в этой комнате пока нет желаний для скачивания.');
+        return;
+      }
+
+      const exportPayload = {
+        format: 'wishlist-backup-v1',
+        exportedAt: new Date().toISOString(),
+        sourceRoom: state.roomTitle || currentRoom,
+        profileMeta: {
+          displayName: user.displayName,
+          bio: user.bio || '',
+          clothesSize: user.clothesSize || '',
+          shoeSize: user.shoeSize || '',
+          ringSize: user.ringSize || ''
+        },
+        wishes: myWishes.map(w => ({
+          title: w.title || '',
+          caption: w.caption || '',
+          priority: normalizePriority(w.priority),
+          price: w.price || '',
+          link: w.link || '',
+          photo: w.photo || '',
+          fulfilled: Boolean(w.fulfilled)
+        }))
+      };
+
+      const jsonStr = JSON.stringify(exportPayload, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeName = (user.username || 'wishlist').replace(/[^a-z0-9_-]/gi, '_');
+      const safeRoom = (currentRoom || 'room').replace(/[^a-z0-9_-]/gi, '_');
+      a.href = url;
+      a.download = `wishlist_${safeName}_${safeRoom}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function triggerImportWishlist() {
+      if (!state.currentUser) {
+        switchAuthMode('login');
+        openModal('authModal');
+        return;
+      }
+      const input = document.getElementById('importWishlistFileInput');
+      input.value = '';
+      input.click();
+    }
+
+    function handleImportWishlistFile(event) {
+      const file = event.target.files[0];
+      if (!file || !state.currentUser) return;
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!parsed || !Array.isArray(parsed.wishes)) {
+            alert('Неверный формат файла. Выберите файл вишлиста (.json), скачанный из этого сервиса.');
+            return;
+          }
+
+          if (parsed.wishes.length === 0) {
+            alert('В выбранном файле нет желаний.');
+            return;
+          }
+
+          const user = state.currentUser;
+          let importedCount = 0;
+
+          // Если у пользователя в текущем профиле пустые размеры/био, а в файле они есть — аккуратно дополняем
+          if (parsed.profileMeta) {
+            let profileUpdated = false;
+            if (!user.bio && parsed.profileMeta.bio) { user.bio = parsed.profileMeta.bio; profileUpdated = true; }
+            if (!user.clothesSize && parsed.profileMeta.clothesSize) { user.clothesSize = parsed.profileMeta.clothesSize; profileUpdated = true; }
+            if (!user.shoeSize && parsed.profileMeta.shoeSize) { user.shoeSize = parsed.profileMeta.shoeSize; profileUpdated = true; }
+            if (!user.ringSize && parsed.profileMeta.ringSize) { user.ringSize = parsed.profileMeta.ringSize; profileUpdated = true; }
+            if (profileUpdated) {
+              await joinCurrentRoomAsUser(user);
+            }
+          }
+
+          setSyncStatus('Импорт вишлиста...', 'online');
+
+          const newWishesToUpload = [];
+          parsed.wishes.forEach((item, idx) => {
+            if (!item.title) return;
+            const newWish = {
+              id: 'w_' + (Date.now() + idx) + '_' + Math.random().toString(36).slice(2, 6),
+              ownerId: user.id,
+              title: String(item.title),
+              caption: item.caption ? String(item.caption) : '',
+              priority: normalizePriority(item.priority),
+              price: item.price ? String(item.price) : '',
+              link: item.link ? String(item.link) : '',
+              photo: item.photo ? String(item.photo) : '',
+              fulfilled: false,
+              createdAt: Date.now() + idx
+            };
+            state.wishes.unshift(newWish);
+            newWishesToUpload.push(newWish);
+            importedCount++;
+          });
+
+          saveLocal();
+          renderTabs();
+          renderColumns();
+
+          await Promise.all(newWishesToUpload.map(w =>
+            fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${w.id}.json`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(w)
+            })
+          ));
+
+          setSyncStatus(`${state.roomTitle}`, 'online');
+          alert(`Успешно загружено желаний: ${importedCount}!`);
+        } catch (err) {
+          console.error(err);
+          alert('Ошибка при чтении файла вишлиста.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // ==========================================
+    // SECRET SANTA (Тайный Санта)
+    // ==========================================
+    function openSecretSantaModal() {
+      renderSecretSantaModal();
+      openModal('secretSantaModal');
+    }
+
+    function renderSecretSantaModal() {
+      const container = document.getElementById('secretSantaBody');
+      const user = state.currentUser;
+
+      if (!user) {
+        container.innerHTML = `
+          <div class="santa-hero">
+            <div style="font-weight:700; font-size:15px;">Войдите в аккаунт</div>
+            <p class="info-text" style="margin:0;">Чтобы участвовать в Тайном Санте этой комнаты, сначала войдите в свой профиль.</p>
+            <button class="primary-btn" onclick="closeModal('secretSantaModal'); openModal('authModal');">Войти</button>
+          </div>
+        `;
+        return;
+      }
+
+      const assignments = (state.secretSanta && state.secretSanta.assignments) ? state.secretSanta.assignments : {};
+      const myEntry = assignments[user.id];
+      const totalParticipants = Object.keys(assignments).length;
+
+      if (!myEntry) {
+        const otherMembers = state.roomMembers.filter(m => m.id !== user.id);
+        const canDraw = otherMembers.length >= 1;
+
+        container.innerHTML = `
+          <div class="santa-hero">
+            <div style="width:48px; height:48px; border-radius:14px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+            </div>
+            <div style="font-size:17px; font-weight:800;">Жеребьёвка в комнате «${escapeHtml(state.roomTitle)}»</div>
+            <p class="info-text" style="margin:0;">
+              Нажмите кнопку ниже — система случайным образом выберет одного из участников комнаты (кроме вас), которому вы будете дарить подарок, и сразу откроет его вишлист. Никто другой не увидит, кто вам выпал!
+            </p>
+            <div style="font-size:12px; color:var(--text-tertiary); font-weight:600;">
+              Участников в комнате: ${state.roomMembers.length} · Уже вытянули: ${totalParticipants}
+            </div>
+            ${canDraw
+              ? `<button type="button" class="primary-btn" id="drawSantaBtn" onclick="drawSecretSanta()">Узнать, кому я дарю</button>`
+              : `<div class="error-banner" style="display:block; margin-top:6px; margin-bottom:0;">Для игры нужно минимум 2 участника в комнате. Пригласите друзей по ссылке!</div>`
+            }
+          </div>
+        `;
+        return;
+      }
+
+      // Если пользователь уже вытянул получателя
+      const targetUser = state.roomMembers.find(m => m.id === myEntry.targetId);
+      if (!targetUser) {
+        container.innerHTML = `
+          <div class="santa-hero">
+            <div>Выбранный участник больше не в комнате.</div>
+            <button type="button" class="secondary-btn" onclick="resetSecretSanta()">Сбросить жеребьёвку комнаты</button>
+          </div>
+        `;
+        return;
+      }
+
+      const targetWishes = state.wishes.filter(w => w.ownerId === targetUser.id && !w.fulfilled);
+      const targetAccent = targetUser.accentColor || '#FF2D55';
+      const targetSizes = [
+        targetUser.clothesSize ? `Одежда: ${escapeHtml(targetUser.clothesSize)}` : '',
+        targetUser.shoeSize ? `Обувь: ${escapeHtml(targetUser.shoeSize)}` : '',
+        targetUser.ringSize ? `${escapeHtml(targetUser.ringSize)}` : ''
+      ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
+
+      const wishesPreviewHtml = targetWishes.length === 0
+        ? `<div style="font-size:13px; color:var(--text-secondary); text-align:center; padding:12px;">У ${escapeHtml(targetUser.displayName)} пока нет активных желаний в этой комнате.</div>`
+        : targetWishes.map(w => `
+          <div class="santa-mini-wish">
+            ${w.photo ? `<img src="${w.photo}" alt="" />` : `
+              <div style="width:46px; height:46px; border-radius:8px; background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--text-tertiary); flex-shrink:0;">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
+              </div>
+            `}
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(w.title)}</div>
+              <div style="font-size:12px; color:var(--text-secondary);">${w.price ? escapeHtml(w.price) : 'Цена не указана'}</div>
+            </div>
+            ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="action-pill" style="text-decoration:none;">Ссылка</a>` : ''}
+          </div>
+        `).join('');
+
+      container.innerHTML = `
+        <div class="santa-target-card">
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--accent);">Вы Тайный Санта для:</div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="avatar-large" style="color:${targetAccent};">${targetUser.avatar ? `<img src="${targetUser.avatar}" />` : getAvatarSvg(targetUser.icon)}</div>
+            <div>
+              <div style="font-size:19px; font-weight:800;">${escapeHtml(targetUser.displayName)}</div>
+              <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(targetUser.username)}</div>
+            </div>
+          </div>
+          ${targetUser.bio ? `<div style="font-size:13px; color:var(--text-secondary);">${escapeHtml(targetUser.bio)}</div>` : ''}
+          ${targetSizes ? `<div class="profile-sizes-row">${targetSizes}</div>` : ''}
+        </div>
+
+        <div style="font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text-secondary);">
+          Актуальный вишлист (${targetWishes.length}):
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+          ${wishesPreviewHtml}
+        </div>
+
+        <button type="button" class="primary-btn" onclick="openRecipientWishlistTab('${targetUser.id}')">
+          Открыть полный вишлист на главном экране
+        </button>
+
+        <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="resetSecretSanta()">
+          Сбросить жеребьёвку для всей комнаты
+        </button>
+      `;
+    }
+
+    async function drawSecretSanta() {
+      const user = state.currentUser;
+      if (!user) return;
+
+      const btn = document.getElementById('drawSantaBtn');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Перемешиваем имена...';
+      }
+
+      try {
+        // Сначала получаем свежие данные комнаты из Firebase, чтобы избежать дублирования получателей
+        const res = await fetch(`${dbBase()}/rooms/${currentRoom}.json?t=${Date.now()}`);
+        const data = (res.ok ? await res.json() : null) || {};
+        const members = objectToArray(data.members);
+        const existingAssignments = (data.secretSanta && data.secretSanta.assignments) ? data.secretSanta.assignments : {};
+
+        if (existingAssignments[user.id]) {
+          state.secretSanta = { assignments: existingAssignments };
+          saveLocal();
+          updateSantaDrawerBadge();
+          renderSecretSantaModal();
+          return;
+        }
+
+        // Собираем список уже занятых получателей
+        const takenTargetIds = new Set(Object.values(existingAssignments).map(a => a.targetId));
+
+        // Доступные кандидаты: участники комнаты, кроме самого себя и тех, кто уже выбран другими
+        let candidates = members.filter(m => m.id !== user.id && !takenTargetIds.has(m.id));
+
+        // Защита от тупиковой ситуации (например, если остался последний человек и это он сам)
+        if (candidates.length === 0) {
+          candidates = members.filter(m => m.id !== user.id);
+        }
+
+        if (candidates.length === 0) {
+          alert('В комнате пока недостаточно других участников для жеребьёвки.');
+          return;
+        }
+
+        const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+        const assignmentObj = {
+          giverId: user.id,
+          targetId: chosen.id,
+          assignedAt: Date.now()
+        };
+
+        await fetch(`${dbBase()}/rooms/${currentRoom}/secretSanta/assignments/${user.id}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(assignmentObj)
+        });
+
+        if (!state.secretSanta) state.secretSanta = {};
+        if (!state.secretSanta.assignments) state.secretSanta.assignments = {};
+        state.secretSanta.assignments[user.id] = assignmentObj;
+
+        saveLocal();
+        updateSantaDrawerBadge();
+        renderSecretSantaModal();
+      } catch (err) {
+        console.error(err);
+        alert('Не удалось провести жеребьёвку. Проверьте подключение к интернету.');
+      }
+    }
+
+    function openRecipientWishlistTab(targetId) {
+      closeModal('secretSantaModal');
+      setTab(targetId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function resetSecretSanta() {
+      if (!confirm('Сбросить результаты Тайного Санты для всех участников этой комнаты, чтобы провести игру заново?')) return;
+      state.secretSanta = {};
+      saveLocal();
+      updateSantaDrawerBadge();
+      await fetch(`${dbBase()}/rooms/${currentRoom}/secretSanta.json`, {
+        method: 'DELETE'
+      });
+      renderSecretSantaModal();
     }
 
     // Drawer (Боковое меню комнат)
     function openRoomsDrawer() {
       renderDrawerRooms();
+      updateSantaDrawerBadge();
       document.getElementById('roomsDrawer').classList.add('open');
     }
 
@@ -1330,7 +1926,6 @@
       const userRoomsObj = (state.currentUser && state.currentUser.rooms) ? state.currentUser.rooms : {};
       const roomsArr = Object.values(userRoomsObj);
 
-      // Гарантируем, что текущая комната отображается в списке
       if (!roomsArr.some(r => r.slug === currentRoom)) {
         roomsArr.unshift({ slug: currentRoom, title: state.roomTitle || currentRoom });
       }
@@ -1460,7 +2055,7 @@
     }
 
     // Icon Picker UI
-    function renderIconPicker(containerId, selectedKey, onSelectCallback) {
+    function renderIconPicker(containerId, selectedKey) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = Object.keys(AVATAR_ICONS).map(key => `
@@ -1600,6 +2195,7 @@
 
           closeModal('authModal');
           document.getElementById('authForm').reset();
+          openModal('tutorialModal');
         } else {
           if (!existingUser) {
             showAuthError(`Аккаунт «${username}» не найден. Проверьте логин или зарегистрируйтесь.`);
@@ -1717,14 +2313,12 @@
       updateHeaderAccountUI();
       closeModal('profileSettingsModal');
 
-      // Обновляем глобальный профиль пользователя
       await fetch(`${dbBase()}/users/${user.username}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
       });
 
-      // Синхронизируем обновлённый профиль во всех комнатах, где состоит пользователь
       const roomsList = user.rooms ? Object.keys(user.rooms) : [currentRoom];
       const memberProfile = {
         id: user.id,
@@ -1895,6 +2489,19 @@
           acc.ringSize ? `${escapeHtml(acc.ringSize)}` : ''
         ].filter(Boolean).map(s => `<span class="size-chip">${s}</span>`).join('');
 
+        const ownerToolbarHtml = isOwner ? `
+          <div class="owner-toolbar">
+            <button class="action-pill" onclick="exportMyWishlist()" title="Скачать вишлист файлом для переноса в другую комнату">
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              <span>Скачать вишлист</span>
+            </button>
+            <button class="action-pill" onclick="triggerImportWishlist()" title="Загрузить вишлист из файла">
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              <span>Загрузить</span>
+            </button>
+          </div>
+        ` : '';
+
         const cardsHtml = profileWishes.length === 0
           ? `<div class="empty-box"><div>${rawWishes.length === 0 ? `У ${escapeHtml(acc.displayName)} пока нет желаний` : 'Ничего не найдено'}</div></div>`
           : profileWishes.map(w => {
@@ -1958,13 +2565,14 @@
                   </div>
                 </div>
                 ${isOwner ? `
-                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки">
+                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки профиля">
                     <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                   </button>
                 ` : ''}
               </div>
               ${acc.bio ? `<p class="profile-bio">${escapeHtml(acc.bio)}</p>` : ''}
               ${sizesHtml ? `<div class="profile-sizes-row">${sizesHtml}</div>` : ''}
+              ${ownerToolbarHtml}
             </div>
             <div class="wish-grid">${cardsHtml}</div>
           </section>
