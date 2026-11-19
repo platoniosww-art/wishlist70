@@ -14,7 +14,7 @@
   <style>
     :root, [data-theme="light"] {
       --bg: #F5F5F7;
-      --bg-elevated: rgba(255, 255, 255, 0.84);
+      --bg-elevated: rgba(255, 255, 255, 0.86);
       --card: #FFFFFF;
       --card-subtle: #F2F2F7;
       --text: #111113;
@@ -31,7 +31,7 @@
       --border-strong: rgba(0, 0, 0, 0.13);
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.14);
       --seg-bg: rgba(118, 118, 128, 0.11);
       --seg-active: #FFFFFF;
       --safe-top: env(safe-area-inset-top, 20px);
@@ -40,7 +40,7 @@
 
     [data-theme="dark"] {
       --bg: #000000;
-      --bg-elevated: rgba(24, 24, 26, 0.84);
+      --bg-elevated: rgba(24, 24, 26, 0.86);
       --card: #161618;
       --card-subtle: #222225;
       --text: #F5F5F7;
@@ -85,13 +85,14 @@
       width: 18px;
       height: 18px;
       stroke: currentColor;
-      stroke-width: 2;
+      stroke-width: 1.85;
       stroke-linecap: round;
       stroke-linejoin: round;
       fill: none;
       flex-shrink: 0;
     }
 
+    svg.icon-xs { width: 13px; height: 13px; }
     svg.icon-sm { width: 15px; height: 15px; }
     svg.icon-lg { width: 22px; height: 22px; }
 
@@ -117,30 +118,46 @@
       gap: 10px;
     }
 
-    .brand-wrap { display: flex; flex-direction: column; gap: 3px; }
-
-    .app-title {
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
+    .header-left {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .app-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
       cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .brand-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--accent);
       display: inline-block;
+      flex-shrink: 0;
     }
 
     .sync-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-size: 11px;
       font-weight: 600;
       color: var(--text-secondary);
@@ -150,7 +167,7 @@
     .sync-badge.error { color: #FF3B30; }
     .sync-indicator { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
     .icon-btn {
       width: 38px;
@@ -164,7 +181,8 @@
       justify-content: center;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: transform 0.15s ease;
+      transition: transform 0.15s ease, background-color 0.2s ease;
+      flex-shrink: 0;
     }
     .icon-btn:active { transform: scale(0.92); }
 
@@ -183,7 +201,9 @@
       box-shadow: var(--shadow-sm);
       cursor: pointer;
       max-width: 165px;
+      transition: transform 0.15s ease;
     }
+    .account-pill:active { transform: scale(0.95); }
 
     .account-pill-avatar {
       width: 26px;
@@ -194,7 +214,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -228,13 +247,164 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: all 0.2s ease;
     }
     .seg-btn.active {
       background: var(--seg-active);
       color: var(--text);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-    .seg-count { font-size: 11px; font-weight: 700; opacity: 0.65; }
+    .seg-count { font-size: 11px; font-weight: 700; opacity: 0.6; }
+
+    /* Drawer / Sidebar for Rooms */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: none;
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    .drawer-backdrop.open { display: flex; opacity: 1; }
+
+    .drawer-panel {
+      width: 310px;
+      max-width: 85vw;
+      height: 100%;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      padding: calc(var(--safe-top) + 16px) 16px calc(var(--safe-bottom) + 20px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--shadow-lg);
+      animation: slideRight 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    @keyframes slideRight {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .drawer-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .rooms-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .room-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 12px;
+      border-radius: 13px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      gap: 10px;
+    }
+
+    .room-item.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .room-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .room-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: var(--card-subtle);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .room-item.active .room-item-icon {
+      background: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .room-item-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .room-item-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .room-item-slug {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .room-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mini-icon-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .mini-icon-btn:hover { background: var(--card-subtle); color: var(--text); }
+    .mini-icon-btn.del:hover { color: #FF3B30; }
 
     /* Room Bar */
     .room-bar { max-width: 1120px; margin: 12px auto 0; padding: 0 16px; }
@@ -252,26 +422,30 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .room-info { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); }
-    .room-info strong { color: var(--text); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .room-info { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); min-width: 0; }
+    .room-info strong { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .room-actions { display: flex; gap: 6px; }
+    .room-actions { display: flex; gap: 6px; flex-shrink: 0; }
 
     .room-btn {
+      border: 1px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 12px;
+      padding: 6px 11px;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .room-btn.accent {
       border: none;
       background: var(--accent-soft);
       color: var(--accent);
-      font-weight: 600;
-      font-size: 12px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .room-btn.secondary {
-      background: var(--card-subtle);
-      color: var(--text);
     }
 
     /* Controls */
@@ -300,7 +474,7 @@
 
     .search-box svg { color: var(--text-tertiary); margin-right: 8px; }
     .search-input { width: 100%; border: none; background: transparent; color: var(--text); font-size: 14px; outline: none; }
-    .clear-search { border: none; background: none; color: var(--text-tertiary); cursor: pointer; padding: 4px; display: none; }
+    .clear-search { border: none; background: none; color: var(--text-tertiary); cursor: pointer; padding: 4px; display: none; align-items: center; justify-content: center; }
 
     .sort-select {
       height: 40px;
@@ -365,15 +539,15 @@
     .profile-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
     .avatar-large {
-      width: 52px; height: 52px; border-radius: 16px;
+      width: 50px; height: 50px; border-radius: 15px;
       background: var(--card-subtle); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      font-size: 24px; overflow: hidden; flex-shrink: 0;
+      overflow: hidden; flex-shrink: 0;
     }
     .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
 
     .profile-name-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .column-title { font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 7px; }
+    .column-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 7px; }
     .owner-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
     .readonly-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--seg-bg); color: var(--text-secondary); }
     .profile-username { font-size: 12px; color: var(--text-tertiary); font-weight: 600; }
@@ -410,7 +584,7 @@
     .action-icon { width: 32px; height: 32px; padding: 0; justify-content: center; }
     .action-icon.del { color: #FF3B30; }
 
-    .empty-box { background: var(--card); border: 1px dashed var(--border-strong); border-radius: 20px; padding: 32px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .empty-box { background: var(--card); border: 1px dashed var(--border-strong); border-radius: 20px; padding: 36px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
     .fab {
       position: fixed; bottom: calc(var(--safe-bottom) + 18px); right: 20px; z-index: 60;
@@ -421,18 +595,18 @@
     }
 
     /* Modals */
-    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.56); backdrop-filter: blur(6px); display: none; align-items: flex-end; justify-content: center; }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 160; background: rgba(0, 0, 0, 0.56); backdrop-filter: blur(6px); display: none; align-items: flex-end; justify-content: center; }
     .modal-backdrop.open { display: flex; }
-    .modal-sheet { background: var(--bg); border-top: 1px solid var(--border); width: 100%; max-width: 500px; max-height: 92vh; border-radius: 24px 24px 0 0; padding: 20px 16px calc(var(--safe-bottom) + 20px); overflow-y: auto; }
+    .modal-sheet { background: var(--bg); border-top: 1px solid var(--border); width: 100%; max-width: 480px; max-height: 92vh; border-radius: 24px 24px 0 0; padding: 20px 16px calc(var(--safe-bottom) + 20px); overflow-y: auto; }
     @media (min-width: 600px) { .modal-backdrop { align-items: center; } .modal-sheet { border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); } }
 
     .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-    .modal-title { font-size: 18px; font-weight: 800; }
+    .modal-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
     .close-btn { border: 1px solid var(--border); background: var(--card); width: 32px; height: 32px; border-radius: 10px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
     .form-group { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-tertiary); margin-bottom: 6px; text-transform: uppercase; }
+    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-tertiary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
     .form-input, .form-select, .form-textarea { width: 100%; border: none; background: transparent; font-size: 15px; color: var(--text); font-family: inherit; outline: none; }
     .form-textarea { min-height: 64px; resize: vertical; }
 
@@ -446,14 +620,31 @@
     .photo-upload-box { border: 1.5px dashed var(--border-strong); border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .photo-preview { max-width: 100%; max-height: 200px; border-radius: 10px; display: none; margin: 0 auto; }
     .avatar-settings-box { display: flex; align-items: center; gap: 14px; }
-    .avatar-preview-circle { width: 68px; height: 68px; border-radius: 20px; background: var(--card-subtle); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 30px; overflow: hidden; flex-shrink: 0; }
+    .avatar-preview-circle { width: 64px; height: 64px; border-radius: 18px; background: var(--card-subtle); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
     .avatar-preview-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+    .icon-picker-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    .icon-choice-btn {
+      height: 42px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .icon-choice-btn.selected {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
 
     .color-swatches { display: flex; gap: 10px; flex-wrap: wrap; }
     .swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
     .swatch.selected { transform: scale(1.15); border-color: var(--text); }
-
-    .account-list-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px; }
 
     .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(0, 0, 0, 0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
     .lightbox.open { display: flex; }
@@ -465,14 +656,20 @@
   <header class="header">
     <div class="header-inner">
       <div class="header-top">
-        <div class="brand-wrap">
-          <div class="app-title" onclick="openModal('roomModal')" title="Сменить комнату">
-            <span class="brand-dot"></span>
-            <span id="brandRoomNameTitle">Wishlist</span>
-          </div>
-          <div id="syncBadge" class="sync-badge">
-            <span class="sync-indicator"></span>
-            <span id="syncText">Синхронизация...</span>
+        <div class="header-left">
+          <button class="icon-btn" onclick="openRoomsDrawer()" title="Мои комнаты" aria-label="Меню комнат">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          </button>
+
+          <div class="brand-wrap">
+            <div class="app-title" onclick="openRoomsDrawer()" title="Переключить комнату">
+              <span class="brand-dot"></span>
+              <span id="brandRoomNameTitle">Wishlist</span>
+            </div>
+            <div id="syncBadge" class="sync-badge">
+              <span class="sync-indicator"></span>
+              <span id="syncText">Синхронизация...</span>
+            </div>
           </div>
         </div>
 
@@ -491,15 +688,47 @@
     </div>
   </header>
 
+  <!-- Sidebar Drawer: User Rooms -->
+  <div class="drawer-backdrop" id="roomsDrawer" onclick="if(event.target === this) closeRoomsDrawer()">
+    <aside class="drawer-panel">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span>Мои комнаты</span>
+        </div>
+        <button class="close-btn" onclick="closeRoomsDrawer()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+        <div>
+          <div class="drawer-section-label">Ваши пространства</div>
+          <div class="rooms-list" id="drawerRoomsList"></div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" class="primary-btn" onclick="closeRoomsDrawer(); openModal('roomModal');">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+          <span>Создать / войти по названию</span>
+        </button>
+      </div>
+    </aside>
+  </div>
+
   <div class="room-bar" id="roomBar">
     <div class="room-bar-inner">
       <div class="room-info">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <span>Комната: <strong id="currentRoomDisplay">...</strong></span>
       </div>
       <div class="room-actions">
-        <button class="room-btn secondary" onclick="quickCopyCurrentRoomLink()">Ссылка</button>
-        <button class="room-btn" onclick="openModal('roomModal')">Сменить</button>
+        <button class="room-btn" onclick="quickCopyCurrentRoomLink()">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span>Пригласить</span>
+        </button>
+        <button class="room-btn accent" onclick="openRoomsDrawer()">Комнаты</button>
       </div>
     </div>
   </div>
@@ -509,7 +738,9 @@
       <div class="search-box">
         <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" id="searchInput" class="search-input" placeholder="Поиск по желаниям..." oninput="handleSearchInput()" />
-        <button id="clearSearchBtn" class="clear-search" onclick="clearSearch()">✕</button>
+        <button id="clearSearchBtn" class="clear-search" onclick="clearSearch()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
 
       <select id="sortSelect" class="sort-select" onchange="handleSortChange()">
@@ -541,45 +772,56 @@
     <img id="lightboxImg" src="" alt="Фото" />
   </div>
 
-  <!-- Modal: Room -->
+  <!-- Modal: Create / Join Room -->
   <div class="modal-backdrop" id="roomModal">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div class="modal-title">Комната пары</div>
-        <button class="close-btn" onclick="closeModal('roomModal')">✕</button>
+        <div class="modal-title">Новая или существующая комната</div>
+        <button class="close-btn" onclick="closeModal('roomModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
       <p class="info-text">
-        Введите название комнаты (на русском или английском). Отправьте сгенерированную ссылку партнёру — он автоматически попадёт в эту же изолированную комнату.
+        Введите название комнаты (например: <strong>Мы с любимой</strong>, <strong>Семья</strong> или <strong>Друзья</strong>). Комната привяжется к вашему аккаунту, а ссылкой можно поделиться с близкими.
       </p>
 
       <div class="form-group">
         <label class="form-label">Название комнаты</label>
-        <input type="text" class="form-input" id="roomNameInput" placeholder="Например: наша-пара или alex-kate" oninput="previewGeneratedLink()" />
+        <input type="text" class="form-input" id="roomNameInput" placeholder="Например: Семья или alex-kate" oninput="previewGeneratedLink()" />
       </div>
 
       <div class="form-group" style="background:var(--card-subtle);">
-        <label class="form-label">Ссылка-приглашение для партнёра</label>
+        <label class="form-label">Ссылка-приглашение</label>
         <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
           <input type="text" class="form-input" id="generatedLinkPreview" readonly style="font-size:13px; color:var(--text-secondary);" />
-          <button type="button" class="action-pill" onclick="copyRoomLink()">Копировать</button>
+          <button type="button" class="action-pill" onclick="copyRoomLink()">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Копия</span>
+          </button>
         </div>
       </div>
 
-      <button type="button" class="primary-btn" onclick="joinRoomByInput()">Перейти в эту комнату</button>
+      <button type="button" class="primary-btn" onclick="joinRoomByInput()">Открыть комнату</button>
     </div>
   </div>
 
-  <!-- Modal: Auth -->
+  <!-- Modal: Global Auth -->
   <div class="modal-backdrop" id="authModal">
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title" id="authModalTitle">Вход в аккаунт</div>
-        <button class="close-btn" onclick="closeModal('authModal')">✕</button>
+        <button class="close-btn" onclick="closeModal('authModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
+
+      <p class="info-text" style="margin-bottom:12px;">
+        Единый аккаунт для всех ваших комнат: пары, друзей и семьи.
+      </p>
 
       <div class="segmented" style="margin-bottom: 14px;">
         <button type="button" class="seg-btn active" id="tabLoginBtn" onclick="switchAuthMode('login')">Войти</button>
-        <button type="button" class="seg-btn" id="tabRegisterBtn" onclick="switchAuthMode('register')">Создать аккаунт</button>
+        <button type="button" class="seg-btn" id="tabRegisterBtn" onclick="switchAuthMode('register')">Регистрация</button>
       </div>
 
       <div id="authErrorBox" class="error-banner"></div>
@@ -587,18 +829,18 @@
       <form id="authForm" onsubmit="submitAuth(event)">
         <div id="registerFields" style="display:none;">
           <div class="form-group">
-            <label class="form-label">Ваше имя</label>
+            <label class="form-label">Ваше имя *</label>
             <input type="text" class="form-input" id="authDisplayName" placeholder="Например: Алина или Максим" />
           </div>
           <div class="form-group">
-            <label class="form-label">Эмодзи-иконка</label>
-            <input type="text" class="form-input" id="authEmoji" value="✨" maxlength="4" />
+            <label class="form-label">Иконка профиля</label>
+            <div class="icon-picker-grid" id="authIconPicker"></div>
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Логин *</label>
-          <input type="text" class="form-input" id="authUsername" placeholder="Ваш логин" required autocapitalize="none" autocomplete="username" />
+          <input type="text" class="form-input" id="authUsername" placeholder="Придумайте или введите логин" required autocapitalize="none" autocomplete="username" />
         </div>
 
         <div class="form-group">
@@ -608,8 +850,6 @@
 
         <button type="submit" class="primary-btn" id="authSubmitBtn">Войти</button>
       </form>
-
-      <div id="existingAccountsHint" style="margin-top: 16px;"></div>
     </div>
   </div>
 
@@ -618,36 +858,40 @@
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title">Настройки профиля</div>
-        <button class="close-btn" onclick="closeModal('profileSettingsModal')">✕</button>
+        <button class="close-btn" onclick="closeModal('profileSettingsModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
 
       <form onsubmit="saveProfileSettings(event)">
         <div class="form-group">
-          <label class="form-label">Аватарка профиля</label>
+          <label class="form-label">Фотография или иконка</label>
           <div class="avatar-settings-box">
-            <div class="avatar-preview-circle" id="settingsAvatarPreview">✨</div>
+            <div class="avatar-preview-circle" id="settingsAvatarPreview"></div>
             <div style="display:flex; flex-direction:column; gap:6px; flex:1;">
-              <button type="button" class="action-pill" style="justify-content:center;" onclick="document.getElementById('avatarPhotoInput').click()">Загрузить фото</button>
+              <button type="button" class="action-pill" style="justify-content:center;" onclick="document.getElementById('avatarPhotoInput').click()">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                <span>Загрузить фото</span>
+              </button>
               <button type="button" class="action-pill del" id="removeAvatarBtn" style="justify-content:center; display:none;" onclick="clearAvatarPhoto()">Убрать фото</button>
               <input type="file" id="avatarPhotoInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)" />
             </div>
           </div>
         </div>
 
-        <div class="form-row-2">
-          <div class="form-group">
-            <label class="form-label">Имя *</label>
-            <input type="text" class="form-input" id="settingsDisplayName" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Эмодзи</label>
-            <input type="text" class="form-input" id="settingsEmoji" maxlength="4" />
-          </div>
+        <div class="form-group">
+          <label class="form-label">Минималистичная иконка (если без фото)</label>
+          <div class="icon-picker-grid" id="settingsIconPicker"></div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">О себе / пожелания</label>
-          <textarea class="form-textarea" id="settingsBio" placeholder="Люблю минимализм и уют..."></textarea>
+          <label class="form-label">Имя *</label>
+          <input type="text" class="form-input" id="settingsDisplayName" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">О себе / заметка для друзей</label>
+          <textarea class="form-textarea" id="settingsBio" placeholder="Люблю минимализм, кофе и книги..."></textarea>
         </div>
 
         <div class="form-row-2">
@@ -673,13 +917,16 @@
 
         <div class="form-group">
           <label class="form-label">Новый пароль (если хотите сменить)</label>
-          <input type="password" class="form-input" id="settingsNewPassword" placeholder="Новый пароль" />
+          <input type="password" class="form-input" id="settingsNewPassword" placeholder="Оставьте пустым, чтобы не менять" />
         </div>
 
-        <button type="submit" class="primary-btn">Сохранить</button>
+        <button type="submit" class="primary-btn">Сохранить профиль</button>
       </form>
 
-      <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="logoutAccount()">Выйти из аккаунта</button>
+      <button type="button" class="secondary-btn" style="color:#FF3B30;" onclick="logoutAccount()">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        <span>Выйти из аккаунта</span>
+      </button>
     </div>
   </div>
 
@@ -688,7 +935,9 @@
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title" id="wishModalTitle">Новое желание</div>
-        <button class="close-btn" onclick="closeModal('wishModal')">✕</button>
+        <button class="close-btn" onclick="closeModal('wishModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
 
       <form id="wishForm" onsubmit="saveWish(event)">
@@ -698,6 +947,7 @@
           <label class="form-label">Фотография подарка</label>
           <div class="photo-upload-box" onclick="document.getElementById('wishPhotoInput').click()">
             <div id="photoPlaceholder" style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
               <span>Выбрать фото из галереи</span>
             </div>
             <img id="photoPreview" class="photo-preview" alt="Предпросмотр" />
@@ -743,10 +993,30 @@
   </div>
 
   <script>
-    // ВСТАВЬТЕ СЮДА URL ВАШЕЙ БАЗЫ FIREBASE REALTIME DATABASE (без слэша в конце)
-    const FIREBASE_DB_URL = "https://wishlist-c58df-default-rtdb.firebaseio.com/";
+    const FIREBASE_DB_URL = "https://wishlist-c58df-default-rtdb.firebaseio.com";
 
     const ACCENT_COLORS = ['#FF2D55', '#007AFF', '#34C759', '#AF52DE', '#FF9500', '#5856D6', '#00C7BE'];
+
+    // Минималистичные SVG-иконки вместо эмодзи
+    const AVATAR_ICONS = {
+      user: '<svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+      heart: '<svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
+      star: '<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+      sparkles: '<svg class="icon" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
+      gift: '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>',
+      moon: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>',
+      sun: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>',
+      crown: '<svg class="icon" viewBox="0 0 24 24"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>',
+      coffee: '<svg class="icon" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>',
+      music: '<svg class="icon" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+      camera: '<svg class="icon" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+      compass: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>'
+    };
+
+    function getAvatarSvg(iconKey) {
+      return AVATAR_ICONS[iconKey] || AVATAR_ICONS.sparkles;
+    }
+
     const PRIORITY_LABELS = {
       high: { label: 'Очень хочу', cls: 'tag-high', weight: 4 },
       dream: { label: 'Мечта', cls: 'tag-dream', weight: 3 },
@@ -784,9 +1054,11 @@
 
     let currentRoom = getRoomFromURL();
 
+    // Глобальный аккаунт + комнаты этого пользователя + участники текущей комнаты
     let state = {
-      accounts: JSON.parse(localStorage.getItem(`wl_accounts_${currentRoom}`)) || [],
-      currentUserId: localStorage.getItem(`wl_current_user_id_${currentRoom}`) || null,
+      currentUser: JSON.parse(localStorage.getItem('wl_global_user')) || null,
+      roomMembers: JSON.parse(localStorage.getItem(`wl_members_${currentRoom}`)) || [],
+      roomTitle: localStorage.getItem(`wl_room_title_${currentRoom}`) || currentRoom,
       wishes: JSON.parse(localStorage.getItem(`wl_wishes_${currentRoom}`)) || [],
       activeTab: 'all',
       filter: 'all',
@@ -796,6 +1068,8 @@
     };
 
     let authMode = 'login';
+    let selectedRegisterIcon = 'sparkles';
+    let selectedSettingsIcon = 'sparkles';
     let currentWishPhoto = '';
     let currentAvatarPhoto = '';
     let selectedAccentColor = ACCENT_COLORS[0];
@@ -831,11 +1105,6 @@
       return 'idea';
     }
 
-    function getCurrentUser() {
-      if (!state.currentUserId) return null;
-      return state.accounts.find(a => a.id === state.currentUserId) || null;
-    }
-
     function applyTheme(theme) {
       state.theme = theme;
       document.documentElement.setAttribute('data-theme', theme);
@@ -852,8 +1121,8 @@
       applyTheme(state.theme === 'dark' ? 'light' : 'dark');
     }
 
-    function getRoomBaseUrl() {
-      return `${FIREBASE_DB_URL.replace(/\/$/, '')}/rooms/${currentRoom}`;
+    function dbBase() {
+      return FIREBASE_DB_URL.replace(/\/$/, '');
     }
 
     function objectToArray(obj) {
@@ -862,32 +1131,98 @@
       return Object.values(obj).filter(Boolean);
     }
 
-    async function pullFromCloud() {
-      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) {
-        setSyncStatus('Укажите URL Firebase в коде!', 'error');
-        return false;
+    // Привязать текущую комнату к глобальному аккаунту и добавить пользователя в участники комнаты
+    async function joinCurrentRoomAsUser(user, customTitle) {
+      if (!user) return;
+      if (!user.rooms || typeof user.rooms !== 'object') {
+        user.rooms = {};
       }
+      const existingRoomEntry = user.rooms[currentRoom];
+      const titleToSave = customTitle || (existingRoomEntry && existingRoomEntry.title) || state.roomTitle || currentRoom;
+
+      user.rooms[currentRoom] = {
+        slug: currentRoom,
+        title: titleToSave,
+        joinedAt: (existingRoomEntry && existingRoomEntry.joinedAt) || Date.now()
+      };
+
+      const memberProfile = {
+        id: user.id,
+        username: user.username,
+        displayName: user.displayName,
+        icon: user.icon || 'sparkles',
+        avatar: user.avatar || '',
+        bio: user.bio || '',
+        clothesSize: user.clothesSize || '',
+        shoeSize: user.shoeSize || '',
+        ringSize: user.ringSize || '',
+        accentColor: user.accentColor || '#FF2D55'
+      };
+
+      saveLocal();
+
+      // Сохраняем список комнат в глобальном профиле пользователя
+      await fetch(`${dbBase()}/users/${user.username}/rooms/${currentRoom}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user.rooms[currentRoom])
+      });
+
+      // Сохраняем название комнаты (если ещё не задано)
+      if (customTitle) {
+        await fetch(`${dbBase()}/rooms/${currentRoom}/meta.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: customTitle })
+        });
+      }
+
+      // Добавляем/обновляем профиль участника внутри самой комнаты
+      await fetch(`${dbBase()}/rooms/${currentRoom}/members/${user.id}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(memberProfile)
+      });
+    }
+
+    // Синхронизация текущей комнаты и списка комнат пользователя
+    async function pullFromCloud() {
       try {
-        const res = await fetch(`${getRoomBaseUrl()}.json?t=${Date.now()}`);
+        const res = await fetch(`${dbBase()}/rooms/${currentRoom}.json?t=${Date.now()}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
         if (data && typeof data === 'object') {
-          state.accounts = objectToArray(data.accounts);
+          state.roomMembers = objectToArray(data.members);
           state.wishes = objectToArray(data.wishes);
+          if (data.meta && data.meta.title) {
+            state.roomTitle = data.meta.title;
+          }
         } else {
-          state.accounts = [];
+          state.roomMembers = [];
           state.wishes = [];
         }
 
+        // Если пользователь авторизован, подтягиваем актуальный список его комнат
+        if (state.currentUser) {
+          const userRes = await fetch(`${dbBase()}/users/${state.currentUser.username}.json?t=${Date.now()}`);
+          if (userRes.ok) {
+            const freshUser = await userRes.json();
+            if (freshUser) {
+              state.currentUser = freshUser;
+            }
+          }
+        }
+
         saveLocal();
+        updateRoomHeaderUI();
         updateHeaderAccountUI();
         renderTabs();
         renderColumns();
-        if (document.getElementById('authModal').classList.contains('open')) {
-          renderExistingAccountsHint();
+        if (document.getElementById('roomsDrawer').classList.contains('open')) {
+          renderDrawerRooms();
         }
-        setSyncStatus(`Комната: ${currentRoom}`, 'online');
+        setSyncStatus(`${state.roomTitle}`, 'online');
         return true;
       } catch (err) {
         console.error('Ошибка синхронизации:', err);
@@ -896,35 +1231,28 @@
       }
     }
 
-    async function saveAccountToCloud(accountObj) {
-      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
-      setSyncStatus('Сохранение...', 'online');
-      await fetch(`${getRoomBaseUrl()}/accounts/${accountObj.id}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(accountObj)
-      });
-      setSyncStatus(`Комната: ${currentRoom}`, 'online');
+    function updateRoomHeaderUI() {
+      const displayTitle = state.roomTitle || currentRoom;
+      document.getElementById('currentRoomDisplay').textContent = displayTitle;
+      document.getElementById('brandRoomNameTitle').textContent = displayTitle;
     }
 
     async function saveWishToCloud(wishObj) {
-      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
       setSyncStatus('Сохранение...', 'online');
-      await fetch(`${getRoomBaseUrl()}/wishes/${wishObj.id}.json`, {
+      await fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${wishObj.id}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(wishObj)
       });
-      setSyncStatus(`Комната: ${currentRoom}`, 'online');
+      setSyncStatus(`${state.roomTitle}`, 'online');
     }
 
     async function deleteWishFromCloud(wishId) {
-      if (FIREBASE_DB_URL.includes("ВАШ-ПРОЕКТ")) return;
       setSyncStatus('Удаление...', 'online');
-      await fetch(`${getRoomBaseUrl()}/wishes/${wishId}.json`, {
+      await fetch(`${dbBase()}/rooms/${currentRoom}/wishes/${wishId}.json`, {
         method: 'DELETE'
       });
-      setSyncStatus(`Комната: ${currentRoom}`, 'online');
+      setSyncStatus(`${state.roomTitle}`, 'online');
     }
 
     function setSyncStatus(text, statusType) {
@@ -936,13 +1264,14 @@
 
     function saveLocal() {
       try {
-        localStorage.setItem(`wl_accounts_${currentRoom}`, JSON.stringify(state.accounts));
-        localStorage.setItem(`wl_wishes_${currentRoom}`, JSON.stringify(state.wishes));
-        if (state.currentUserId) {
-          localStorage.setItem(`wl_current_user_id_${currentRoom}`, state.currentUserId);
+        if (state.currentUser) {
+          localStorage.setItem('wl_global_user', JSON.stringify(state.currentUser));
         } else {
-          localStorage.removeItem(`wl_current_user_id_${currentRoom}`);
+          localStorage.removeItem('wl_global_user');
         }
+        localStorage.setItem(`wl_members_${currentRoom}`, JSON.stringify(state.roomMembers));
+        localStorage.setItem(`wl_wishes_${currentRoom}`, JSON.stringify(state.wishes));
+        localStorage.setItem(`wl_room_title_${currentRoom}`, state.roomTitle);
       } catch (e) {
         console.warn('LocalStorage переполнен');
       }
@@ -957,22 +1286,102 @@
         window.history.replaceState({}, '', url.toString());
       }
 
-      document.getElementById('currentRoomDisplay').textContent = currentRoom;
-      document.getElementById('brandRoomNameTitle').textContent = `Wishlist · ${currentRoom}`;
+      renderIconPicker('authIconPicker', selectedRegisterIcon, (key) => {
+        selectedRegisterIcon = key;
+        renderIconPicker('authIconPicker', selectedRegisterIcon, arguments.callee);
+      });
 
+      updateRoomHeaderUI();
       updateHeaderAccountUI();
       renderTabs();
       renderColumns();
 
       await pullFromCloud();
 
-      if (syncInterval) clearInterval(syncInterval);
-      syncInterval = setInterval(pullFromCloud, 5000);
-
-      if (!getCurrentUser()) {
-        switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
+      // Если пользователь уже залогинен, но ещё не числится в текущей комнате (например, перешёл по ссылке друга)
+      if (state.currentUser) {
+        const alreadyMember = state.roomMembers.some(m => m.id === state.currentUser.id);
+        const hasInRooms = state.currentUser.rooms && state.currentUser.rooms[currentRoom];
+        if (!alreadyMember || !hasInRooms) {
+          await joinCurrentRoomAsUser(state.currentUser);
+          await pullFromCloud();
+        }
+      } else {
+        switchAuthMode('login');
         openModal('authModal');
       }
+
+      if (syncInterval) clearInterval(syncInterval);
+      syncInterval = setInterval(pullFromCloud, 5000);
+    }
+
+    // Drawer (Боковое меню комнат)
+    function openRoomsDrawer() {
+      renderDrawerRooms();
+      document.getElementById('roomsDrawer').classList.add('open');
+    }
+
+    function closeRoomsDrawer() {
+      document.getElementById('roomsDrawer').classList.remove('open');
+    }
+
+    function renderDrawerRooms() {
+      const listEl = document.getElementById('drawerRoomsList');
+      const userRoomsObj = (state.currentUser && state.currentUser.rooms) ? state.currentUser.rooms : {};
+      const roomsArr = Object.values(userRoomsObj);
+
+      // Гарантируем, что текущая комната отображается в списке
+      if (!roomsArr.some(r => r.slug === currentRoom)) {
+        roomsArr.unshift({ slug: currentRoom, title: state.roomTitle || currentRoom });
+      }
+
+      listEl.innerHTML = roomsArr.map(r => {
+        const isActive = r.slug === currentRoom;
+        return `
+          <div class="room-item ${isActive ? 'active' : ''}" onclick="switchToRoom('${escapeHtml(r.slug)}')">
+            <div class="room-item-left">
+              <div class="room-item-icon">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="room-item-info">
+                <div class="room-item-name">${escapeHtml(r.title || r.slug)}</div>
+                <div class="room-item-slug">#${escapeHtml(r.slug)}</div>
+              </div>
+            </div>
+            <div class="room-item-actions" onclick="event.stopPropagation()">
+              <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="Скопировать ссылку">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+              ${roomsArr.length > 1 ? `
+                <button class="mini-icon-btn del" onclick="leaveRoom('${escapeHtml(r.slug)}')" title="Убрать из списка">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function switchToRoom(slug) {
+      if (slug === currentRoom) {
+        closeRoomsDrawer();
+        return;
+      }
+      localStorage.setItem('wl_room', slug);
+      window.location.href = buildRoomUrl(slug);
+    }
+
+    async function leaveRoom(slug) {
+      if (!confirm('Убрать эту комнату из вашего списка? Вы всегда сможете вернуться в неё по ссылке или названию.')) return;
+      if (state.currentUser && state.currentUser.rooms) {
+        delete state.currentUser.rooms[slug];
+        saveLocal();
+        await fetch(`${dbBase()}/users/${state.currentUser.username}/rooms/${slug}.json`, {
+          method: 'DELETE'
+        });
+      }
+      renderDrawerRooms();
     }
 
     function buildRoomUrl(slug) {
@@ -983,14 +1392,20 @@
       return url.toString();
     }
 
+    function copySpecificRoomLink(slug) {
+      navigator.clipboard.writeText(buildRoomUrl(slug));
+      alert('Ссылка-приглашение скопирована!');
+    }
+
     function previewGeneratedLink() {
-      const slug = slugifyRoom(document.getElementById('roomNameInput').value);
+      const raw = document.getElementById('roomNameInput').value;
+      const slug = slugifyRoom(raw);
       document.getElementById('generatedLinkPreview').value = buildRoomUrl(slug);
     }
 
     function openModal(id) {
       if (id === 'roomModal') {
-        document.getElementById('roomNameInput').value = currentRoom;
+        document.getElementById('roomNameInput').value = '';
         previewGeneratedLink();
       }
       if (id === 'authModal') {
@@ -1006,20 +1421,70 @@
     function copyRoomLink() {
       const input = document.getElementById('generatedLinkPreview');
       navigator.clipboard.writeText(input.value);
-      alert('Ссылка скопирована! Отправьте её партнёру — он сразу попадёт в эту комнату.');
+      alert('Ссылка скопирована! Отправьте её партнёру или друзьям.');
     }
 
     function quickCopyCurrentRoomLink() {
       navigator.clipboard.writeText(buildRoomUrl(currentRoom));
-      alert(`Ссылка на комнату «${currentRoom}» скопирована!`);
+      alert(`Ссылка на комнату «${state.roomTitle || currentRoom}» скопирована!`);
     }
 
-    function joinRoomByInput() {
-      const newRoom = slugifyRoom(document.getElementById('roomNameInput').value);
-      localStorage.setItem('wl_room', newRoom);
-      window.location.href = buildRoomUrl(newRoom);
+    async function joinRoomByInput() {
+      const rawTitle = document.getElementById('roomNameInput').value.trim();
+      if (!rawTitle) return;
+      const newSlug = slugifyRoom(rawTitle);
+
+      if (state.currentUser) {
+        if (!state.currentUser.rooms) state.currentUser.rooms = {};
+        state.currentUser.rooms[newSlug] = {
+          slug: newSlug,
+          title: rawTitle,
+          joinedAt: Date.now()
+        };
+        saveLocal();
+        await fetch(`${dbBase()}/users/${state.currentUser.username}/rooms/${newSlug}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(state.currentUser.rooms[newSlug])
+        });
+        await fetch(`${dbBase()}/rooms/${newSlug}/meta.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: rawTitle })
+        });
+      }
+
+      localStorage.setItem('wl_room', newSlug);
+      localStorage.setItem(`wl_room_title_${newSlug}`, rawTitle);
+      window.location.href = buildRoomUrl(newSlug);
     }
 
+    // Icon Picker UI
+    function renderIconPicker(containerId, selectedKey, onSelectCallback) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = Object.keys(AVATAR_ICONS).map(key => `
+        <button type="button" class="icon-choice-btn ${key === selectedKey ? 'selected' : ''}" data-icon="${key}">
+          ${AVATAR_ICONS[key]}
+        </button>
+      `).join('');
+
+      container.querySelectorAll('.icon-choice-btn').forEach(btn => {
+        btn.onclick = () => {
+          const k = btn.getAttribute('data-icon');
+          if (containerId === 'authIconPicker') {
+            selectedRegisterIcon = k;
+            renderIconPicker('authIconPicker', selectedRegisterIcon);
+          } else {
+            selectedSettingsIcon = k;
+            renderIconPicker('settingsIconPicker', selectedSettingsIcon);
+            updateAvatarSettingsPreview();
+          }
+        };
+      });
+    }
+
+    // Global Auth
     function showAuthError(msg) {
       const box = document.getElementById('authErrorBox');
       box.textContent = msg;
@@ -1032,7 +1497,7 @@
     }
 
     function updateHeaderAccountUI() {
-      const user = getCurrentUser();
+      const user = state.currentUser;
       const nameEl = document.getElementById('headerAccountName');
       const avatarEl = document.getElementById('headerAvatar');
       const fabBtn = document.getElementById('fabAddBtn');
@@ -1041,23 +1506,22 @@
         nameEl.textContent = user.displayName;
         avatarEl.style.background = user.accentColor ? `${user.accentColor}22` : 'var(--accent-soft)';
         avatarEl.style.color = user.accentColor || 'var(--accent)';
-        avatarEl.innerHTML = user.avatar ? `<img src="${user.avatar}" />` : escapeHtml(user.emoji || '✨');
+        avatarEl.innerHTML = user.avatar ? `<img src="${user.avatar}" />` : getAvatarSvg(user.icon);
         fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Добавить желание</span>`;
       } else {
         nameEl.textContent = 'Войти';
         avatarEl.style.background = 'var(--seg-bg)';
         avatarEl.style.color = 'var(--text-secondary)';
         avatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-        fabBtn.innerHTML = `<span>Войти в аккаунт</span>`;
+        fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg><span>Войти в аккаунт</span>`;
       }
     }
 
     function handleAccountButtonClick() {
-      const user = getCurrentUser();
-      if (user) {
+      if (state.currentUser) {
         openProfileSettings();
       } else {
-        switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
+        switchAuthMode('login');
         openModal('authModal');
       }
     }
@@ -1069,34 +1533,7 @@
       document.getElementById('tabRegisterBtn').classList.toggle('active', mode === 'register');
       document.getElementById('registerFields').style.display = mode === 'register' ? 'block' : 'none';
       document.getElementById('authModalTitle').textContent = mode === 'register' ? 'Создание аккаунта' : 'Вход в аккаунт';
-      document.getElementById('authSubmitBtn').textContent = mode === 'register' ? 'Создать аккаунт' : 'Войти';
-      renderExistingAccountsHint();
-    }
-
-    function renderExistingAccountsHint() {
-      const box = document.getElementById('existingAccountsHint');
-      if (state.accounts.length === 0) { box.innerHTML = ''; return; }
-      box.innerHTML = `
-        <div style="font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:8px;">Аккаунты в комнате «${escapeHtml(currentRoom)}»</div>
-        ${state.accounts.map(acc => `
-          <div class="account-list-item" onclick="prefillLogin('${escapeHtml(acc.username)}')" style="cursor:pointer;">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <div class="account-pill-avatar">${acc.avatar ? `<img src="${acc.avatar}" />` : escapeHtml(acc.emoji || '✨')}</div>
-              <div>
-                <div style="font-size:14px; font-weight:700;">${escapeHtml(acc.displayName)}</div>
-                <div style="font-size:12px; color:var(--text-tertiary);">@${escapeHtml(acc.username)}</div>
-              </div>
-            </div>
-            <span style="font-size:12px; font-weight:600; color:var(--blue);">Войти</span>
-          </div>
-        `).join('')}
-      `;
-    }
-
-    function prefillLogin(username) {
-      switchAuthMode('login');
-      document.getElementById('authUsername').value = username;
-      document.getElementById('authPassword').focus();
+      document.getElementById('authSubmitBtn').textContent = mode === 'register' ? 'Зарегистрироваться' : 'Войти';
     }
 
     async function submitAuth(event) {
@@ -1104,93 +1541,114 @@
       hideAuthError();
 
       const submitBtn = document.getElementById('authSubmitBtn');
-      const username = document.getElementById('authUsername').value.trim().toLowerCase();
+      const username = document.getElementById('authUsername').value.trim().toLowerCase().replace(/[^a-z0-9_.-]/g, '');
       const password = document.getElementById('authPassword').value;
-      if (!username || !password) return;
+
+      if (!username) {
+        showAuthError('Логин должен состоять из латинских букв или цифр.');
+        return;
+      }
+      if (!password) return;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Проверка...';
 
       try {
-        await pullFromCloud();
         const passHash = await hashPassword(password);
+        const userUrl = `${dbBase()}/users/${username}.json?t=${Date.now()}`;
+        const res = await fetch(userUrl);
+        if (!res.ok) throw new Error('Network error');
+        const existingUser = await res.json();
 
         if (authMode === 'register') {
-          const displayName = document.getElementById('authDisplayName').value.trim() || username;
-          const emoji = document.getElementById('authEmoji').value.trim() || '✨';
-
-          if (state.accounts.some(a => a.username.toLowerCase() === username)) {
-            showAuthError('Аккаунт с таким логином уже существует в этой комнате. Переключитесь на вкладку «Войти».');
+          if (existingUser) {
+            showAuthError('Этот логин уже занят. Выберите другой или перейдите на вкладку «Войти».');
             return;
           }
 
-          const newAcc = {
-            id: 'acc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          const displayName = document.getElementById('authDisplayName').value.trim() || username;
+          const newUser = {
+            id: 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
             username,
             passwordHash: passHash,
             displayName,
-            emoji,
+            icon: selectedRegisterIcon,
             avatar: '',
             bio: '',
             clothesSize: '',
             shoeSize: '',
             ringSize: '',
-            accentColor: state.accounts.length === 0 ? '#FF2D55' : '#007AFF'
+            accentColor: ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)],
+            rooms: {
+              [currentRoom]: {
+                slug: currentRoom,
+                title: state.roomTitle || currentRoom,
+                joinedAt: Date.now()
+              }
+            }
           };
 
-          await saveAccountToCloud(newAcc);
-          state.accounts.push(newAcc);
-          state.currentUserId = newAcc.id;
-          saveLocal();
-          updateHeaderAccountUI();
-          renderTabs();
-          renderColumns();
+          await fetch(`${dbBase()}/users/${username}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newUser)
+          });
+
+          state.currentUser = newUser;
+          await joinCurrentRoomAsUser(newUser);
+          await pullFromCloud();
+
           closeModal('authModal');
           document.getElementById('authForm').reset();
         } else {
-          const found = state.accounts.find(a => a.username.toLowerCase() === username);
-          if (!found) {
-            showAuthError(`Аккаунт «${username}» не найден в комнате «${currentRoom}». Проверьте логин или создайте аккаунт.`);
+          if (!existingUser) {
+            showAuthError(`Аккаунт «${username}» не найден. Проверьте логин или зарегистрируйтесь.`);
             return;
           }
-          if (found.passwordHash !== passHash) {
+          if (existingUser.passwordHash !== passHash) {
             showAuthError('Неверный пароль! Попробуйте ещё раз.');
             return;
           }
-          state.currentUserId = found.id;
-          saveLocal();
-          updateHeaderAccountUI();
-          renderTabs();
-          renderColumns();
+
+          state.currentUser = existingUser;
+          await joinCurrentRoomAsUser(existingUser);
+          await pullFromCloud();
+
           closeModal('authModal');
           document.getElementById('authForm').reset();
         }
       } catch (e) {
-        showAuthError('Ошибка соединения с базой данных. Проверьте интернет или настройки Firebase.');
+        console.error(e);
+        showAuthError('Ошибка соединения с базой данных. Проверьте интернет.');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = authMode === 'register' ? 'Создать аккаунт' : 'Войти';
+        submitBtn.textContent = authMode === 'register' ? 'Зарегистрироваться' : 'Войти';
       }
     }
 
     function logoutAccount() {
-      state.currentUserId = null;
+      state.currentUser = null;
       saveLocal();
       updateHeaderAccountUI();
       renderColumns();
       closeModal('profileSettingsModal');
+      switchAuthMode('login');
+      openModal('authModal');
     }
 
+    // Profile Settings
     function openProfileSettings() {
-      const user = getCurrentUser();
+      const user = state.currentUser;
       if (!user) return;
       document.getElementById('settingsDisplayName').value = user.displayName || '';
-      document.getElementById('settingsEmoji').value = user.emoji || '✨';
       document.getElementById('settingsBio').value = user.bio || '';
       document.getElementById('settingsClothesSize').value = user.clothesSize || '';
       document.getElementById('settingsShoeSize').value = user.shoeSize || '';
       document.getElementById('settingsRingSize').value = user.ringSize || '';
       document.getElementById('settingsNewPassword').value = '';
+
+      selectedSettingsIcon = user.icon || 'sparkles';
+      renderIconPicker('settingsIconPicker', selectedSettingsIcon);
 
       currentAvatarPhoto = user.avatar || '';
       updateAvatarSettingsPreview();
@@ -1214,12 +1672,11 @@
     function updateAvatarSettingsPreview() {
       const preview = document.getElementById('settingsAvatarPreview');
       const removeBtn = document.getElementById('removeAvatarBtn');
-      const emoji = document.getElementById('settingsEmoji').value.trim() || '✨';
       if (currentAvatarPhoto) {
         preview.innerHTML = `<img src="${currentAvatarPhoto}" />`;
         removeBtn.style.display = 'inline-flex';
       } else {
-        preview.textContent = emoji;
+        preview.innerHTML = getAvatarSvg(selectedSettingsIcon);
         removeBtn.style.display = 'none';
       }
     }
@@ -1241,11 +1698,11 @@
 
     async function saveProfileSettings(event) {
       event.preventDefault();
-      const user = getCurrentUser();
+      const user = state.currentUser;
       if (!user) return;
 
       user.displayName = document.getElementById('settingsDisplayName').value.trim() || user.username;
-      user.emoji = document.getElementById('settingsEmoji').value.trim() || '✨';
+      user.icon = selectedSettingsIcon;
       user.bio = document.getElementById('settingsBio').value.trim();
       user.clothesSize = document.getElementById('settingsClothesSize').value.trim();
       user.shoeSize = document.getElementById('settingsShoeSize').value.trim();
@@ -1258,10 +1715,39 @@
 
       saveLocal();
       updateHeaderAccountUI();
-      renderTabs();
-      renderColumns();
       closeModal('profileSettingsModal');
-      await saveAccountToCloud(user);
+
+      // Обновляем глобальный профиль пользователя
+      await fetch(`${dbBase()}/users/${user.username}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      });
+
+      // Синхронизируем обновлённый профиль во всех комнатах, где состоит пользователь
+      const roomsList = user.rooms ? Object.keys(user.rooms) : [currentRoom];
+      const memberProfile = {
+        id: user.id,
+        username: user.username,
+        displayName: user.displayName,
+        icon: user.icon,
+        avatar: user.avatar,
+        bio: user.bio,
+        clothesSize: user.clothesSize,
+        shoeSize: user.shoeSize,
+        ringSize: user.ringSize,
+        accentColor: user.accentColor
+      };
+
+      await Promise.all(roomsList.map(rSlug =>
+        fetch(`${dbBase()}/rooms/${rSlug}/members/${user.id}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(memberProfile)
+        })
+      ));
+
+      await pullFromCloud();
     }
 
     function compressImage(file, maxWidth, quality, callback) {
@@ -1285,6 +1771,7 @@
       reader.readAsDataURL(file);
     }
 
+    // Search, Filter, Sort
     function handleSearchInput() {
       const val = document.getElementById('searchInput').value;
       state.search = val.trim().toLowerCase();
@@ -1356,9 +1843,9 @@
     function renderTabs() {
       const tabsEl = document.getElementById('profileTabs');
       let html = `<button class="seg-btn ${state.activeTab === 'all' ? 'active' : ''}" onclick="setTab('all')">Все списки <span class="seg-count">${state.wishes.length}</span></button>`;
-      state.accounts.forEach(acc => {
+      state.roomMembers.forEach(acc => {
         const count = state.wishes.filter(w => w.ownerId === acc.id).length;
-        html += `<button class="seg-btn ${state.activeTab === acc.id ? 'active' : ''}" onclick="setTab('${acc.id}')">${escapeHtml(acc.emoji || '✨')} ${escapeHtml(acc.displayName)} <span class="seg-count">${count}</span></button>`;
+        html += `<button class="seg-btn ${state.activeTab === acc.id ? 'active' : ''}" onclick="setTab('${acc.id}')">${escapeHtml(acc.displayName)} <span class="seg-count">${count}</span></button>`;
       });
       tabsEl.innerHTML = html;
     }
@@ -1377,26 +1864,27 @@
     function renderColumns() {
       const container = document.getElementById('columnsContainer');
 
-      if (state.accounts.length === 0) {
+      if (state.roomMembers.length === 0) {
         container.className = 'columns-container';
         container.innerHTML = `
           <div class="empty-box">
-            <div style="font-size:16px; font-weight:700; color:var(--text);">Комната «${escapeHtml(currentRoom)}» пуста</div>
-            <div>Создайте аккаунт для себя, а партнёр создаст свой по ссылке этой комнаты</div>
-            <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('register'); openModal('authModal');">Создать аккаунт</button>
+            <svg class="icon icon-lg" style="color:var(--text-tertiary);" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div style="font-size:16px; font-weight:700; color:var(--text);">В комнате «${escapeHtml(state.roomTitle)}» пока никого нет</div>
+            <div>Войдите в аккаунт, чтобы присоединиться к комнате и добавлять желания</div>
+            <button class="primary-btn" style="max-width:260px;" onclick="switchAuthMode('login'); openModal('authModal');">Войти или создать аккаунт</button>
           </div>
         `;
         return;
       }
 
       const visibleAccounts = state.activeTab === 'all'
-        ? state.accounts
-        : state.accounts.filter(a => a.id === state.activeTab);
+        ? state.roomMembers
+        : state.roomMembers.filter(a => a.id === state.activeTab);
 
       container.className = visibleAccounts.length > 1 ? 'columns-container two-cols' : 'columns-container';
 
       container.innerHTML = visibleAccounts.map(acc => {
-        const isOwner = state.currentUserId === acc.id;
+        const isOwner = state.currentUser && state.currentUser.id === acc.id;
         const rawWishes = state.wishes.filter(w => w.ownerId === acc.id);
         const profileWishes = filterAndSortWishes(rawWishes);
         const accent = acc.accentColor || '#FF2D55';
@@ -1429,14 +1917,24 @@
                 </div>
                 ${w.caption ? `<p class="wish-caption">${escapeHtml(w.caption)}</p>` : ''}
                 <div class="wish-footer">
-                  ${w.link ? `<a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link">Ссылка</a>` : ''}
+                  ${w.link ? `
+                    <a href="${escapeHtml(w.link)}" target="_blank" rel="noopener noreferrer" class="wish-link">
+                      <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                      <span>Ссылка</span>
+                    </a>
+                  ` : ''}
                   <div class="wish-controls">
                     <button class="action-pill done" onclick="toggleFulfilled('${w.id}')">
-                      <span>${w.fulfilled ? '✓ Подарено' : 'Подарить'}</span>
+                      <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>${w.fulfilled ? 'Подарено' : 'Подарить'}</span>
                     </button>
                     ${isOwner ? `
-                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="Изменить">✎</button>
-                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="Удалить">🗑</button>
+                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="Изменить">
+                        <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                      </button>
+                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="Удалить">
+                        <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                      </button>
                     ` : ''}
                   </div>
                 </div>
@@ -1450,16 +1948,20 @@
               <div class="profile-banner-accent" style="background:${accent};"></div>
               <div class="profile-banner-top">
                 <div class="profile-identity">
-                  <div class="avatar-large">${acc.avatar ? `<img src="${acc.avatar}" />` : escapeHtml(acc.emoji || '✨')}</div>
+                  <div class="avatar-large" style="color:${accent};">${acc.avatar ? `<img src="${acc.avatar}" />` : getAvatarSvg(acc.icon)}</div>
                   <div class="profile-name-block">
                     <h2 class="column-title">
                       ${escapeHtml(acc.displayName)}
-                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">Вы</span>` : `<span class="readonly-badge">Партнёр</span>`}
+                      ${isOwner ? `<span class="owner-badge" style="background:${accent}1A; color:${accent};">Вы</span>` : `<span class="readonly-badge">Участник</span>`}
                     </h2>
-                    <div class="profile-username">@${escapeHtml(acc.username)} • Желаний: ${rawWishes.length}</div>
+                    <div class="profile-username">@${escapeHtml(acc.username)} · Желаний: ${rawWishes.length}</div>
                   </div>
                 </div>
-                ${isOwner ? `<button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки">⚙</button>` : ''}
+                ${isOwner ? `
+                  <button class="action-pill action-icon" onclick="openProfileSettings()" title="Настройки">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </button>
+                ` : ''}
               </div>
               ${acc.bio ? `<p class="profile-bio">${escapeHtml(acc.bio)}</p>` : ''}
               ${sizesHtml ? `<div class="profile-sizes-row">${sizesHtml}</div>` : ''}
@@ -1470,10 +1972,11 @@
       }).join('');
     }
 
+    // Add / Edit Wish
     function openAddWishModal() {
-      const user = getCurrentUser();
+      const user = state.currentUser;
       if (!user) {
-        switchAuthMode(state.accounts.length === 0 ? 'register' : 'login');
+        switchAuthMode('login');
         openModal('authModal');
         return;
       }
@@ -1486,7 +1989,7 @@
 
     function editWish(id) {
       const wish = state.wishes.find(w => w.id === id);
-      if (!wish || wish.ownerId !== state.currentUserId) return;
+      if (!wish || !state.currentUser || wish.ownerId !== state.currentUser.id) return;
 
       document.getElementById('wishModalTitle').textContent = 'Редактировать желание';
       document.getElementById('wishId').value = wish.id;
@@ -1530,7 +2033,7 @@
 
     async function saveWish(event) {
       event.preventDefault();
-      const user = getCurrentUser();
+      const user = state.currentUser;
       if (!user) return;
 
       const id = document.getElementById('wishId').value;
@@ -1574,7 +2077,7 @@
 
     async function deleteWish(id) {
       const wish = state.wishes.find(w => w.id === id);
-      if (!wish || wish.ownerId !== state.currentUserId) return;
+      if (!wish || !state.currentUser || wish.ownerId !== state.currentUser.id) return;
       if (!confirm('Удалить желание?')) return;
       state.wishes = state.wishes.filter(w => w.id !== id);
       saveLocal();
