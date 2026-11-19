@@ -458,18 +458,111 @@
     /* Room Bar */
     .room-bar { max-width: 1120px; margin: 12px auto 0; padding: 0 16px; }
 
+
+    /* Room Cover Avatar & Description Banner */
     .room-bar-inner {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px 14px;
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .room-bar-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      font-size: 13px;
-      box-shadow: var(--shadow-sm);
+      width: 100%;
     }
+    .room-cover-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .room-cover-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .room-title-stack {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .room-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .room-title-row strong {
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .room-dots-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 0.15s ease;
+    }
+    .room-dots-btn:hover {
+      background: var(--border);
+    }
+    .room-description-box {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      background: var(--card-subtle);
+      padding: 9px 12px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      white-space: pre-line;
+      word-break: break-word;
+    }
+    .room-item-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 9px;
+    }
+    .header-room-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      overflow: hidden;
+      display: none;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .header-room-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
 
     .room-info { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); min-width: 0; }
     .room-info strong { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -772,6 +865,115 @@
     .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(0, 0, 0, 0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 14px; }
+
+    /* Seasonal & Occasion Themes + Ambient Background Pattern Layer */
+    .ambient-bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
+    }
+
+    body[data-occasion="valentine"] .ambient-bg-layer,
+    body[data-occasion="newyear"] .ambient-bg-layer,
+    body[data-occasion="march8"] .ambient-bg-layer {
+      opacity: 1;
+    }
+
+    body[data-occasion="valentine"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23FF2D55' stroke-opacity='0.14' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 130px 130px;
+    }
+
+    body[data-occasion="newyear"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%23007AFF' stroke-opacity='0.13' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 150px 150px;
+    }
+
+    [data-theme="dark"] body[data-occasion="newyear"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%2364D2FF' stroke-opacity='0.15' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    body[data-occasion="march8"] .ambient-bg-layer {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23FF2D55' stroke-opacity='0.15' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2328CD41' stroke-opacity='0.15' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23AF52DE' stroke-opacity='0.15' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 140px 140px;
+    }
+
+    /* Keep main UI above ambient background */
+    .header, .room-bar, .controls-section, .columns-container, .fab {
+      position: relative;
+      z-index: 1;
+    }
+    .header { position: sticky; z-index: 50; }
+    .fab { position: fixed; z-index: 60; }
+
+    /* Occasion accent overrides */
+    body[data-occasion="valentine"] {
+      --accent: #FF2D55;
+      --accent-soft: rgba(255, 45, 85, 0.12);
+    }
+    body[data-occasion="newyear"] {
+      --accent: #007AFF;
+      --accent-soft: rgba(0, 122, 255, 0.12);
+    }
+    [data-theme="dark"] body[data-occasion="newyear"] {
+      --accent: #0A84FF;
+      --accent-soft: rgba(10, 132, 255, 0.18);
+    }
+    body[data-occasion="march8"] {
+      --accent: #D946EF;
+      --accent-soft: rgba(217, 70, 239, 0.12);
+    }
+
+    .theme-option-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      margin-bottom: 8px;
+    }
+    .theme-option-card:hover {
+      border-color: var(--border-strong);
+    }
+    .theme-option-card.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .theme-option-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .theme-option-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--card-subtle);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .theme-option-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .theme-option-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
   
     /* Admin Panel & Archive Styles */
     .admin-drawer-card {
@@ -925,6 +1127,7 @@
   </style>
 </head>
 <body>
+  <div class="ambient-bg-layer" id="ambientBgLayer"></div>
 
   <!-- Hidden file input for importing wishlist JSON -->
   <input type="file" id="importWishlistFileInput" accept=".json,application/json" style="display:none" onchange="handleImportWishlistFile(event)" />
@@ -939,7 +1142,8 @@
 
           <div class="brand-wrap">
             <div class="app-title" onclick="openRoomsDrawer()" title="Переключить комнату">
-              <span class="brand-dot"></span>
+              <span class="brand-dot" id="headerBrandDot"></span>
+              <span class="header-room-avatar" id="headerRoomAvatar"><img id="headerRoomAvatarImg" src="" alt="" /></span>
               <span id="brandRoomNameTitle">Wishlist</span>
             </div>
             <div id="syncBadge" class="sync-badge">
@@ -959,7 +1163,7 @@
             </div>
             <span class="account-pill-name" id="headerAccountName">Войти</span>
           </button>
-          <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Сменить тему"></button>
+          <button class="icon-btn" onclick="openThemePickerModal()" id="themeToggleBtn" title="Тема и оформление"></button>
         </div>
       </div>
 
@@ -1038,24 +1242,37 @@
 
   <div class="room-bar" id="roomBar">
     <div class="room-bar-inner">
-      <div class="room-info">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>Комната: <strong id="currentRoomDisplay">...</strong></span>
+      <div class="room-bar-top">
+        <div class="room-info">
+          <div class="room-cover-avatar" id="roomBarCoverAvatar">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="room-title-stack">
+            <div class="room-title-row">
+              <strong id="currentRoomDisplay">...</strong>
+              <button type="button" class="room-dots-btn" id="roomBarDotsBtn" style="display:none;" onclick="openRoomSettingsModal()" title="Оформление и описание комнаты">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
+              </button>
+            </div>
+            <span style="font-size:11px; color:var(--text-tertiary);" id="roomMembersCountSub">Участников: 0</span>
+          </div>
+        </div>
+        <div class="room-actions">
+          <button class="room-btn" id="roomBarAdminBtn" style="display:none; color:var(--blue); border-color:rgba(0,122,255,0.25); background:rgba(0,122,255,0.08);" onclick="openAdminModal()" title="Админ-панель создателя">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Админ</span>
+          </button>
+          <button class="room-btn" onclick="openSecretSantaModal()" title="Тайный Санта">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
+            <span>Санта</span>
+          </button>
+          <button class="room-btn accent" onclick="quickCopyCurrentRoomLink()">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <span>Пригласить</span>
+          </button>
+        </div>
       </div>
-      <div class="room-actions">
-        <button class="room-btn" id="roomBarAdminBtn" style="display:none; color:var(--blue); border-color:rgba(0,122,255,0.25); background:rgba(0,122,255,0.08);" onclick="openAdminModal()" title="Админ-панель создателя">
-          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Админ</span>
-        </button>
-        <button class="room-btn" onclick="openSecretSantaModal()" title="Тайный Санта">
-          <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
-          <span>Санта</span>
-        </button>
-        <button class="room-btn accent" onclick="quickCopyCurrentRoomLink()">
-          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          <span>Пригласить</span>
-        </button>
-      </div>
+      <div class="room-description-box" id="roomDescriptionBanner" style="display:none;"></div>
     </div>
   </div>
 
@@ -1394,7 +1611,158 @@
     </div>
   </div>
 
-    <!-- Modal: Admin Panel (Creator Only) -->
+      <!-- Modal: Room Settings (Cover Photo, Title, Description - Creator Only) -->
+  <div class="modal-backdrop" id="roomSettingsModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Настройки комнаты</span>
+        </div>
+        <button class="close-btn" onclick="closeModal('roomSettingsModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="info-text">
+        Установите фото-обложку и описание комнаты — они будут отображаться на главном экране у всех приглашённых участников.
+      </p>
+
+      <form onsubmit="saveRoomAppearanceSettings(event)">
+        <div class="form-group">
+          <label class="form-label">Фото-иконка (обложка комнаты)</label>
+          <div class="avatar-settings-box">
+            <div class="avatar-preview-circle" id="roomCoverPreviewCircle">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px; flex:1;">
+              <button type="button" class="action-pill" style="justify-content:center;" onclick="document.getElementById('roomCoverPhotoInput').click()">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                <span>Загрузить фото</span>
+              </button>
+              <button type="button" class="action-pill del" id="removeRoomCoverBtn" style="justify-content:center; display:none;" onclick="clearRoomCoverPhoto()">Убрать обложку</button>
+              <input type="file" id="roomCoverPhotoInput" accept="image/*" style="display:none" onchange="handleRoomCoverUpload(event)" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Название комнаты *</label>
+          <input type="text" class="form-input" id="roomSettingsTitleInput" placeholder="Например: День рождения или Наша семья" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Описание комнаты (видно всем на главном экране)</label>
+          <textarea class="form-textarea" id="roomSettingsDescInput" placeholder="Напишите повод, дату праздника, бюджет подарков или любую важную заметку для участников..."></textarea>
+        </div>
+
+        <button type="submit" class="primary-btn" id="saveRoomSettingsBtn">Сохранить оформление</button>
+      </form>
+    </div>
+  </div>
+
+    <!-- Modal: Theme & Occasion Picker -->
+  <div class="modal-backdrop" id="themePickerModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          <span>Тема и тематика фона</span>
+        </div>
+        <button class="close-btn" onclick="closeModal('themePickerModal')">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="drawer-section-label">Режим яркости</div>
+      <div id="brightnessThemeOptions">
+        <div class="theme-option-card" id="optLightTheme" onclick="selectBrightnessTheme('light')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">Светлая тема</div>
+              <div class="theme-option-sub">Чистый светлый интерфейс</div>
+            </div>
+          </div>
+          <span id="checkLightTheme" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optDarkTheme" onclick="selectBrightnessTheme('dark')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">Тёмная тема</div>
+              <div class="theme-option-sub">Комфортный ночной режим</div>
+            </div>
+          </div>
+          <span id="checkDarkTheme" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+      </div>
+
+      <div class="drawer-section-label" style="margin-top:14px;">Тематический фон</div>
+      <div id="occasionThemeOptions">
+        <div class="theme-option-card" id="optOccasionNone" onclick="selectOccasionTheme('none')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon">
+              <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">Классический фон</div>
+              <div class="theme-option-sub">Без декоративного узора на заднем плане</div>
+            </div>
+          </div>
+          <span id="checkOccasionNone" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optOccasionValentine" onclick="selectOccasionTheme('valentine')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="color:#FF2D55; background:rgba(255,45,85,0.12);">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">День влюблённых</div>
+              <div class="theme-option-sub">Сердечки на заднем плане и тёплый акцент</div>
+            </div>
+          </div>
+          <span id="checkOccasionValentine" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optOccasionNewyear" onclick="selectOccasionTheme('newyear')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="color:#007AFF; background:rgba(0,122,255,0.12);">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M12 3L5 14h4l-3 6h12l-3-6h4L12 3z"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">Новогодняя</div>
+              <div class="theme-option-sub">Ёлочки и снежинки на фоне</div>
+            </div>
+          </div>
+          <span id="checkOccasionNewyear" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optOccasionMarch8" onclick="selectOccasionTheme('march8')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="color:#D946EF; background:rgba(217,70,239,0.12);">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m0 0a3 3 0 1 0 3 3m-3-3a3 3 0 1 1-3 3m0 0v9"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">8 Марта</div>
+              <div class="theme-option-sub">Тюльпаны и сердечки на заднем плане</div>
+            </div>
+          </div>
+          <span id="checkOccasionMarch8" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+      </div>
+
+      <button type="button" class="primary-btn" style="margin-top:12px;" onclick="closeModal('themePickerModal')">Готово</button>
+    </div>
+  </div>
+
+  <!-- Modal: Admin Panel (Creator Only) -->
   <div class="modal-backdrop" id="adminModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -1491,7 +1859,8 @@
       filter: 'all',
       search: '',
       sort: 'newest',
-      theme: localStorage.getItem('wl_theme') || 'light'
+      theme: localStorage.getItem('wl_theme') || 'light',
+      occasion: localStorage.getItem('wl_occasion') || 'none'
     };
 
     let currentAdminTab = 'members';
@@ -1544,20 +1913,66 @@
       return 'idea';
     }
 
+    function applyOccasionTheme(occasion) {
+      const valid = ['none', 'valentine', 'newyear', 'march8'];
+      const chosen = valid.includes(occasion) ? occasion : 'none';
+      state.occasion = chosen;
+      document.body.setAttribute('data-occasion', chosen);
+      localStorage.setItem('wl_occasion', chosen);
+      updateThemePickerUI();
+    }
+
     function applyTheme(theme) {
       state.theme = theme;
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('wl_theme', theme);
       const btn = document.getElementById('themeToggleBtn');
       if (btn) {
-        btn.innerHTML = theme === 'dark'
-          ? '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
-          : '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+        btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>';
       }
+      updateThemePickerUI();
     }
 
-    function toggleTheme() {
-      applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+    function openThemePickerModal() {
+      updateThemePickerUI();
+      openModal('themePickerModal');
+    }
+
+    function selectBrightnessTheme(theme) {
+      applyTheme(theme);
+    }
+
+    function selectOccasionTheme(occasion) {
+      applyOccasionTheme(occasion);
+    }
+
+    function updateThemePickerUI() {
+      const isDark = state.theme === 'dark';
+      const optLight = document.getElementById('optLightTheme');
+      const optDark = document.getElementById('optDarkTheme');
+      const chkLight = document.getElementById('checkLightTheme');
+      const chkDark = document.getElementById('checkDarkTheme');
+      if (optLight && optDark) {
+        optLight.classList.toggle('active', !isDark);
+        optDark.classList.toggle('active', isDark);
+        if (chkLight) chkLight.style.display = !isDark ? 'inline' : 'none';
+        if (chkDark) chkDark.style.display = isDark ? 'inline' : 'none';
+      }
+
+      const occ = state.occasion || 'none';
+      const map = {
+        none: ['optOccasionNone', 'checkOccasionNone'],
+        valentine: ['optOccasionValentine', 'checkOccasionValentine'],
+        newyear: ['optOccasionNewyear', 'checkOccasionNewyear'],
+        march8: ['optOccasionMarch8', 'checkOccasionMarch8']
+      };
+      Object.entries(map).forEach(([key, [cardId, checkId]]) => {
+        const cardEl = document.getElementById(cardId);
+        const checkEl = document.getElementById(checkId);
+        const active = occ === key;
+        if (cardEl) cardEl.classList.toggle('active', active);
+        if (checkEl) checkEl.style.display = active ? 'inline' : 'none';
+      });
     }
 
     function dbBase() {
@@ -1730,8 +2145,53 @@
 
     function updateRoomHeaderUI() {
       const displayTitle = state.roomTitle || currentRoom;
+      const meta = state.roomMeta || {};
+      const coverAvatar = meta.avatar || '';
+      const description = (meta.description || '').trim();
+
       document.getElementById('currentRoomDisplay').textContent = displayTitle;
       document.getElementById('brandRoomNameTitle').textContent = displayTitle;
+
+      const countSub = document.getElementById('roomMembersCountSub');
+      if (countSub) {
+        countSub.textContent = `Участников: ${state.roomMembers.length}`;
+      }
+
+      // Обложка комнаты в room-bar
+      const barAvatarEl = document.getElementById('roomBarCoverAvatar');
+      if (barAvatarEl) {
+        if (coverAvatar) {
+          barAvatarEl.innerHTML = `<img src="${coverAvatar}" alt="" />`;
+        } else {
+          barAvatarEl.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+        }
+      }
+
+      // Мини-аватарка комнаты в шапке
+      const headerDot = document.getElementById('headerBrandDot');
+      const headerRoomAv = document.getElementById('headerRoomAvatar');
+      const headerRoomAvImg = document.getElementById('headerRoomAvatarImg');
+      if (headerDot && headerRoomAv && headerRoomAvImg) {
+        if (coverAvatar) {
+          headerDot.style.display = 'none';
+          headerRoomAv.style.display = 'inline-block';
+          headerRoomAvImg.src = coverAvatar;
+        } else {
+          headerDot.style.display = 'inline-block';
+          headerRoomAv.style.display = 'none';
+        }
+      }
+
+      // Описание комнаты на главном экране для всех участников
+      const descBox = document.getElementById('roomDescriptionBanner');
+      if (descBox) {
+        if (description) {
+          descBox.textContent = description;
+          descBox.style.display = 'block';
+        } else {
+          descBox.style.display = 'none';
+        }
+      }
     }
 
     function updateSantaDrawerBadge() {
@@ -1800,6 +2260,7 @@
 
     async function init() {
       applyTheme(state.theme);
+      applyOccasionTheme(state.occasion);
 
       const url = new URL(window.location.href);
       if (url.searchParams.get('room') !== currentRoom) {
@@ -1844,6 +2305,109 @@
     }
 
     
+    
+    // ==========================================
+    // ROOM COVER & DESCRIPTION SETTINGS (Creator Only)
+    // ==========================================
+    let currentRoomCoverPhoto = '';
+
+    function openRoomSettingsModal() {
+      if (!isRoomAdmin()) {
+        alert('Изменять обложку и описание комнаты может только её создатель.');
+        return;
+      }
+      const meta = state.roomMeta || {};
+      document.getElementById('roomSettingsTitleInput').value = state.roomTitle || currentRoom;
+      document.getElementById('roomSettingsDescInput').value = meta.description || '';
+      currentRoomCoverPhoto = meta.avatar || '';
+      updateRoomCoverPreview();
+      openModal('roomSettingsModal');
+    }
+
+    function updateRoomCoverPreview() {
+      const circle = document.getElementById('roomCoverPreviewCircle');
+      const removeBtn = document.getElementById('removeRoomCoverBtn');
+      if (currentRoomCoverPhoto) {
+        circle.innerHTML = `<img src="${currentRoomCoverPhoto}" alt="" />`;
+        removeBtn.style.display = 'inline-flex';
+      } else {
+        circle.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+        removeBtn.style.display = 'none';
+      }
+    }
+
+    function handleRoomCoverUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressImage(file, 320, 0.82, (dataUrl) => {
+        currentRoomCoverPhoto = dataUrl;
+        updateRoomCoverPreview();
+      });
+    }
+
+    function clearRoomCoverPhoto() {
+      currentRoomCoverPhoto = '';
+      document.getElementById('roomCoverPhotoInput').value = '';
+      updateRoomCoverPreview();
+    }
+
+    async function saveRoomAppearanceSettings(event) {
+      event.preventDefault();
+      if (!isRoomAdmin()) return;
+
+      const btn = document.getElementById('saveRoomSettingsBtn');
+      const newTitle = document.getElementById('roomSettingsTitleInput').value.trim() || state.roomTitle || currentRoom;
+      const newDesc = document.getElementById('roomSettingsDescInput').value.trim();
+
+      btn.disabled = true;
+      btn.textContent = 'Сохранение...';
+
+      try {
+        const metaPatch = {
+          title: newTitle,
+          description: newDesc,
+          avatar: currentRoomCoverPhoto
+        };
+
+        state.roomTitle = newTitle;
+        state.roomMeta = { ...(state.roomMeta || {}), ...metaPatch };
+
+        if (state.currentUser && state.currentUser.rooms && state.currentUser.rooms[currentRoom]) {
+          state.currentUser.rooms[currentRoom].title = newTitle;
+          state.currentUser.rooms[currentRoom].avatar = currentRoomCoverPhoto;
+        }
+
+        saveLocal();
+        updateRoomHeaderUI();
+        if (document.getElementById('roomsDrawer').classList.contains('open')) {
+          renderDrawerRooms();
+        }
+        closeModal('roomSettingsModal');
+
+        await fetch(`${dbBase()}/rooms/${currentRoom}/meta.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(metaPatch)
+        });
+
+        if (state.currentUser) {
+          await fetch(`${dbBase()}/users/${state.currentUser.username}/rooms/${currentRoom}.json`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: newTitle, avatar: currentRoomCoverPhoto })
+          });
+        }
+
+        await pullFromCloud();
+      } catch (e) {
+        console.error(e);
+        alert('Не удалось сохранить настройки комнаты. Проверьте интернет.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Сохранить оформление';
+      }
+    }
+
     // ==========================================
     // ADMIN PANEL (Только для создателя комнаты)
     // ==========================================
@@ -1851,11 +2415,13 @@
       const adminFlag = isRoomAdmin();
       const drawerSec = document.getElementById('adminDrawerSection');
       const barBtn = document.getElementById('roomBarAdminBtn');
+      const dotsBtn = document.getElementById('roomBarDotsBtn');
       const subEl = document.getElementById('adminDrawerSubtitle');
       const badgeEl = document.getElementById('adminDrawerCountBadge');
 
       if (drawerSec) drawerSec.style.display = adminFlag ? 'block' : 'none';
       if (barBtn) barBtn.style.display = adminFlag ? 'inline-flex' : 'none';
+      if (dotsBtn) dotsBtn.style.display = adminFlag ? 'inline-flex' : 'none';
 
       if (adminFlag && subEl && badgeEl) {
         const archiveCount = state.archivedWishes.length;
@@ -2514,18 +3080,26 @@
 
       listEl.innerHTML = roomsArr.map(r => {
         const isActive = r.slug === currentRoom;
+        const avatarSrc = isActive && state.roomMeta && state.roomMeta.avatar ? state.roomMeta.avatar : (r.avatar || '');
+        const titleToShow = isActive ? (state.roomTitle || r.title || r.slug) : (r.title || r.slug);
+        const showDots = isActive && isRoomAdmin();
         return `
           <div class="room-item ${isActive ? 'active' : ''}" onclick="switchToRoom('${escapeHtml(r.slug)}')">
             <div class="room-item-left">
               <div class="room-item-icon">
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                ${avatarSrc ? `<img src="${avatarSrc}" alt="" />` : `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`}
               </div>
               <div class="room-item-info">
-                <div class="room-item-name">${escapeHtml(r.title || r.slug)}</div>
+                <div class="room-item-name">${escapeHtml(titleToShow)}</div>
                 <div class="room-item-slug">#${escapeHtml(r.slug)}</div>
               </div>
             </div>
             <div class="room-item-actions" onclick="event.stopPropagation()">
+              ${showDots ? `
+                <button class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="Настройки обложки и описания комнаты">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
+                </button>
+              ` : ''}
               <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="Скопировать ссылку">
                 <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
               </button>
