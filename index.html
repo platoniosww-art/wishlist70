@@ -802,16 +802,18 @@
     .wish-price { font-size: 12px; font-weight: 700; background: var(--card-subtle); padding: 2px 8px; border-radius: 7px; white-space: nowrap; border: 1px solid var(--border); }
     .wish-caption { font-size: 12px; color: var(--text-secondary); line-height: 1.38; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-    .wish-footer { display: flex; flex-direction: column; align-items: stretch; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); gap: 6px; }
-    .wish-link { font-size: 11px; font-weight: 600; color: var(--blue); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 5px 8px; border-radius: 8px; background: rgba(0, 122, 255, 0.08); }
-    .wish-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; width: 100%; }
+    .wish-footer { display: flex; flex-direction: column; align-items: stretch; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); gap: 8px; }
+    .wish-link { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 34px; padding: 6px 10px; border-radius: 9px; background: rgba(0, 122, 255, 0.09); width: 100%; }
+    .wish-controls { display: flex; flex-direction: column; align-items: stretch; gap: 7px; width: 100%; }
+    .wish-owner-actions { display: flex; align-items: center; gap: 6px; width: 100%; }
+    .wish-owner-actions .action-icon { flex: 1; height: 32px; }
 
-    .action-pill { border: 1px solid var(--border); background: var(--card-subtle); color: var(--text); height: 29px; padding: 0 8px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
-    .action-pill.plan { background: var(--card-subtle); color: var(--text-secondary); flex: 1; min-width: 0; }
+    .action-pill { border: 1px solid var(--border); background: var(--card-subtle); color: var(--text); min-height: 34px; padding: 6px 10px; border-radius: 9px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; line-height: 1.2; white-space: nowrap; }
+    .action-pill.plan { background: var(--card-subtle); color: var(--text-secondary); width: 100%; }
     .action-pill.plan.active { background: var(--amber-soft); color: var(--amber); border-color: rgba(255, 149, 0, 0.35); }
-    .action-pill.done { background: var(--green-soft); color: var(--green); border-color: rgba(40, 205, 65, 0.25); flex: 1; min-width: 0; }
+    .action-pill.done { background: var(--green-soft); color: var(--green); border-color: rgba(40, 205, 65, 0.25); width: 100%; }
     .action-pill.done.active { background: var(--green); color: #FFFFFF; border-color: var(--green); }
-    .action-icon { width: 29px; height: 29px; padding: 0; justify-content: center; flex-shrink: 0; }
+    .action-icon { width: 32px; height: 32px; min-height: 32px; padding: 0; justify-content: center; flex-shrink: 0; }
     .action-icon.del { color: #FF3B30; }
 
     .empty-box { background: var(--card); border: 1px dashed var(--border-strong); border-radius: 20px; padding: 36px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -5478,12 +5480,14 @@
                       <span>${w.fulfilled ? t('fulfilled_btn') : t('gift_btn')}</span>
                     </button>
                     ${isOwner ? `
-                      <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="${t('edit_btn_title')}">
-                        <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-                      </button>
-                      <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="${t('delete_btn_title')}">
-                        <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                      </button>
+                      <div class="wish-owner-actions">
+                        <button class="action-pill action-icon" onclick="editWish('${w.id}')" title="${t('edit_btn_title')}">
+                          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                        </button>
+                        <button class="action-pill action-icon del" onclick="deleteWish('${w.id}')" title="${t('delete_btn_title')}">
+                          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                        </button>
+                      </div>
                     ` : ''}
                   </div>
                 </div>
