@@ -474,8 +474,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 12px;
       width: 100%;
+    }
+    @media (max-width: 600px) {
+      .room-bar-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .room-bar-top .room-info {
+        width: 100%;
+      }
+      .room-bar-top .room-actions {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .room-bar-top .room-actions .room-btn {
+        flex: 1;
+        justify-content: center;
+        min-height: 36px;
+        padding: 7px 10px;
+      }
     }
     .room-cover-avatar {
       width: 38px;
@@ -564,7 +589,8 @@
     }
 
 
-    .room-info { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); min-width: 0; }
+    .room-info { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); min-width: 0; flex: 1; }
+    .room-title-stack { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
     .room-info strong { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .room-actions { display: flex; gap: 6px; flex-shrink: 0; }
@@ -883,23 +909,40 @@
       opacity: 1;
     }
 
+    /* День влюблённых (14 февраля) — бордовый */
     body[data-occasion="valentine"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23FF2D55' stroke-opacity='0.14' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
+      background-color: rgba(128, 0, 32, 0.045);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23800020' stroke-opacity='0.17' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 130px 130px;
     }
 
+    [data-theme="dark"] body[data-occasion="valentine"] .ambient-bg-layer {
+      background-color: rgba(158, 27, 50, 0.09);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23C92A4A' stroke-opacity='0.22' stroke-width='1.6'%3E%3Cpath d='M34 42c0-7 6-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 6 0 12 5 12 12 0 10-21 23-21 23S34 52 34 42z'/%3E%3Cpath d='M88 88c0-4.5 4-8 8-8 2.6 0 4.8 1.4 6 3.5 1.2-2.1 3.4-3.5 6-3.5 4 0 8 3.5 8 8 0 6.8-14 15.5-14 15.5S88 94.8 88 88z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Новый год — зелёный */
     body[data-occasion="newyear"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%23007AFF' stroke-opacity='0.13' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
+      background-color: rgba(27, 138, 61, 0.045);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%231B8A3D' stroke-opacity='0.17' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 150px 150px;
     }
 
     [data-theme="dark"] body[data-occasion="newyear"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%2364D2FF' stroke-opacity='0.15' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
+      background-color: rgba(46, 204, 113, 0.07);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%232ECC71' stroke-opacity='0.19' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M38 22l-12 20h7l-9 14h28l-9-14h7L38 22z'/%3E%3Cpath d='M38 56v6'/%3E%3Cpath d='M104 82v18M95 91h18M98 85l12 12M110 85l-12 12'/%3E%3Ccircle cx='95' cy='35' r='2'/%3E%3Ccircle cx='30' cy='105' r='2.5'/%3E%3Ccircle cx='120' cy='125' r='2'/%3E%3C/g%3E%3C/svg%3E");
     }
 
+    /* 8 Марта — нежно-розовый */
     body[data-occasion="march8"] .ambient-bg-layer {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23FF2D55' stroke-opacity='0.15' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2328CD41' stroke-opacity='0.15' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23AF52DE' stroke-opacity='0.15' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
+      background-color: rgba(244, 143, 177, 0.07);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23F06292' stroke-opacity='0.19' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2366BB6A' stroke-opacity='0.15' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23F48FB1' stroke-opacity='0.22' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 140px 140px;
+    }
+
+    [data-theme="dark"] body[data-occasion="march8"] .ambient-bg-layer {
+      background-color: rgba(244, 143, 177, 0.08);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M36 52c0-10 8-16 8-16s8 6 8 16c0 6-3.5 10-8 10s-8-4-8-10z' stroke='%23F48FB1' stroke-opacity='0.21' stroke-width='1.6'/%3E%3Cpath d='M44 62v22M44 74c-5-2-9-6-9-10M44 72c5-2 9-6 9-10' stroke='%2381C784' stroke-opacity='0.16' stroke-width='1.5'/%3E%3Cpath d='M86 86c0-4 3.5-7 7-7 2.3 0 4.2 1.2 5.3 3 1.1-1.8 3-3 5.3-3 3.5 0 7 3 7 7 0 6-12.3 13.5-12.3 13.5S86 92 86 86z' stroke='%23F8BBD0' stroke-opacity='0.22' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
     }
 
     /* Keep main UI above ambient background */
@@ -910,22 +953,67 @@
     .header { position: sticky; z-index: 50; }
     .fab { position: fixed; z-index: 60; }
 
-    /* Occasion accent overrides */
+    body[data-occasion="neonpurple"] .ambient-bg-layer,
+    body[data-occasion="futuristicblue"] .ambient-bg-layer {
+      opacity: 1;
+    }
+
+    body[data-occasion="neonpurple"] .ambient-bg-layer {
+      background:
+        radial-gradient(circle at 15% 18%, rgba(168, 85, 247, 0.22), transparent 46%),
+        radial-gradient(circle at 85% 78%, rgba(236, 72, 153, 0.18), transparent 48%),
+        radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08), transparent 65%);
+    }
+
+    body[data-occasion="futuristicblue"] .ambient-bg-layer {
+      background:
+        radial-gradient(circle at 82% 16%, rgba(0, 212, 255, 0.22), transparent 45%),
+        radial-gradient(circle at 18% 82%, rgba(37, 99, 235, 0.20), transparent 48%),
+        linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+
+    /* Occasion & Color accent overrides */
     body[data-occasion="valentine"] {
-      --accent: #FF2D55;
-      --accent-soft: rgba(255, 45, 85, 0.12);
+      --accent: #800020;
+      --accent-soft: rgba(128, 0, 32, 0.12);
+    }
+    [data-theme="dark"] body[data-occasion="valentine"] {
+      --accent: #B81D3A;
+      --accent-soft: rgba(184, 29, 58, 0.20);
     }
     body[data-occasion="newyear"] {
-      --accent: #007AFF;
-      --accent-soft: rgba(0, 122, 255, 0.12);
+      --accent: #1B8A3D;
+      --accent-soft: rgba(27, 138, 61, 0.12);
     }
     [data-theme="dark"] body[data-occasion="newyear"] {
-      --accent: #0A84FF;
-      --accent-soft: rgba(10, 132, 255, 0.18);
+      --accent: #2ECC71;
+      --accent-soft: rgba(46, 204, 113, 0.18);
     }
     body[data-occasion="march8"] {
-      --accent: #D946EF;
-      --accent-soft: rgba(217, 70, 239, 0.12);
+      --accent: #EC709B;
+      --accent-soft: rgba(236, 112, 155, 0.15);
+    }
+    [data-theme="dark"] body[data-occasion="march8"] {
+      --accent: #F48FB1;
+      --accent-soft: rgba(244, 143, 177, 0.20);
+    }
+    body[data-occasion="neonpurple"] {
+      --accent: #A855F7;
+      --accent-soft: rgba(168, 85, 247, 0.16);
+    }
+    [data-theme="dark"] body[data-occasion="neonpurple"] {
+      --accent: #C084FC;
+      --accent-soft: rgba(192, 132, 252, 0.20);
+    }
+    body[data-occasion="futuristicblue"] {
+      --accent: #0284C7;
+      --accent-soft: rgba(2, 132, 199, 0.15);
+    }
+    [data-theme="dark"] body[data-occasion="futuristicblue"] {
+      --accent: #00D4FF;
+      --accent-soft: rgba(0, 212, 255, 0.18);
     }
 
     .theme-option-card {
@@ -1725,12 +1813,12 @@
 
         <div class="theme-option-card" id="optOccasionValentine" onclick="selectOccasionTheme('valentine')">
           <div class="theme-option-left">
-            <div class="theme-option-icon" style="color:#FF2D55; background:rgba(255,45,85,0.12);">
+            <div class="theme-option-icon" style="color:#800020; background:rgba(128,0,32,0.12);">
               <svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
             </div>
             <div>
-              <div class="theme-option-title">День влюблённых</div>
-              <div class="theme-option-sub">Сердечки на заднем плане и тёплый акцент</div>
+              <div class="theme-option-title">День влюблённых (14 февраля)</div>
+              <div class="theme-option-sub">Сердечки на заднем плане и глубокий бордовый акцент</div>
             </div>
           </div>
           <span id="checkOccasionValentine" style="color:var(--accent); font-weight:800; display:none;">✓</span>
@@ -1738,12 +1826,12 @@
 
         <div class="theme-option-card" id="optOccasionNewyear" onclick="selectOccasionTheme('newyear')">
           <div class="theme-option-left">
-            <div class="theme-option-icon" style="color:#007AFF; background:rgba(0,122,255,0.12);">
+            <div class="theme-option-icon" style="color:#1B8A3D; background:rgba(27,138,61,0.12);">
               <svg class="icon" viewBox="0 0 24 24"><path d="M12 3L5 14h4l-3 6h12l-3-6h4L12 3z"/></svg>
             </div>
             <div>
-              <div class="theme-option-title">Новогодняя</div>
-              <div class="theme-option-sub">Ёлочки и снежинки на фоне</div>
+              <div class="theme-option-title">Новый год</div>
+              <div class="theme-option-sub">Ёлочки, снежинки и хвойно-зелёный акцент</div>
             </div>
           </div>
           <span id="checkOccasionNewyear" style="color:var(--accent); font-weight:800; display:none;">✓</span>
@@ -1751,15 +1839,43 @@
 
         <div class="theme-option-card" id="optOccasionMarch8" onclick="selectOccasionTheme('march8')">
           <div class="theme-option-left">
-            <div class="theme-option-icon" style="color:#D946EF; background:rgba(217,70,239,0.12);">
+            <div class="theme-option-icon" style="color:#EC709B; background:rgba(236,112,155,0.15);">
               <svg class="icon" viewBox="0 0 24 24"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m0 0a3 3 0 1 0 3 3m-3-3a3 3 0 1 1-3 3m0 0v9"/></svg>
             </div>
             <div>
               <div class="theme-option-title">8 Марта</div>
-              <div class="theme-option-sub">Тюльпаны и сердечки на заднем плане</div>
+              <div class="theme-option-sub">Тюльпаны, сердечки и нежно-розовый акцент</div>
             </div>
           </div>
           <span id="checkOccasionMarch8" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="drawer-section-label" style="margin-top:14px;">Цветовые стили</div>
+
+        <div class="theme-option-card" id="optOccasionNeonpurple" onclick="selectOccasionTheme('neonpurple')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="color:#A855F7; background:rgba(168,85,247,0.16); box-shadow: 0 0 12px rgba(168,85,247,0.35);">
+              <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">Неоновый фиолетовый</div>
+              <div class="theme-option-sub">Глубокое фиолетово-розовое свечение</div>
+            </div>
+          </div>
+          <span id="checkOccasionNeonpurple" style="color:var(--accent); font-weight:800; display:none;">✓</span>
+        </div>
+
+        <div class="theme-option-card" id="optOccasionFuturisticblue" onclick="selectOccasionTheme('futuristicblue')">
+          <div class="theme-option-left">
+            <div class="theme-option-icon" style="color:#00D4FF; background:rgba(0,212,255,0.14); box-shadow: 0 0 12px rgba(0,212,255,0.3);">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <div>
+              <div class="theme-option-title">Футуристичный синий</div>
+              <div class="theme-option-sub">Кибер-сетка и холодный неоново-синий акцент</div>
+            </div>
+          </div>
+          <span id="checkOccasionFuturisticblue" style="color:var(--accent); font-weight:800; display:none;">✓</span>
         </div>
       </div>
 
@@ -1822,7 +1938,7 @@
     };
 
     function slugifyRoom(raw) {
-      if (!raw) return 'osnovnaya';
+      if (!raw) return '';
       const map = {
         'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'y',
         'к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f',
@@ -1830,36 +1946,45 @@
       };
       const transliterated = String(raw).trim().toLowerCase().split('').map(ch => map[ch] !== undefined ? map[ch] : ch).join('');
       const slug = transliterated.replace(/\s+/g, '-').replace(/[^a-z0-9_-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
-      return slug || 'osnovnaya';
+      return slug || ('room-' + Math.random().toString(36).slice(2, 7));
     }
 
     function getRoomFromURL() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('room') && urlParams.get('room').trim()) {
         const roomFromParam = slugifyRoom(urlParams.get('room'));
-        localStorage.setItem('wl_room', roomFromParam);
-        return roomFromParam;
+        if (roomFromParam) {
+          localStorage.setItem('wl_room', roomFromParam);
+          return roomFromParam;
+        }
       }
       const hash = window.location.hash.replace('#', '').trim();
       if (hash) {
         const roomFromHash = slugifyRoom(hash);
-        localStorage.setItem('wl_room', roomFromHash);
-        return roomFromHash;
+        if (roomFromHash) {
+          localStorage.setItem('wl_room', roomFromHash);
+          return roomFromHash;
+        }
       }
-      return slugifyRoom(localStorage.getItem('wl_room') || 'osnovnaya');
+      const saved = (localStorage.getItem('wl_room') || '').trim();
+      if (saved === 'osnovnaya') {
+        localStorage.removeItem('wl_room');
+        return '';
+      }
+      return saved;
     }
 
     let currentRoom = getRoomFromURL();
 
     let state = {
       currentUser: JSON.parse(localStorage.getItem('wl_global_user')) || null,
-      roomMembers: JSON.parse(localStorage.getItem(`wl_members_${currentRoom}`)) || [],
-      roomMeta: JSON.parse(localStorage.getItem(`wl_room_meta_${currentRoom}`)) || {},
-      roomTitle: localStorage.getItem(`wl_room_title_${currentRoom}`) || currentRoom,
-      wishes: JSON.parse(localStorage.getItem(`wl_wishes_${currentRoom}`)) || [],
-      bannedUsers: JSON.parse(localStorage.getItem(`wl_bans_${currentRoom}`)) || {},
-      archivedWishes: JSON.parse(localStorage.getItem(`wl_archive_${currentRoom}`)) || [],
-      secretSanta: JSON.parse(localStorage.getItem(`wl_santa_${currentRoom}`)) || {},
+      roomMembers: currentRoom ? (JSON.parse(localStorage.getItem(`wl_members_${currentRoom}`)) || []) : [],
+      roomMeta: currentRoom ? (JSON.parse(localStorage.getItem(`wl_room_meta_${currentRoom}`)) || {}) : {},
+      roomTitle: currentRoom ? (localStorage.getItem(`wl_room_title_${currentRoom}`) || currentRoom) : '',
+      wishes: currentRoom ? (JSON.parse(localStorage.getItem(`wl_wishes_${currentRoom}`)) || []) : [],
+      bannedUsers: currentRoom ? (JSON.parse(localStorage.getItem(`wl_bans_${currentRoom}`)) || {}) : {},
+      archivedWishes: currentRoom ? (JSON.parse(localStorage.getItem(`wl_archive_${currentRoom}`)) || []) : [],
+      secretSanta: currentRoom ? (JSON.parse(localStorage.getItem(`wl_santa_${currentRoom}`)) || {}) : {},
       activeTab: 'all',
       filter: 'all',
       search: '',
@@ -1919,7 +2044,7 @@
     }
 
     function applyOccasionTheme(occasion) {
-      const valid = ['none', 'valentine', 'newyear', 'march8'];
+      const valid = ['none', 'valentine', 'newyear', 'march8', 'neonpurple', 'futuristicblue'];
       const chosen = valid.includes(occasion) ? occasion : 'none';
       state.occasion = chosen;
       document.body.setAttribute('data-occasion', chosen);
@@ -1969,7 +2094,9 @@
         none: ['optOccasionNone', 'checkOccasionNone'],
         valentine: ['optOccasionValentine', 'checkOccasionValentine'],
         newyear: ['optOccasionNewyear', 'checkOccasionNewyear'],
-        march8: ['optOccasionMarch8', 'checkOccasionMarch8']
+        march8: ['optOccasionMarch8', 'checkOccasionMarch8'],
+        neonpurple: ['optOccasionNeonpurple', 'checkOccasionNeonpurple'],
+        futuristicblue: ['optOccasionFuturisticblue', 'checkOccasionFuturisticblue']
       };
       Object.entries(map).forEach(([key, [cardId, checkId]]) => {
         const cardEl = document.getElementById(cardId);
@@ -1991,7 +2118,7 @@
     }
 
     async function joinCurrentRoomAsUser(user, customTitle) {
-      if (!user) return;
+      if (!user || !currentRoom) return;
 
       // Проверяем свежие метаданные и бан-лист комнаты перед входом
       let latestMeta = state.roomMeta || {};
@@ -2089,6 +2216,47 @@
     }
 
     async function pullFromCloud() {
+      if (!currentRoom) {
+        if (state.currentUser) {
+          try {
+            const userRes = await fetch(`${dbBase()}/users/${state.currentUser.username}.json?t=${Date.now()}`);
+            if (userRes.ok) {
+              const freshUser = await userRes.json();
+              if (freshUser) {
+                state.currentUser = freshUser;
+                // Если у пользователя уже есть комнаты в аккаунте, автоматически открываем первую из них
+                const userRooms = freshUser.rooms ? Object.values(freshUser.rooms).filter(r => r && r.slug && r.slug !== 'osnovnaya') : [];
+                if (userRooms.length > 0) {
+                  currentRoom = userRooms[0].slug;
+                  state.roomTitle = userRooms[0].title || currentRoom;
+                  localStorage.setItem('wl_room', currentRoom);
+                  const url = new URL(window.location.href);
+                  url.searchParams.set('room', currentRoom);
+                  window.history.replaceState({}, '', url.toString());
+                  return await pullFromCloud();
+                }
+              }
+            }
+          } catch (e) {}
+        }
+        state.roomMembers = [];
+        state.wishes = [];
+        state.roomMeta = {};
+        state.bannedUsers = {};
+        state.archivedWishes = [];
+        state.secretSanta = {};
+        saveLocal();
+        updateRoomHeaderUI();
+        updateHeaderAccountUI();
+        updateAdminUI();
+        renderTabs();
+        renderColumns();
+        if (document.getElementById('roomsDrawer').classList.contains('open')) {
+          renderDrawerRooms();
+        }
+        setSyncStatus('Нет активной комнаты', 'online');
+        return true;
+      }
       try {
         const res = await fetch(`${dbBase()}/rooms/${currentRoom}.json?t=${Date.now()}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2149,6 +2317,21 @@
     }
 
     function updateRoomHeaderUI() {
+      const roomBarEl = document.getElementById('roomBar');
+      const controlsEl = document.querySelector('.controls-section');
+      if (!currentRoom) {
+        if (roomBarEl) roomBarEl.style.display = 'none';
+        if (controlsEl) controlsEl.style.display = 'none';
+        document.getElementById('brandRoomNameTitle').textContent = 'Wishlist';
+        const headerDot = document.getElementById('headerBrandDot');
+        const headerRoomAv = document.getElementById('headerRoomAvatar');
+        if (headerDot) headerDot.style.display = 'inline-block';
+        if (headerRoomAv) headerRoomAv.style.display = 'none';
+        return;
+      }
+      if (roomBarEl) roomBarEl.style.display = 'block';
+      if (controlsEl) controlsEl.style.display = 'flex';
+
       const displayTitle = state.roomTitle || currentRoom;
       const meta = state.roomMeta || {};
       const coverAvatar = meta.avatar || '';
@@ -2268,8 +2451,13 @@
       applyOccasionTheme(state.occasion);
 
       const url = new URL(window.location.href);
-      if (url.searchParams.get('room') !== currentRoom) {
-        url.searchParams.set('room', currentRoom);
+      if (currentRoom) {
+        if (url.searchParams.get('room') !== currentRoom) {
+          url.searchParams.set('room', currentRoom);
+          window.history.replaceState({}, '', url.toString());
+        }
+      } else if (url.searchParams.has('room')) {
+        url.searchParams.delete('room');
         window.history.replaceState({}, '', url.toString());
       }
 
@@ -3074,49 +3262,165 @@
       document.getElementById('roomsDrawer').classList.remove('open');
     }
 
-    function renderDrawerRooms() {
+    let drawerRoomOwnersCache = {};
+
+    async function renderDrawerRooms() {
       const listEl = document.getElementById('drawerRoomsList');
       const userRoomsObj = (state.currentUser && state.currentUser.rooms) ? state.currentUser.rooms : {};
-      const roomsArr = Object.values(userRoomsObj);
+      const roomsArr = Object.values(userRoomsObj).filter(r => r && r.slug);
 
-      if (!roomsArr.some(r => r.slug === currentRoom)) {
+      if (currentRoom && !roomsArr.some(r => r.slug === currentRoom)) {
         roomsArr.unshift({ slug: currentRoom, title: state.roomTitle || currentRoom });
       }
 
-      listEl.innerHTML = roomsArr.map(r => {
-        const isActive = r.slug === currentRoom;
-        const avatarSrc = isActive && state.roomMeta && state.roomMeta.avatar ? state.roomMeta.avatar : (r.avatar || '');
-        const titleToShow = isActive ? (state.roomTitle || r.title || r.slug) : (r.title || r.slug);
-        const showDots = isActive && isRoomAdmin();
-        return `
-          <div class="room-item ${isActive ? 'active' : ''}" onclick="switchToRoom('${escapeHtml(r.slug)}')">
-            <div class="room-item-left">
-              <div class="room-item-icon">
-                ${avatarSrc ? `<img src="${avatarSrc}" alt="" />` : `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`}
+      if (roomsArr.length === 0) {
+        listEl.innerHTML = `<div style="font-size:13px; color:var(--text-secondary); background:var(--card); border:1px dashed var(--border-strong); border-radius:13px; padding:14px; text-align:center;">Вы пока не состоите ни в одной комнате. Создайте первую комнату кнопкой ниже!</div>`;
+        return;
+      }
+
+      const drawList = () => {
+        listEl.innerHTML = roomsArr.map(r => {
+          const isActive = r.slug === currentRoom;
+          const avatarSrc = isActive && state.roomMeta && state.roomMeta.avatar ? state.roomMeta.avatar : (r.avatar || '');
+          const titleToShow = isActive ? (state.roomTitle || r.title || r.slug) : (r.title || r.slug);
+          const knownOwnerId = isActive ? (state.roomMeta && state.roomMeta.ownerId) : (r.ownerId || drawerRoomOwnersCache[r.slug]);
+          const isCreatorOfThisRoom = Boolean(state.currentUser && knownOwnerId && knownOwnerId === state.currentUser.id);
+
+          return `
+            <div class="room-item ${isActive ? 'active' : ''}" onclick="switchToRoom('${escapeHtml(r.slug)}')">
+              <div class="room-item-left">
+                <div class="room-item-icon">
+                  ${avatarSrc ? `<img src="${avatarSrc}" alt="" />` : `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`}
+                </div>
+                <div class="room-item-info">
+                  <div class="room-item-name">${escapeHtml(titleToShow)}</div>
+                  <div class="room-item-slug">#${escapeHtml(r.slug)}${isCreatorOfThisRoom ? ' · Создатель' : ''}</div>
+                </div>
               </div>
-              <div class="room-item-info">
-                <div class="room-item-name">${escapeHtml(titleToShow)}</div>
-                <div class="room-item-slug">#${escapeHtml(r.slug)}</div>
+              <div class="room-item-actions" onclick="event.stopPropagation()">
+                ${isActive && isCreatorOfThisRoom ? `
+                  <button class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="Настройки обложки и описания комнаты">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
+                  </button>
+                ` : ''}
+                <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="Скопировать ссылку">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+                ${isCreatorOfThisRoom ? `
+                  <button class="mini-icon-btn del" onclick="deleteRoomCompletely('${escapeHtml(r.slug)}', '${escapeHtml(titleToShow)}')" title="Полностью удалить комнату из базы данных">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                ` : `
+                  <button class="mini-icon-btn del" onclick="leaveRoom('${escapeHtml(r.slug)}')" title="Выйти из комнаты">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </button>
+                `}
               </div>
             </div>
-            <div class="room-item-actions" onclick="event.stopPropagation()">
-              ${showDots ? `
-                <button class="mini-icon-btn" onclick="closeRoomsDrawer(); openRoomSettingsModal();" title="Настройки обложки и описания комнаты">
-                  <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
-                </button>
-              ` : ''}
-              <button class="mini-icon-btn" onclick="copySpecificRoomLink('${escapeHtml(r.slug)}')" title="Скопировать ссылку">
-                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              </button>
-              ${roomsArr.length > 1 ? `
-                <button class="mini-icon-btn del" onclick="leaveRoom('${escapeHtml(r.slug)}')" title="Убрать из списка">
-                  <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
-              ` : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
+          `;
+        }).join('');
+      };
+
+      drawList();
+
+      // Подгружаем ownerId для неактивных комнат, если он ещё не закэширован
+      let updatedCache = false;
+      await Promise.all(roomsArr.map(async r => {
+        if (r.slug === currentRoom || r.ownerId || drawerRoomOwnersCache[r.slug] !== undefined) return;
+        try {
+          const res = await fetch(`${dbBase()}/rooms/${r.slug}/meta/ownerId.json`);
+          if (res.ok) {
+            const oid = await res.json();
+            drawerRoomOwnersCache[r.slug] = oid || '';
+            updatedCache = true;
+          }
+        } catch (e) {}
+      }));
+      if (updatedCache) drawList();
+    }
+
+    async function deleteRoomCompletely(slug, roomTitle) {
+      if (!state.currentUser) return;
+      const confirmed = confirm(`Вы уверены, что хотите ПОЛНОСТЬЮ удалить комнату «${roomTitle}» (#${slug}) из базы данных? Все списки желаний, участники и данные Тайного Санты в этой комнате будут безвозвратно удалены.`);
+      if (!confirmed) return;
+
+      setSyncStatus('Удаление комнаты...', 'online');
+
+      try {
+        // 1. Получаем всех участников комнаты, чтобы убрать комнату из их профилей
+        let memberUsernames = [state.currentUser.username];
+        try {
+          const memRes = await fetch(`${dbBase()}/rooms/${slug}/members.json`);
+          if (memRes.ok) {
+            const memObj = await memRes.json();
+            objectToArray(memObj).forEach(m => {
+              if (m && m.username && !memberUsernames.includes(m.username)) {
+                memberUsernames.push(m.username);
+              }
+            });
+          }
+        } catch (e) {}
+
+        // 2. Удаляем саму комнату целиком из базы данных Firebase
+        await fetch(`${dbBase()}/rooms/${slug}.json`, {
+          method: 'DELETE'
+        });
+
+        // 3. Удаляем привязку к комнате у всех её участников
+        await Promise.all(memberUsernames.map(uname =>
+          fetch(`${dbBase()}/users/${uname}/rooms/${slug}.json`, {
+            method: 'DELETE'
+          })
+        ));
+
+        // 4. Чистим локальное состояние и кэш
+        if (state.currentUser.rooms) {
+          delete state.currentUser.rooms[slug];
+        }
+        delete drawerRoomOwnersCache[slug];
+        localStorage.removeItem(`wl_members_${slug}`);
+        localStorage.removeItem(`wl_room_meta_${slug}`);
+        localStorage.removeItem(`wl_wishes_${slug}`);
+        localStorage.removeItem(`wl_bans_${slug}`);
+        localStorage.removeItem(`wl_archive_${slug}`);
+        localStorage.removeItem(`wl_santa_${slug}`);
+        localStorage.removeItem(`wl_room_title_${slug}`);
+
+        if (currentRoom === slug) {
+          const remaining = state.currentUser.rooms ? Object.values(state.currentUser.rooms).filter(r => r && r.slug) : [];
+          if (remaining.length > 0) {
+            const nextSlug = remaining[0].slug;
+            localStorage.setItem('wl_room', nextSlug);
+            saveLocal();
+            window.location.href = buildRoomUrl(nextSlug);
+            return;
+          } else {
+            currentRoom = '';
+            localStorage.removeItem('wl_room');
+            state.roomMembers = [];
+            state.roomMeta = {};
+            state.roomTitle = '';
+            state.wishes = [];
+            state.bannedUsers = {};
+            state.archivedWishes = [];
+            state.secretSanta = {};
+            const url = new URL(window.location.href);
+            url.searchParams.delete('room');
+            window.history.replaceState({}, '', url.toString());
+          }
+        }
+
+        saveLocal();
+        updateRoomHeaderUI();
+        updateAdminUI();
+        renderTabs();
+        renderColumns();
+        renderDrawerRooms();
+        setSyncStatus(currentRoom ? state.roomTitle : 'Комната удалена', 'online');
+      } catch (err) {
+        console.error('Ошибка при удалении комнаты:', err);
+        alert('Не удалось полностью удалить комнату. Проверьте подключение к интернету.');
+      }
     }
 
     function switchToRoom(slug) {
@@ -3154,7 +3458,11 @@
     }
 
     function previewGeneratedLink() {
-      const raw = document.getElementById('roomNameInput').value;
+      const raw = document.getElementById('roomNameInput').value.trim();
+      if (!raw) {
+        document.getElementById('generatedLinkPreview').value = 'Введите название комнаты выше...';
+        return;
+      }
       const slug = slugifyRoom(raw);
       document.getElementById('generatedLinkPreview').value = buildRoomUrl(slug);
     }
@@ -3350,13 +3658,13 @@
             shoeSize: '',
             ringSize: '',
             accentColor: ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)],
-            rooms: {
+            rooms: currentRoom ? {
               [currentRoom]: {
                 slug: currentRoom,
                 title: state.roomTitle || currentRoom,
                 joinedAt: Date.now()
               }
-            }
+            } : {}
           };
 
           await fetch(`${dbBase()}/users/${username}.json`, {
@@ -3635,6 +3943,25 @@
       const container = document.getElementById('columnsContainer');
       const fabBtn = document.getElementById('fabAddBtn');
 
+      if (!currentRoom) {
+        if (fabBtn) {
+          fabBtn.style.display = 'flex';
+          fabBtn.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Создать комнату</span>`;
+        }
+        container.className = 'columns-container';
+        container.innerHTML = `
+          <div class="empty-box" style="max-width:480px; margin:24px auto; padding:40px 24px;">
+            <div style="width:54px; height:54px; border-radius:16px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            </div>
+            <div style="font-size:18px; font-weight:800; color:var(--text);">У вас пока нет активной комнаты</div>
+            <div style="line-height:1.5;">Создайте свою комнату для вишлистов или войдите в существующую по названию или ссылке-приглашению от близких.</div>
+            <button class="primary-btn" style="max-width:280px; margin-top:4px;" onclick="openModal('roomModal')">Создать или войти в комнату</button>
+          </div>
+        `;
+        return;
+      }
+
       if (isCurrentUserBanned()) {
         if (fabBtn) fabBtn.style.display = 'none';
         container.className = 'columns-container';
@@ -3784,6 +4111,10 @@
       if (!user) {
         switchAuthMode('login');
         openModal('authModal');
+        return;
+      }
+      if (!currentRoom) {
+        openModal('roomModal');
         return;
       }
       document.getElementById('wishModalTitle').textContent = `Новое желание (${user.displayName})`;
